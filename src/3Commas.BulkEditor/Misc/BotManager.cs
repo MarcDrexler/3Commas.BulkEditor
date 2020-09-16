@@ -22,6 +22,7 @@ namespace _3Commas.BulkEditor.Misc
         {
             return await _3CommasClient.EnableBotAsync(botId);
         }
+
         public async Task<XCommasResponse<Bot>> Disable(int botId)
         {
             return await _3CommasClient.DisableBotAsync(botId);
@@ -73,6 +74,11 @@ namespace _3Commas.BulkEditor.Misc
         public async Task<XCommasResponse<Bot>> SaveBot(int botId, BotUpdateData updateData)
         {
             return await _3CommasClient.UpdateBotAsync(botId, updateData);
+        }
+
+        public static string GenerateNewName(string pattern, string strategy, string pair)
+        {
+            return pattern.Replace("{strategy}", strategy).Replace("{pair}", pair);
         }
     }
 }

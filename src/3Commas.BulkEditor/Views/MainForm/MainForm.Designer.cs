@@ -32,19 +32,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.groupBoxCredentials = new System.Windows.Forms.GroupBox();
+            this.pbLoading = new System.Windows.Forms.PictureBox();
             this.linkLabel3Commas = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblBotCount = new System.Windows.Forms.Label();
             this.lblOutputLog = new System.Windows.Forms.Label();
             this.grid = new Zuby.ADGV.AdvancedDataGridView();
+            this.lblVisibleBotCount = new System.Windows.Forms.Label();
+            this.lblFilterActive = new System.Windows.Forms.Label();
+            this.lblSelectedBotCount = new System.Windows.Forms.Label();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lblVisibleBotCount = new System.Windows.Forms.Label();
-            this.lblFilterActive = new System.Windows.Forms.Label();
-            this.lblSelectedBotCount = new System.Windows.Forms.Label();
             this.groupBoxCredentials.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
@@ -63,6 +65,7 @@
             // 
             // groupBoxCredentials
             // 
+            this.groupBoxCredentials.Controls.Add(this.pbLoading);
             this.groupBoxCredentials.Controls.Add(this.linkLabel3Commas);
             this.groupBoxCredentials.Controls.Add(this.pictureBox1);
             this.groupBoxCredentials.Location = new System.Drawing.Point(12, 12);
@@ -71,6 +74,17 @@
             this.groupBoxCredentials.TabIndex = 64;
             this.groupBoxCredentials.TabStop = false;
             this.groupBoxCredentials.Text = "API Credentials";
+            // 
+            // pbLoading
+            // 
+            this.pbLoading.Image = global::_3Commas.BulkEditor.Properties.Resources.loader;
+            this.pbLoading.Location = new System.Drawing.Point(121, 15);
+            this.pbLoading.Name = "pbLoading";
+            this.pbLoading.Size = new System.Drawing.Size(56, 58);
+            this.pbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLoading.TabIndex = 65;
+            this.pbLoading.TabStop = false;
+            this.pbLoading.Visible = false;
             // 
             // linkLabel3Commas
             // 
@@ -123,6 +137,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid.FilterAndSortEnabled = true;
+            this.grid.GridColor = System.Drawing.SystemColors.ControlLight;
             this.grid.Location = new System.Drawing.Point(12, 107);
             this.grid.Name = "grid";
             this.grid.ReadOnly = true;
@@ -131,6 +146,38 @@
             this.grid.TabIndex = 68;
             this.grid.FilterStringChanged += new System.EventHandler<Zuby.ADGV.AdvancedDataGridView.FilterEventArgs>(this.grid_FilterStringChanged);
             this.grid.SelectionChanged += new System.EventHandler(this.grid_SelectionChanged);
+            // 
+            // lblVisibleBotCount
+            // 
+            this.lblVisibleBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblVisibleBotCount.AutoSize = true;
+            this.lblVisibleBotCount.Location = new System.Drawing.Point(120, 491);
+            this.lblVisibleBotCount.Name = "lblVisibleBotCount";
+            this.lblVisibleBotCount.Size = new System.Drawing.Size(69, 13);
+            this.lblVisibleBotCount.TabIndex = 70;
+            this.lblVisibleBotCount.Text = "0 Bots visible";
+            // 
+            // lblFilterActive
+            // 
+            this.lblFilterActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblFilterActive.AutoSize = true;
+            this.lblFilterActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblFilterActive.Location = new System.Drawing.Point(120, 513);
+            this.lblFilterActive.Name = "lblFilterActive";
+            this.lblFilterActive.Size = new System.Drawing.Size(87, 13);
+            this.lblFilterActive.TabIndex = 71;
+            this.lblFilterActive.Text = "Filter is turned on";
+            this.lblFilterActive.Visible = false;
+            // 
+            // lblSelectedBotCount
+            // 
+            this.lblSelectedBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblSelectedBotCount.AutoSize = true;
+            this.lblSelectedBotCount.Location = new System.Drawing.Point(228, 491);
+            this.lblSelectedBotCount.Name = "lblSelectedBotCount";
+            this.lblSelectedBotCount.Size = new System.Drawing.Size(80, 13);
+            this.lblSelectedBotCount.TabIndex = 72;
+            this.lblSelectedBotCount.Text = "0 Bots selected";
             // 
             // btnEdit
             // 
@@ -179,38 +226,6 @@
             // 
             this.bindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.bindingSource1_ListChanged);
             // 
-            // lblVisibleBotCount
-            // 
-            this.lblVisibleBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblVisibleBotCount.AutoSize = true;
-            this.lblVisibleBotCount.Location = new System.Drawing.Point(120, 491);
-            this.lblVisibleBotCount.Name = "lblVisibleBotCount";
-            this.lblVisibleBotCount.Size = new System.Drawing.Size(69, 13);
-            this.lblVisibleBotCount.TabIndex = 70;
-            this.lblVisibleBotCount.Text = "0 Bots visible";
-            // 
-            // lblFilterActive
-            // 
-            this.lblFilterActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblFilterActive.AutoSize = true;
-            this.lblFilterActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblFilterActive.Location = new System.Drawing.Point(120, 513);
-            this.lblFilterActive.Name = "lblFilterActive";
-            this.lblFilterActive.Size = new System.Drawing.Size(87, 13);
-            this.lblFilterActive.TabIndex = 71;
-            this.lblFilterActive.Text = "Filter is turned on";
-            this.lblFilterActive.Visible = false;
-            // 
-            // lblSelectedBotCount
-            // 
-            this.lblSelectedBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSelectedBotCount.AutoSize = true;
-            this.lblSelectedBotCount.Location = new System.Drawing.Point(228, 491);
-            this.lblSelectedBotCount.Name = "lblSelectedBotCount";
-            this.lblSelectedBotCount.Size = new System.Drawing.Size(80, 13);
-            this.lblSelectedBotCount.TabIndex = 72;
-            this.lblSelectedBotCount.Text = "0 Bots selected";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,6 +250,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBoxCredentials.ResumeLayout(false);
             this.groupBoxCredentials.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
@@ -258,6 +274,7 @@
         private System.Windows.Forms.Label lblVisibleBotCount;
         private System.Windows.Forms.Label lblFilterActive;
         private System.Windows.Forms.Label lblSelectedBotCount;
+        private System.Windows.Forms.PictureBox pbLoading;
     }
 }
 

@@ -118,7 +118,10 @@ namespace _3Commas.BulkEditor.Views.MainForm
         public void SetCreateInProgress(bool inProgress)
         {
             Cursor.Current = inProgress ? Cursors.WaitCursor : Cursors.Default;
+            pbLoading.Visible = inProgress;
+            grid.ReadOnly = inProgress;
             grid.Enabled = !inProgress;
+            Application.DoEvents();
             btnEdit.Enabled = !inProgress;
         }
 

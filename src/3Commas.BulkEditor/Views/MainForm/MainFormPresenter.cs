@@ -46,14 +46,12 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private async Task RefreshBots()
         {
             View.SetCreateInProgress(true);
+            _bots = new List<Bot>();
+            View.RefreshBotGrid(_bots);
             if (!String.IsNullOrWhiteSpace(_keys.Secret3Commas) && !String.IsNullOrWhiteSpace(_keys.ApiKey3Commas))
             {
                 var botMgr = new BotManager(_keys, _logger);
-                _bots = await botMgr.GetAllBots();
-            }
-            else
-            {
-                _bots = new List<Bot>();
+                _bots = (await botMgr.GetAllBots()).ToList();
             }
             View.RefreshBotGrid(_bots);
             View.SetTotalBotCount(_bots.Count);
@@ -82,10 +80,14 @@ namespace _3Commas.BulkEditor.Views.MainForm
 
         public async void OnEdit()
         {
-            View.SetCreateInProgress(true);
-
             var ids = View.SelectedBotIds;
             var botsToEdit = _bots.Where(x => ids.Contains(x.Id)).ToList();
+            if (botsToEdit.Any(x => x.Type != "Bot::SingleBot"))
+            {
+                _mbs.ShowError("Sorry, Bulk Edit only works for Simple Bots, not advanced.");
+                return;
+            }
+
             var dlg = new EditDialog.EditDialog(botsToEdit, _keys, _logger);
             var dr = dlg.ShowDialog(View);
             if (dr == DialogResult.OK)
@@ -93,8 +95,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
                 _logger.LogInformation("Refreshing Bots");
                 await RefreshBots();
             }
-
-            View.SetCreateInProgress(false);
         }
     }
 }

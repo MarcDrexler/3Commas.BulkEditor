@@ -24,6 +24,9 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             InitializeComponent();
 
             cmbIsEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeIsEnabled, nameof(CheckBox.Checked));
+            txtName.DataBindings.Add(nameof(TextBox.Visible), chkChangeName, nameof(CheckBox.Checked));
+            lblPreviewTitle.DataBindings.Add(nameof(Label.Visible), chkChangeName, nameof(CheckBox.Checked));
+            lblNamePreview.DataBindings.Add(nameof(Label.Visible), chkChangeName, nameof(CheckBox.Checked));
             cmbStartOrderType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeStartOrderType, nameof(CheckBox.Checked));
             numBaseOrderVolume.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeBaseOrderSize, nameof(CheckBox.Checked));
             numSafetyOrderVolume.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeSafetyOrderSize, nameof(CheckBox.Checked));
@@ -103,6 +106,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                             updateData.StartOrderType = startOrderType;
                         }
                         if (chkChangeBaseOrderSize.Checked) updateData.BaseOrderVolume = numBaseOrderVolume.Value;
+                        if (chkChangeName.Checked) updateData.Name = BotManager.GenerateNewName(txtName.Text, bot.Strategy.ToString(), bot.Pairs.Single());
                         if (chkChangeSafetyOrderSize.Checked) updateData.SafetyOrderVolume = numSafetyOrderVolume.Value;
                         if (chkChangeTargetProfit.Checked) updateData.TakeProfit = numTargetProfit.Value;
                         if (chkChangeTrailingEnabled.Checked) updateData.TrailingEnabled = (cmbTtpEnabled.SelectedItem.ToString() == "Enabled") ? true : false;
@@ -138,6 +142,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             var errors = new List<string>();
 
             if (chkChangeIsEnabled.Checked && cmbIsEnabled.SelectedItem == null) errors.Add("New value for \"Enabled\" missing.");
+            if (chkChangeName.Checked && string.IsNullOrWhiteSpace(txtName.Text)) errors.Add("New value for \"Name\" missing.");
             if (chkChangeStartOrderType.Checked && cmbStartOrderType.SelectedItem == null) errors.Add("New value for \"Start Order Type\" missing.");
             if (chkChangeBaseOrderSize.Checked && numBaseOrderVolume.Value == 0) errors.Add("New value for \"Base order size\" missing.");
             if (chkChangeSafetyOrderSize.Checked && numSafetyOrderVolume.Value == 0) errors.Add("New value for \"Safety order size\" missing.");
@@ -150,5 +155,17 @@ namespace _3Commas.BulkEditor.Views.EditDialog
 
             return !errors.Any();
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            lblNamePreview.Text = BotManager.GenerateNewName(txtName.Text, "Long", "USDT_BTC");
+        }
+
+        
     }
 }
