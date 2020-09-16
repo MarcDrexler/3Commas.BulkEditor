@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/bulkeditor/</InstallUrl>
     <ProductName>Bulk Editor</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.10</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.11</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>11</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -188,6 +188,7 @@
   <ItemGroup>
     <Compile Include="Infrastructure\IMessageBoxService.cs" />
     <Compile Include="Infrastructure\MessageBoxService.cs" />
+    <Compile Include="Misc\AssemblyHelper.cs" />
     <Compile Include="Misc\BotManager.cs" />
     <Compile Include="Misc\Keys.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -293,6 +294,8 @@
     <None Include="Resources\EditDataSource_16x16.png" />
     <None Include="Resources\Export_16x16.png" />
     <None Include="Resources\loader.gif" />
+    <None Include="Resources\Convert_16x16.png" />
+    <None Include="Resources\Close_16x16.png" />
     <Content Include="robot.ico" />
   </ItemGroup>
   <ItemGroup />

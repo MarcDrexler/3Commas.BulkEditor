@@ -41,6 +41,8 @@
             this.lblVisibleBotCount = new System.Windows.Forms.Label();
             this.lblFilterActive = new System.Windows.Forms.Label();
             this.lblSelectedBotCount = new System.Windows.Forms.Label();
+            this.btnClearFilter = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -162,7 +164,7 @@
             this.lblFilterActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFilterActive.AutoSize = true;
             this.lblFilterActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblFilterActive.Location = new System.Drawing.Point(120, 513);
+            this.lblFilterActive.Location = new System.Drawing.Point(141, 515);
             this.lblFilterActive.Name = "lblFilterActive";
             this.lblFilterActive.Size = new System.Drawing.Size(87, 13);
             this.lblFilterActive.TabIndex = 71;
@@ -178,6 +180,37 @@
             this.lblSelectedBotCount.Size = new System.Drawing.Size(80, 13);
             this.lblSelectedBotCount.TabIndex = 72;
             this.lblSelectedBotCount.Text = "0 Bots selected";
+            // 
+            // btnClearFilter
+            // 
+            this.btnClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClearFilter.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClearFilter.FlatAppearance.BorderSize = 0;
+            this.btnClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearFilter.Image = global::_3Commas.BulkEditor.Properties.Resources.Close_16x16;
+            this.btnClearFilter.Location = new System.Drawing.Point(116, 509);
+            this.btnClearFilter.Name = "btnClearFilter";
+            this.btnClearFilter.Size = new System.Drawing.Size(26, 25);
+            this.btnClearFilter.TabIndex = 74;
+            this.btnClearFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClearFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearFilter.UseVisualStyleBackColor = true;
+            this.btnClearFilter.Visible = false;
+            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Enabled = false;
+            this.btnRefresh.Image = global::_3Commas.BulkEditor.Properties.Resources.Convert_16x16;
+            this.btnRefresh.Location = new System.Drawing.Point(207, 76);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(84, 25);
+            this.btnRefresh.TabIndex = 73;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnEdit
             // 
@@ -231,6 +264,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1032, 777);
+            this.Controls.Add(this.btnClearFilter);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblSelectedBotCount);
             this.Controls.Add(this.lblFilterActive);
             this.Controls.Add(this.lblVisibleBotCount);
@@ -275,6 +310,8 @@
         private System.Windows.Forms.Label lblFilterActive;
         private System.Windows.Forms.Label lblSelectedBotCount;
         private System.Windows.Forms.PictureBox pbLoading;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnClearFilter;
     }
 }
 

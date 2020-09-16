@@ -96,5 +96,10 @@ namespace _3Commas.BulkEditor.Views.MainForm
                 await RefreshBots();
             }
         }
+
+        public async Task OnRefresh()
+        {
+            await RefreshBots();
+        }
     }
 }

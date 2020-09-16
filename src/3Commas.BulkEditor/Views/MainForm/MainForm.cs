@@ -20,6 +20,9 @@ namespace _3Commas.BulkEditor.Views.MainForm
         public MainForm()
         {
             InitializeComponent();
+
+            this.Text = $"{AssemblyHelper.AssemblyTitle} {AssemblyHelper.AssemblyVersion}";
+
             _presenter = new MainFormPresenter(this, new TextBoxLogger(txtOutput), new MessageBoxService());
 
             // Initialize DataSet
@@ -123,6 +126,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
             grid.Enabled = !inProgress;
             Application.DoEvents();
             btnEdit.Enabled = !inProgress;
+            btnRefresh.Enabled = !inProgress;
         }
 
         public void SetVisibleCount(int count)
@@ -133,6 +137,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
         public void ShowFilterInformation(bool show)
         {
             lblFilterActive.Visible = show;
+            btnClearFilter.Visible = show;
         }
 
         public void SetSelectedRowCount(int count)
@@ -171,6 +176,16 @@ namespace _3Commas.BulkEditor.Views.MainForm
                 }
                 return ids;
             }
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            grid.CleanFilter();
+        }
+
+        private async void btnRefresh_Click(object sender, EventArgs e)
+        {
+            await _presenter.OnRefresh();
         }
     }
 }
