@@ -5,7 +5,7 @@ This unofficial tool allows you to bulk edit your simple DCA bots.
 
 ## Technical description
 
-The implementation is based on .Net Framework. I will probably upgrade to .NET 5 in November.
+The implementation is based on .Net Framework. I will probably upgrade to .NET 5 in November. Then it will also run on Linux & macOS.
 
 Implementation is build upon the AdvancedDataGridView and 3Commas.Net library. Thanks for the brilliant work!
 
