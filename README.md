@@ -24,6 +24,8 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 ![Main Screen](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/Mainscreen.png)
 
+![Edit Dialog](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/EditDialog.png)
+
 ## Prerequisites
 
 - .NET Framework 4.7.2 (which already might be installed on your Windows machine)
