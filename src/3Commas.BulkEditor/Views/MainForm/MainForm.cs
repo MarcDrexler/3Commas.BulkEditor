@@ -111,6 +111,8 @@ namespace _3Commas.BulkEditor.Views.MainForm
             }
 
             bindingSource.DataMember = _dataTable.TableName;
+
+            grid.ClearSelection();
         }
 
         public void ClearLog()

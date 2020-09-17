@@ -79,11 +79,11 @@
             // 
             // pbLoading
             // 
-            this.pbLoading.Image = global::_3Commas.BulkEditor.Properties.Resources.loader;
-            this.pbLoading.Location = new System.Drawing.Point(121, 15);
+            this.pbLoading.Image = global::_3Commas.BulkEditor.Properties.Resources.loader2;
+            this.pbLoading.Location = new System.Drawing.Point(121, 14);
             this.pbLoading.Name = "pbLoading";
             this.pbLoading.Size = new System.Drawing.Size(56, 58);
-            this.pbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pbLoading.TabIndex = 65;
             this.pbLoading.TabStop = false;
             this.pbLoading.Visible = false;
@@ -112,12 +112,12 @@
             // lblBotCount
             // 
             this.lblBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblBotCount.AutoSize = true;
-            this.lblBotCount.Location = new System.Drawing.Point(12, 491);
+            this.lblBotCount.Location = new System.Drawing.Point(207, 60);
             this.lblBotCount.Name = "lblBotCount";
-            this.lblBotCount.Size = new System.Drawing.Size(67, 13);
+            this.lblBotCount.Size = new System.Drawing.Size(127, 13);
             this.lblBotCount.TabIndex = 66;
             this.lblBotCount.Text = "0 Bots found";
+            this.lblBotCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblOutputLog
             // 
@@ -137,13 +137,16 @@
             this.grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.grid.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.grid.FilterAndSortEnabled = true;
             this.grid.GridColor = System.Drawing.SystemColors.ControlLight;
             this.grid.Location = new System.Drawing.Point(12, 107);
             this.grid.Name = "grid";
             this.grid.ReadOnly = true;
             this.grid.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.grid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.grid.Size = new System.Drawing.Size(1008, 372);
             this.grid.TabIndex = 68;
             this.grid.FilterStringChanged += new System.EventHandler<Zuby.ADGV.AdvancedDataGridView.FilterEventArgs>(this.grid_FilterStringChanged);
@@ -153,7 +156,7 @@
             // 
             this.lblVisibleBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblVisibleBotCount.AutoSize = true;
-            this.lblVisibleBotCount.Location = new System.Drawing.Point(120, 491);
+            this.lblVisibleBotCount.Location = new System.Drawing.Point(370, 60);
             this.lblVisibleBotCount.Name = "lblVisibleBotCount";
             this.lblVisibleBotCount.Size = new System.Drawing.Size(69, 13);
             this.lblVisibleBotCount.TabIndex = 70;
@@ -164,7 +167,7 @@
             this.lblFilterActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFilterActive.AutoSize = true;
             this.lblFilterActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblFilterActive.Location = new System.Drawing.Point(141, 515);
+            this.lblFilterActive.Location = new System.Drawing.Point(374, 81);
             this.lblFilterActive.Name = "lblFilterActive";
             this.lblFilterActive.Size = new System.Drawing.Size(87, 13);
             this.lblFilterActive.TabIndex = 71;
@@ -175,7 +178,7 @@
             // 
             this.lblSelectedBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSelectedBotCount.AutoSize = true;
-            this.lblSelectedBotCount.Location = new System.Drawing.Point(228, 491);
+            this.lblSelectedBotCount.Location = new System.Drawing.Point(24, 491);
             this.lblSelectedBotCount.Name = "lblSelectedBotCount";
             this.lblSelectedBotCount.Size = new System.Drawing.Size(80, 13);
             this.lblSelectedBotCount.TabIndex = 72;
@@ -188,7 +191,7 @@
             this.btnClearFilter.FlatAppearance.BorderSize = 0;
             this.btnClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearFilter.Image = global::_3Commas.BulkEditor.Properties.Resources.Close_16x16;
-            this.btnClearFilter.Location = new System.Drawing.Point(116, 509);
+            this.btnClearFilter.Location = new System.Drawing.Point(350, 75);
             this.btnClearFilter.Name = "btnClearFilter";
             this.btnClearFilter.Size = new System.Drawing.Size(26, 25);
             this.btnClearFilter.TabIndex = 74;
@@ -204,9 +207,9 @@
             this.btnRefresh.Image = global::_3Commas.BulkEditor.Properties.Resources.Convert_16x16;
             this.btnRefresh.Location = new System.Drawing.Point(207, 76);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(84, 25);
+            this.btnRefresh.Size = new System.Drawing.Size(127, 25);
             this.btnRefresh.TabIndex = 73;
-            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.Text = "Reload Bots";
             this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -217,7 +220,7 @@
             this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEdit.Enabled = false;
             this.btnEdit.Image = global::_3Commas.BulkEditor.Properties.Resources.EditDataSource_16x16;
-            this.btnEdit.Location = new System.Drawing.Point(347, 485);
+            this.btnEdit.Location = new System.Drawing.Point(120, 485);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(141, 25);
             this.btnEdit.TabIndex = 69;

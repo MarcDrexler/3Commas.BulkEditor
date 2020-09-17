@@ -36,6 +36,7 @@
             this.lblPermissionsNeeded = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.chkPersist = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             this.txtBinanceApiKey.Location = new System.Drawing.Point(79, 12);
             this.txtBinanceApiKey.Name = "txtBinanceApiKey";
             this.txtBinanceApiKey.Size = new System.Drawing.Size(483, 20);
-            this.txtBinanceApiKey.TabIndex = 21;
+            this.txtBinanceApiKey.TabIndex = 0;
             // 
             // txtBinanceSecret
             // 
@@ -55,15 +56,15 @@
             this.txtBinanceSecret.Location = new System.Drawing.Point(79, 38);
             this.txtBinanceSecret.Name = "txtBinanceSecret";
             this.txtBinanceSecret.Size = new System.Drawing.Size(483, 20);
-            this.txtBinanceSecret.TabIndex = 22;
+            this.txtBinanceSecret.TabIndex = 1;
             // 
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(487, 95);
+            this.btnApply.Location = new System.Drawing.Point(406, 95);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
-            this.btnApply.TabIndex = 27;
+            this.btnApply.TabIndex = 2;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
@@ -110,19 +111,31 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(406, 95);
+            this.btnCancel.Location = new System.Drawing.Point(487, 95);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 30;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // chkPersist
+            // 
+            this.chkPersist.AutoSize = true;
+            this.chkPersist.Location = new System.Drawing.Point(79, 99);
+            this.chkPersist.Name = "chkPersist";
+            this.chkPersist.Size = new System.Drawing.Size(98, 17);
+            this.chkPersist.TabIndex = 32;
+            this.chkPersist.Text = "Persist Settings";
+            this.chkPersist.UseVisualStyleBackColor = true;
+            this.chkPersist.CheckedChanged += new System.EventHandler(this.chkPersist_CheckedChanged);
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(574, 130);
+            this.Controls.Add(this.chkPersist);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label1);
@@ -154,5 +167,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblPermissionsNeeded;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox chkPersist;
     }
 }

@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/bulkeditor/</InstallUrl>
     <ProductName>Bulk Editor</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.11</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.15</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -215,6 +215,13 @@
     <Compile Include="Views\EditDialog\EditDialog.Designer.cs">
       <DependentUpon>EditDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditDialog\EditDto.cs" />
+    <Compile Include="Views\ProgressView\ProgressView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ProgressView\ProgressView.Designer.cs">
+      <DependentUpon>ProgressView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainForm\IMainForm.cs" />
     <Compile Include="Infrastructure\IViewBase.cs" />
     <Compile Include="Views\MainForm\MainForm.cs">
@@ -242,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditDialog\EditDialog.resx">
       <DependentUpon>EditDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ProgressView\ProgressView.resx">
+      <DependentUpon>ProgressView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -296,6 +306,7 @@
     <None Include="Resources\loader.gif" />
     <None Include="Resources\Convert_16x16.png" />
     <None Include="Resources\Close_16x16.png" />
+    <None Include="Resources\loader2.gif" />
     <Content Include="robot.ico" />
   </ItemGroup>
   <ItemGroup />

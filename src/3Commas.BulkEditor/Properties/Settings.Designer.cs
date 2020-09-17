@@ -22,5 +22,29 @@ namespace _3Commas.BulkEditor.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApiKey3Commas {
+            get {
+                return ((string)(this["ApiKey3Commas"]));
+            }
+            set {
+                this["ApiKey3Commas"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Secret3Commas {
+            get {
+                return ((string)(this["Secret3Commas"]));
+            }
+            set {
+                this["Secret3Commas"] = value;
+            }
+        }
     }
 }

@@ -4,23 +4,18 @@ using System.Linq;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
-using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
 
 namespace _3Commas.BulkEditor.Views.EditDialog
 {
     public partial class EditDialog : Form
     {
-        private readonly List<Bot> _botsToEdit;
-        private readonly Misc.Keys _keys;
-        private readonly ILogger _logger;
+        private readonly int _botCount;
         private readonly IMessageBoxService _mbs = new MessageBoxService();
 
-        public EditDialog(List<Bot> botsToEdit, Misc.Keys keys, ILogger logger)
+        public EditDialog(int botCount)
         {
-            _botsToEdit = botsToEdit;
-            _keys = keys;
-            _logger = logger;
+            _botCount = botCount;
             InitializeComponent();
 
             cmbIsEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeIsEnabled, nameof(CheckBox.Checked));
@@ -47,9 +42,11 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             cmbTtpEnabled.Items.Add("Disabled");
         }
 
+        public EditDto EditDto { get; set; } = new EditDto();
+
         public bool HasChanges => Controls.OfType<CheckBox>().Any(x => x.Checked);
 
-        private async void btnCreate_Click(object sender, EventArgs e)
+        private void btnCreate_Click(object sender, EventArgs e)
         {
             if (!HasChanges)
             {
@@ -59,79 +56,32 @@ namespace _3Commas.BulkEditor.Views.EditDialog
 
             if (IsValid())
             {
-                var dr = _mbs.ShowQuestion($"Save these settings to {_botsToEdit.Count} bots now?");
+                var dr = _mbs.ShowQuestion($"Save these settings to {_botCount} bots now?");
                 if (dr == DialogResult.Yes)
                 {
-                    Cursor.Current = Cursors.WaitCursor;
-
-                    var botMgr = new BotManager(_keys, _logger);
-
-                    foreach (var bot in _botsToEdit)
+                    if (chkChangeIsEnabled.Checked)
                     {
-                        var updateData = new BotUpdateData(bot);
-                        if (chkChangeIsEnabled.Checked)
-                        {
-                            switch (cmbIsEnabled.SelectedItem.ToString())
-                            {
-                                case "Enabled":
-                                    var aRes = await botMgr.Enable(bot.Id);
-                                    if (aRes.IsSuccess)
-                                    {
-                                        _logger.LogInformation($"Bot {bot.Id} enabled");
-                                    }
-                                    else
-                                    {
-                                        _logger.LogError($"Could not enable Bot {bot.Id}. Reason: {aRes.Error}");
-                                    }
-
-                                    break;
-                                case "Disabled":
-                                    var dRes = await botMgr.Disable(bot.Id);
-                                    if (dRes.IsSuccess)
-                                    {
-                                        _logger.LogInformation($"Bot {bot.Id} disabled");
-                                    }
-                                    else
-                                    {
-                                        _logger.LogError($"Could not disable Bot {bot.Id}. Reason: {dRes.Error}");
-                                    }
-
-                                    break;
-                            }
-                        }
-
-                        if (chkChangeStartOrderType.Checked)
-                        {
-                            Enum.TryParse(cmbStartOrderType.SelectedItem.ToString(),  out StartOrderType startOrderType);
-                            updateData.StartOrderType = startOrderType;
-                        }
-                        if (chkChangeBaseOrderSize.Checked) updateData.BaseOrderVolume = numBaseOrderVolume.Value;
-                        if (chkChangeName.Checked) updateData.Name = BotManager.GenerateNewName(txtName.Text, bot.Strategy.ToString(), bot.Pairs.Single());
-                        if (chkChangeSafetyOrderSize.Checked) updateData.SafetyOrderVolume = numSafetyOrderVolume.Value;
-                        if (chkChangeTargetProfit.Checked) updateData.TakeProfit = numTargetProfit.Value;
-                        if (chkChangeTrailingEnabled.Checked) updateData.TrailingEnabled = (cmbTtpEnabled.SelectedItem.ToString() == "Enabled") ? true : false;
-                        if (chkChangeTrailingDeviation.Checked) updateData.TrailingDeviation = numTrailingDeviation.Value;
-                        if (chkChangeMaxSafetyTradesCount.Checked) updateData.MaxSafetyOrders = (int)numMaxSafetyTradesCount.Value;
-                        if (chkChangeMaxActiveSafetyTradesCount.Checked) updateData.ActiveSafetyOrdersCount = (int)numMaxActiveSafetyTradesCount.Value;
-                        if (chkChangePriceDeviationToOpenSafetyOrders.Checked) updateData.SafetyOrderStepPercentage = numPriceDeviationToOpenSafetyOrders.Value;
-                        if (chkChangeSafetyOrderVolumeScale.Checked) updateData.MartingaleVolumeCoefficient = numSafetyOrderVolumeScale.Value;
-                        if (chkChangeSafetyOrderStepScale.Checked) updateData.MartingaleStepCoefficient = numSafetyOrderStepScale.Value;
-                        if (chkChangeCooldownBetweenDeals.Checked) updateData.Cooldown = (int)numCooldownBetweenDeals.Value;
-                        
-                        var res = await botMgr.SaveBot(bot.Id, updateData);
-                        if (res.IsSuccess)
-                        {
-                            _logger.LogInformation($"Bot {bot.Id} updated");
-                        }
-                        else
-                        {
-                            _logger.LogError($"Could not update Bot {bot.Id}. Reason: {res.Error}");
-                        }
+                        if (cmbIsEnabled.SelectedItem.ToString() == "Enabled") EditDto.IsEnabled = true;
+                        else if (cmbIsEnabled.SelectedItem.ToString() == "Disabled") EditDto.IsEnabled = false;
                     }
 
-                    Cursor.Current = Cursors.Default;
-
-                    _mbs.ShowInformation("Bulk Edit finished. See output section for details.");
+                    if (chkChangeStartOrderType.Checked)
+                    {
+                        Enum.TryParse(cmbStartOrderType.SelectedItem.ToString(), out StartOrderType startOrderType);
+                        EditDto.StartOrderType = startOrderType;
+                    }
+                    if (chkChangeBaseOrderSize.Checked) EditDto.BaseOrderVolume = numBaseOrderVolume.Value;
+                    if (chkChangeName.Checked) EditDto.Name = txtName.Text;
+                    if (chkChangeSafetyOrderSize.Checked) EditDto.SafetyOrderVolume = numSafetyOrderVolume.Value;
+                    if (chkChangeTargetProfit.Checked) EditDto.TakeProfit = numTargetProfit.Value;
+                    if (chkChangeTrailingEnabled.Checked) EditDto.TrailingEnabled = cmbTtpEnabled.SelectedItem.ToString() == "Enabled" ? true : false;
+                    if (chkChangeTrailingDeviation.Checked) EditDto.TrailingDeviation = numTrailingDeviation.Value;
+                    if (chkChangeMaxSafetyTradesCount.Checked) EditDto.MaxSafetyOrders = (int)numMaxSafetyTradesCount.Value;
+                    if (chkChangeMaxActiveSafetyTradesCount.Checked) EditDto.ActiveSafetyOrdersCount = (int)numMaxActiveSafetyTradesCount.Value;
+                    if (chkChangePriceDeviationToOpenSafetyOrders.Checked) EditDto.SafetyOrderStepPercentage = numPriceDeviationToOpenSafetyOrders.Value;
+                    if (chkChangeSafetyOrderVolumeScale.Checked) EditDto.MartingaleVolumeCoefficient = numSafetyOrderVolumeScale.Value;
+                    if (chkChangeSafetyOrderStepScale.Checked) EditDto.MartingaleStepCoefficient = numSafetyOrderStepScale.Value;
+                    if (chkChangeCooldownBetweenDeals.Checked) EditDto.Cooldown = (int)numCooldownBetweenDeals.Value;
                     this.DialogResult = DialogResult.OK;
                 }
             }
@@ -156,16 +106,9 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             return !errors.Any();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             lblNamePreview.Text = BotManager.GenerateNewName(txtName.Text, "Long", "USDT_BTC");
         }
-
-        
     }
 }
