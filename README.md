@@ -31,6 +31,8 @@ Also if you think something is broken or have any questions, please open an [Iss
 - .NET Framework 4.7.2 (which already might be installed on your Windows machine)
 - 3Commas API key and secret
 
+Note: By default, API keys are not stored on your computer and must be entered again the next time the application is started. There is an option to persist ApiKey and Secret. However, use is at your own risk. Other programs could read this information.
+
 ## Installer
 
 I use MS ClickOnce for installation and updates.
