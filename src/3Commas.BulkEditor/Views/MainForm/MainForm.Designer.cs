@@ -111,7 +111,6 @@
             // 
             // lblBotCount
             // 
-            this.lblBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblBotCount.Location = new System.Drawing.Point(207, 60);
             this.lblBotCount.Name = "lblBotCount";
             this.lblBotCount.Size = new System.Drawing.Size(127, 13);
@@ -154,7 +153,6 @@
             // 
             // lblVisibleBotCount
             // 
-            this.lblVisibleBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblVisibleBotCount.AutoSize = true;
             this.lblVisibleBotCount.Location = new System.Drawing.Point(370, 60);
             this.lblVisibleBotCount.Name = "lblVisibleBotCount";
@@ -164,7 +162,6 @@
             // 
             // lblFilterActive
             // 
-            this.lblFilterActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFilterActive.AutoSize = true;
             this.lblFilterActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblFilterActive.Location = new System.Drawing.Point(374, 81);
@@ -186,7 +183,6 @@
             // 
             // btnClearFilter
             // 
-            this.btnClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnClearFilter.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClearFilter.FlatAppearance.BorderSize = 0;
             this.btnClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

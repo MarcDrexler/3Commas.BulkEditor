@@ -101,6 +101,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
                 nameof(Bot.MaxPrice),
                 nameof(Bot.MinVolumeBtc24h),
                 nameof(Bot.Cooldown),
+                nameof(Bot.DisableAfterDealsCount),
                 nameof(Bot.FinishedDealsCount),
                 nameof(Bot.FinishedDealsProfitUsd),
                 nameof(Bot.CreatedAt),

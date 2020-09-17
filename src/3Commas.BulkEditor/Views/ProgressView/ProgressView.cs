@@ -78,6 +78,18 @@ namespace _3Commas.BulkEditor.Views
                 if (_newSettings.TakeProfit.HasValue) updateData.TakeProfit = _newSettings.TakeProfit.Value;
                 if (_newSettings.TrailingDeviation.HasValue) updateData.TrailingDeviation = _newSettings.TrailingDeviation.Value;
                 if (_newSettings.TrailingEnabled.HasValue) updateData.TrailingEnabled = _newSettings.TrailingEnabled.Value;
+                if (_newSettings.DisableAfterDealsCountInfo != null)
+                {
+                    if (_newSettings.DisableAfterDealsCountInfo.Enable)
+                    {
+                        updateData.DisableAfterDealsCount = _newSettings.DisableAfterDealsCountInfo.Value;
+                    }
+                    else
+                    {
+                        updateData.DisableAfterDealsCount = null;
+                    }
+                }
+
                 var res = await botMgr.SaveBot(bot.Id, updateData);
                 if (res.IsSuccess)
                 {

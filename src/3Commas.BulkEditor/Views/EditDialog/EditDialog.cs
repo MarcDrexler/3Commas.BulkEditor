@@ -34,12 +34,16 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             numSafetyOrderVolumeScale.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeSafetyOrderVolumeScale, nameof(CheckBox.Checked));
             numSafetyOrderStepScale.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeSafetyOrderStepScale, nameof(CheckBox.Checked));
             numCooldownBetweenDeals.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeCooldownBetweenDeals, nameof(CheckBox.Checked));
+            cmbDisableAfterDealsCount.DataBindings.Add(nameof(NumericUpDown.Visible), chkDisableAfterDealsCount, nameof(CheckBox.Checked));
+            numDisableAfterDealsCount.DataBindings.Add(nameof(NumericUpDown.Visible), chkDisableAfterDealsCount, nameof(CheckBox.Checked));
 
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
-            cmbIsEnabled.Items.Add("Enabled");
-            cmbIsEnabled.Items.Add("Disabled");
-            cmbTtpEnabled.Items.Add("Enabled");
-            cmbTtpEnabled.Items.Add("Disabled");
+            cmbIsEnabled.Items.Add("Enable");
+            cmbIsEnabled.Items.Add("Disable");
+            cmbTtpEnabled.Items.Add("Enable");
+            cmbTtpEnabled.Items.Add("Disable");
+            cmbDisableAfterDealsCount.Items.Add("Enable");
+            cmbDisableAfterDealsCount.Items.Add("Disable");
         }
 
         public EditDto EditDto { get; set; } = new EditDto();
@@ -61,8 +65,8 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                 {
                     if (chkChangeIsEnabled.Checked)
                     {
-                        if (cmbIsEnabled.SelectedItem.ToString() == "Enabled") EditDto.IsEnabled = true;
-                        else if (cmbIsEnabled.SelectedItem.ToString() == "Disabled") EditDto.IsEnabled = false;
+                        if (cmbIsEnabled.SelectedItem.ToString() == "Enable") EditDto.IsEnabled = true;
+                        else if (cmbIsEnabled.SelectedItem.ToString() == "Disable") EditDto.IsEnabled = false;
                     }
 
                     if (chkChangeStartOrderType.Checked)
@@ -74,7 +78,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                     if (chkChangeName.Checked) EditDto.Name = txtName.Text;
                     if (chkChangeSafetyOrderSize.Checked) EditDto.SafetyOrderVolume = numSafetyOrderVolume.Value;
                     if (chkChangeTargetProfit.Checked) EditDto.TakeProfit = numTargetProfit.Value;
-                    if (chkChangeTrailingEnabled.Checked) EditDto.TrailingEnabled = cmbTtpEnabled.SelectedItem.ToString() == "Enabled" ? true : false;
+                    if (chkChangeTrailingEnabled.Checked) EditDto.TrailingEnabled = cmbTtpEnabled.SelectedItem.ToString() == "Enable" ? true : false;
                     if (chkChangeTrailingDeviation.Checked) EditDto.TrailingDeviation = numTrailingDeviation.Value;
                     if (chkChangeMaxSafetyTradesCount.Checked) EditDto.MaxSafetyOrders = (int)numMaxSafetyTradesCount.Value;
                     if (chkChangeMaxActiveSafetyTradesCount.Checked) EditDto.ActiveSafetyOrdersCount = (int)numMaxActiveSafetyTradesCount.Value;
@@ -82,6 +86,17 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                     if (chkChangeSafetyOrderVolumeScale.Checked) EditDto.MartingaleVolumeCoefficient = numSafetyOrderVolumeScale.Value;
                     if (chkChangeSafetyOrderStepScale.Checked) EditDto.MartingaleStepCoefficient = numSafetyOrderStepScale.Value;
                     if (chkChangeCooldownBetweenDeals.Checked) EditDto.Cooldown = (int)numCooldownBetweenDeals.Value;
+
+                    if (chkDisableAfterDealsCount.Checked)
+                    {
+                        EditDto.DisableAfterDealsCountInfo = new DisableAfterDealsCountDto();
+                        if (cmbDisableAfterDealsCount.SelectedItem.ToString() == "Enable")
+                        {
+                            EditDto.DisableAfterDealsCountInfo.Enable = true;
+                            EditDto.DisableAfterDealsCountInfo.Value = (int) numDisableAfterDealsCount.Value;
+                        }
+                    }
+
                     this.DialogResult = DialogResult.OK;
                 }
             }
@@ -97,7 +112,8 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             if (chkChangeBaseOrderSize.Checked && numBaseOrderVolume.Value == 0) errors.Add("New value for \"Base order size\" missing.");
             if (chkChangeSafetyOrderSize.Checked && numSafetyOrderVolume.Value == 0) errors.Add("New value for \"Safety order size\" missing.");
             if (chkChangeTrailingEnabled.Checked && cmbTtpEnabled.SelectedItem == null) errors.Add("New value for \"TTP Enabled\" missing.");
-
+            if (chkDisableAfterDealsCount.Checked && cmbDisableAfterDealsCount.SelectedItem == null) errors.Add("New value for \"Open deals & stop\" missing.");
+            
             if (errors.Any())
             {
                 _mbs.ShowError(String.Join(Environment.NewLine, errors), "Validation Error");
@@ -109,6 +125,11 @@ namespace _3Commas.BulkEditor.Views.EditDialog
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             lblNamePreview.Text = BotManager.GenerateNewName(txtName.Text, "Long", "USDT_BTC");
+        }
+
+        private void cmbDisableAfterDealsCount_SelectedValueChanged(object sender, EventArgs e)
+        {
+            numDisableAfterDealsCount.Enabled = cmbDisableAfterDealsCount.SelectedItem?.ToString() == "Enable";
         }
     }
 }

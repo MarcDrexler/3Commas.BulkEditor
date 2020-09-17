@@ -74,6 +74,10 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblPreviewTitle = new System.Windows.Forms.Label();
             this.lblNamePreview = new System.Windows.Forms.Label();
+            this.chkDisableAfterDealsCount = new System.Windows.Forms.CheckBox();
+            this.numDisableAfterDealsCount = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbDisableAfterDealsCount = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).BeginInit();
@@ -84,6 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numTrailingDeviation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxSafetyTradesCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxActiveSafetyTradesCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDisableAfterDealsCount)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -433,8 +438,9 @@
             // 
             // btnCreate
             // 
+            this.btnCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreate.Image = global::_3Commas.BulkEditor.Properties.Resources.Export_16x16;
-            this.btnCreate.Location = new System.Drawing.Point(344, 435);
+            this.btnCreate.Location = new System.Drawing.Point(344, 468);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(189, 23);
             this.btnCreate.TabIndex = 28;
@@ -483,7 +489,7 @@
             // chkChangeTrailingDeviation
             // 
             this.chkChangeTrailingDeviation.AutoSize = true;
-            this.chkChangeTrailingDeviation.Location = new System.Drawing.Point(249, 224);
+            this.chkChangeTrailingDeviation.Location = new System.Drawing.Point(249, 225);
             this.chkChangeTrailingDeviation.Name = "chkChangeTrailingDeviation";
             this.chkChangeTrailingDeviation.Size = new System.Drawing.Size(15, 14);
             this.chkChangeTrailingDeviation.TabIndex = 14;
@@ -492,7 +498,7 @@
             // chkChangeMaxSafetyTradesCount
             // 
             this.chkChangeMaxSafetyTradesCount.AutoSize = true;
-            this.chkChangeMaxSafetyTradesCount.Location = new System.Drawing.Point(249, 250);
+            this.chkChangeMaxSafetyTradesCount.Location = new System.Drawing.Point(249, 251);
             this.chkChangeMaxSafetyTradesCount.Name = "chkChangeMaxSafetyTradesCount";
             this.chkChangeMaxSafetyTradesCount.Size = new System.Drawing.Size(15, 14);
             this.chkChangeMaxSafetyTradesCount.TabIndex = 16;
@@ -501,7 +507,7 @@
             // chkChangeMaxActiveSafetyTradesCount
             // 
             this.chkChangeMaxActiveSafetyTradesCount.AutoSize = true;
-            this.chkChangeMaxActiveSafetyTradesCount.Location = new System.Drawing.Point(249, 277);
+            this.chkChangeMaxActiveSafetyTradesCount.Location = new System.Drawing.Point(249, 278);
             this.chkChangeMaxActiveSafetyTradesCount.Name = "chkChangeMaxActiveSafetyTradesCount";
             this.chkChangeMaxActiveSafetyTradesCount.Size = new System.Drawing.Size(15, 14);
             this.chkChangeMaxActiveSafetyTradesCount.TabIndex = 18;
@@ -510,7 +516,7 @@
             // chkChangePriceDeviationToOpenSafetyOrders
             // 
             this.chkChangePriceDeviationToOpenSafetyOrders.AutoSize = true;
-            this.chkChangePriceDeviationToOpenSafetyOrders.Location = new System.Drawing.Point(249, 302);
+            this.chkChangePriceDeviationToOpenSafetyOrders.Location = new System.Drawing.Point(249, 303);
             this.chkChangePriceDeviationToOpenSafetyOrders.Name = "chkChangePriceDeviationToOpenSafetyOrders";
             this.chkChangePriceDeviationToOpenSafetyOrders.Size = new System.Drawing.Size(15, 14);
             this.chkChangePriceDeviationToOpenSafetyOrders.TabIndex = 20;
@@ -519,7 +525,7 @@
             // chkChangeSafetyOrderVolumeScale
             // 
             this.chkChangeSafetyOrderVolumeScale.AutoSize = true;
-            this.chkChangeSafetyOrderVolumeScale.Location = new System.Drawing.Point(249, 329);
+            this.chkChangeSafetyOrderVolumeScale.Location = new System.Drawing.Point(249, 330);
             this.chkChangeSafetyOrderVolumeScale.Name = "chkChangeSafetyOrderVolumeScale";
             this.chkChangeSafetyOrderVolumeScale.Size = new System.Drawing.Size(15, 14);
             this.chkChangeSafetyOrderVolumeScale.TabIndex = 22;
@@ -528,7 +534,7 @@
             // chkChangeSafetyOrderStepScale
             // 
             this.chkChangeSafetyOrderStepScale.AutoSize = true;
-            this.chkChangeSafetyOrderStepScale.Location = new System.Drawing.Point(249, 354);
+            this.chkChangeSafetyOrderStepScale.Location = new System.Drawing.Point(249, 355);
             this.chkChangeSafetyOrderStepScale.Name = "chkChangeSafetyOrderStepScale";
             this.chkChangeSafetyOrderStepScale.Size = new System.Drawing.Size(15, 14);
             this.chkChangeSafetyOrderStepScale.TabIndex = 24;
@@ -537,7 +543,7 @@
             // chkChangeCooldownBetweenDeals
             // 
             this.chkChangeCooldownBetweenDeals.AutoSize = true;
-            this.chkChangeCooldownBetweenDeals.Location = new System.Drawing.Point(249, 380);
+            this.chkChangeCooldownBetweenDeals.Location = new System.Drawing.Point(249, 381);
             this.chkChangeCooldownBetweenDeals.Name = "chkChangeCooldownBetweenDeals";
             this.chkChangeCooldownBetweenDeals.Size = new System.Drawing.Size(15, 14);
             this.chkChangeCooldownBetweenDeals.TabIndex = 26;
@@ -588,8 +594,9 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(539, 435);
+            this.btnCancel.Location = new System.Drawing.Point(539, 468);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 23);
             this.btnCancel.TabIndex = 29;
@@ -615,11 +622,60 @@
             this.lblNamePreview.TabIndex = 150;
             this.lblNamePreview.Text = "Long USDT_BTC Bot";
             // 
+            // chkDisableAfterDealsCount
+            // 
+            this.chkDisableAfterDealsCount.AutoSize = true;
+            this.chkDisableAfterDealsCount.Location = new System.Drawing.Point(249, 407);
+            this.chkDisableAfterDealsCount.Name = "chkDisableAfterDealsCount";
+            this.chkDisableAfterDealsCount.Size = new System.Drawing.Size(15, 14);
+            this.chkDisableAfterDealsCount.TabIndex = 151;
+            this.chkDisableAfterDealsCount.UseVisualStyleBackColor = true;
+            // 
+            // numDisableAfterDealsCount
+            // 
+            this.numDisableAfterDealsCount.Enabled = false;
+            this.numDisableAfterDealsCount.Location = new System.Drawing.Point(399, 405);
+            this.numDisableAfterDealsCount.Maximum = new decimal(new int[] {
+            2591999,
+            0,
+            0,
+            0});
+            this.numDisableAfterDealsCount.Name = "numDisableAfterDealsCount";
+            this.numDisableAfterDealsCount.Size = new System.Drawing.Size(48, 20);
+            this.numDisableAfterDealsCount.TabIndex = 152;
+            this.numDisableAfterDealsCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(152, 407);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(93, 13);
+            this.label5.TabIndex = 153;
+            this.label5.Text = "Open deals && stop";
+            // 
+            // cmbDisableAfterDealsCount
+            // 
+            this.cmbDisableAfterDealsCount.FormattingEnabled = true;
+            this.cmbDisableAfterDealsCount.Location = new System.Drawing.Point(272, 404);
+            this.cmbDisableAfterDealsCount.Name = "cmbDisableAfterDealsCount";
+            this.cmbDisableAfterDealsCount.Size = new System.Drawing.Size(121, 21);
+            this.cmbDisableAfterDealsCount.TabIndex = 154;
+            this.cmbDisableAfterDealsCount.SelectedValueChanged += new System.EventHandler(this.cmbDisableAfterDealsCount_SelectedValueChanged);
+            // 
             // EditDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 470);
+            this.ClientSize = new System.Drawing.Size(639, 503);
+            this.Controls.Add(this.cmbDisableAfterDealsCount);
+            this.Controls.Add(this.chkDisableAfterDealsCount);
+            this.Controls.Add(this.numDisableAfterDealsCount);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblPreviewTitle);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label2);
@@ -684,6 +740,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numTrailingDeviation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxSafetyTradesCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxActiveSafetyTradesCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDisableAfterDealsCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -736,5 +793,9 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblPreviewTitle;
         private System.Windows.Forms.Label lblNamePreview;
+        private System.Windows.Forms.CheckBox chkDisableAfterDealsCount;
+        private System.Windows.Forms.NumericUpDown numDisableAfterDealsCount;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cmbDisableAfterDealsCount;
     }
 }

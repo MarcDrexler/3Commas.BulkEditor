@@ -31,6 +31,10 @@ namespace _3Commas.BulkEditor.Views.MainForm
 
         internal void OnViewReady()
         {
+            if (!string.IsNullOrWhiteSpace(_keys.ApiKey3Commas) && !string.IsNullOrWhiteSpace(_keys.Secret3Commas))
+            {
+                RefreshBots();
+            }
         }
         
         public async Task On3CommasLinkClicked()

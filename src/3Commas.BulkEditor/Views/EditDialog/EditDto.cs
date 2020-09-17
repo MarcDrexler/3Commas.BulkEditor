@@ -23,5 +23,12 @@ namespace _3Commas.BulkEditor.Views.EditDialog
         public decimal? BaseOrderVolume { get; set; }
         public StartOrderType? StartOrderType { get; set; }
         public bool? IsEnabled { get; set; }
+        public DisableAfterDealsCountDto DisableAfterDealsCountInfo { get; set; }
+    }
+
+    public class DisableAfterDealsCountDto
+    {
+        public bool Enable { get; set; }
+        public int Value { get; set; }
     }
 }
