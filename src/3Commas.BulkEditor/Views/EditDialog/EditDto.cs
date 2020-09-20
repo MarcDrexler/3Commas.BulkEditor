@@ -24,6 +24,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
         public StartOrderType? StartOrderType { get; set; }
         public bool? IsEnabled { get; set; }
         public DisableAfterDealsCountDto DisableAfterDealsCountInfo { get; set; }
+        public List<BotStrategy> DealStartConditions { get; set; } = new List<BotStrategy>();
     }
 
     public class DisableAfterDealsCountDto

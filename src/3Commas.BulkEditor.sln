@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3Commas.BulkEditor", "3Commas.BulkEditor\3Commas.BulkEditor.csproj", "{02D16940-5926-45EA-A706-21B8D3E1F643}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCommas.Net", "..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj", "{46C6F09F-868F-44AF-B08D-37DBE2B6B725}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,14 +17,10 @@ Global
 		{02D16940-5926-45EA-A706-21B8D3E1F643}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D16940-5926-45EA-A706-21B8D3E1F643}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02D16940-5926-45EA-A706-21B8D3E1F643}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA38FEBA-8B7D-4E96-934D-B4022E69027F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA38FEBA-8B7D-4E96-934D-B4022E69027F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA38FEBA-8B7D-4E96-934D-B4022E69027F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA38FEBA-8B7D-4E96-934D-B4022E69027F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDC52F9F-D126-4902-B3F5-B1A4F84A18E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDC52F9F-D126-4902-B3F5-B1A4F84A18E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDC52F9F-D126-4902-B3F5-B1A4F84A18E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDC52F9F-D126-4902-B3F5-B1A4F84A18E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C6F09F-868F-44AF-B08D-37DBE2B6B725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C6F09F-868F-44AF-B08D-37DBE2B6B725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C6F09F-868F-44AF-B08D-37DBE2B6B725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C6F09F-868F-44AF-B08D-37DBE2B6B725}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

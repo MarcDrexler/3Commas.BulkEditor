@@ -90,6 +90,12 @@ namespace _3Commas.BulkEditor.Views
                     }
                 }
 
+                if (_newSettings.DealStartConditions.Any())
+                {
+                    updateData.Strategies.Clear();
+                    updateData.Strategies.AddRange(_newSettings.DealStartConditions);
+                }
+
                 var res = await botMgr.SaveBot(bot.Id, updateData);
                 if (res.IsSuccess)
                 {

@@ -43,9 +43,23 @@
             this.cmbTradingViewType = new System.Windows.Forms.ComboBox();
             this.cmbTradingViewTime = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.panelUlt = new System.Windows.Forms.Panel();
+            this.cmbUltTime = new System.Windows.Forms.ComboBox();
+            this.numUltPoints = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.radioButtonUlt = new System.Windows.Forms.RadioButton();
+            this.panelTaPresets = new System.Windows.Forms.Panel();
+            this.cmbTaPresetsType = new System.Windows.Forms.ComboBox();
+            this.cmbTaPresetsTime = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.radioButtonTaPresets = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numRsiPoints)).BeginInit();
             this.panelRsi.SuspendLayout();
             this.panelTradingView.SuspendLayout();
+            this.panelUlt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUltPoints)).BeginInit();
+            this.panelTaPresets.SuspendLayout();
             this.SuspendLayout();
             // 
             // radioButtonNonstop
@@ -86,7 +100,7 @@
             // radioButtonTradingView
             // 
             this.radioButtonTradingView.AutoSize = true;
-            this.radioButtonTradingView.Location = new System.Drawing.Point(13, 82);
+            this.radioButtonTradingView.Location = new System.Drawing.Point(13, 128);
             this.radioButtonTradingView.Name = "radioButtonTradingView";
             this.radioButtonTradingView.Size = new System.Drawing.Size(87, 17);
             this.radioButtonTradingView.TabIndex = 3;
@@ -97,7 +111,7 @@
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(370, 120);
+            this.okButton.Location = new System.Drawing.Point(370, 186);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 25;
@@ -108,7 +122,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(289, 120);
+            this.button1.Location = new System.Drawing.Point(289, 186);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 26;
@@ -179,7 +193,7 @@
             this.panelTradingView.Controls.Add(this.cmbTradingViewType);
             this.panelTradingView.Controls.Add(this.cmbTradingViewTime);
             this.panelTradingView.Controls.Add(this.label3);
-            this.panelTradingView.Location = new System.Drawing.Point(118, 78);
+            this.panelTradingView.Location = new System.Drawing.Point(118, 124);
             this.panelTradingView.Name = "panelTradingView";
             this.panelTradingView.Size = new System.Drawing.Size(327, 26);
             this.panelTradingView.TabIndex = 33;
@@ -210,11 +224,133 @@
             this.label3.TabIndex = 27;
             this.label3.Text = "Time:";
             // 
+            // panelUlt
+            // 
+            this.panelUlt.Controls.Add(this.cmbUltTime);
+            this.panelUlt.Controls.Add(this.numUltPoints);
+            this.panelUlt.Controls.Add(this.label4);
+            this.panelUlt.Controls.Add(this.label5);
+            this.panelUlt.Location = new System.Drawing.Point(118, 102);
+            this.panelUlt.Name = "panelUlt";
+            this.panelUlt.Size = new System.Drawing.Size(327, 26);
+            this.panelUlt.TabIndex = 34;
+            this.panelUlt.Visible = false;
+            // 
+            // cmbUltTime
+            // 
+            this.cmbUltTime.FormattingEnabled = true;
+            this.cmbUltTime.Location = new System.Drawing.Point(70, 2);
+            this.cmbUltTime.Name = "cmbUltTime";
+            this.cmbUltTime.Size = new System.Drawing.Size(77, 21);
+            this.cmbUltTime.TabIndex = 30;
+            // 
+            // numUltPoints
+            // 
+            this.numUltPoints.Location = new System.Drawing.Point(226, 3);
+            this.numUltPoints.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.numUltPoints.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUltPoints.Name = "numUltPoints";
+            this.numUltPoints.Size = new System.Drawing.Size(73, 20);
+            this.numUltPoints.TabIndex = 31;
+            this.numUltPoints.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(31, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 13);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Time:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(181, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 13);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "Points:";
+            // 
+            // radioButtonUlt
+            // 
+            this.radioButtonUlt.AutoSize = true;
+            this.radioButtonUlt.Location = new System.Drawing.Point(13, 105);
+            this.radioButtonUlt.Name = "radioButtonUlt";
+            this.radioButtonUlt.Size = new System.Drawing.Size(46, 17);
+            this.radioButtonUlt.TabIndex = 33;
+            this.radioButtonUlt.Text = "ULT";
+            this.radioButtonUlt.UseVisualStyleBackColor = true;
+            this.radioButtonUlt.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // panelTaPresets
+            // 
+            this.panelTaPresets.Controls.Add(this.cmbTaPresetsType);
+            this.panelTaPresets.Controls.Add(this.cmbTaPresetsTime);
+            this.panelTaPresets.Controls.Add(this.label6);
+            this.panelTaPresets.Location = new System.Drawing.Point(118, 78);
+            this.panelTaPresets.Name = "panelTaPresets";
+            this.panelTaPresets.Size = new System.Drawing.Size(327, 26);
+            this.panelTaPresets.TabIndex = 35;
+            this.panelTaPresets.Visible = false;
+            // 
+            // cmbTaPresetsType
+            // 
+            this.cmbTaPresetsType.FormattingEnabled = true;
+            this.cmbTaPresetsType.Location = new System.Drawing.Point(153, 2);
+            this.cmbTaPresetsType.Name = "cmbTaPresetsType";
+            this.cmbTaPresetsType.Size = new System.Drawing.Size(77, 21);
+            this.cmbTaPresetsType.TabIndex = 31;
+            // 
+            // cmbTaPresetsTime
+            // 
+            this.cmbTaPresetsTime.FormattingEnabled = true;
+            this.cmbTaPresetsTime.Location = new System.Drawing.Point(70, 2);
+            this.cmbTaPresetsTime.Name = "cmbTaPresetsTime";
+            this.cmbTaPresetsTime.Size = new System.Drawing.Size(77, 21);
+            this.cmbTaPresetsTime.TabIndex = 30;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(31, 5);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(33, 13);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "Time:";
+            // 
+            // radioButtonTaPresets
+            // 
+            this.radioButtonTaPresets.AutoSize = true;
+            this.radioButtonTaPresets.Location = new System.Drawing.Point(13, 82);
+            this.radioButtonTaPresets.Name = "radioButtonTaPresets";
+            this.radioButtonTaPresets.Size = new System.Drawing.Size(77, 17);
+            this.radioButtonTaPresets.TabIndex = 34;
+            this.radioButtonTaPresets.Text = "TA Presets";
+            this.radioButtonTaPresets.UseVisualStyleBackColor = true;
+            this.radioButtonTaPresets.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
             // ChooseSignal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 155);
+            this.ClientSize = new System.Drawing.Size(457, 221);
+            this.Controls.Add(this.panelTaPresets);
+            this.Controls.Add(this.radioButtonTaPresets);
+            this.Controls.Add(this.panelUlt);
+            this.Controls.Add(this.radioButtonUlt);
             this.Controls.Add(this.panelTradingView);
             this.Controls.Add(this.panelRsi);
             this.Controls.Add(this.button1);
@@ -234,6 +370,11 @@
             this.panelRsi.PerformLayout();
             this.panelTradingView.ResumeLayout(false);
             this.panelTradingView.PerformLayout();
+            this.panelUlt.ResumeLayout(false);
+            this.panelUlt.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUltPoints)).EndInit();
+            this.panelTaPresets.ResumeLayout(false);
+            this.panelTaPresets.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,5 +397,16 @@
         private System.Windows.Forms.ComboBox cmbTradingViewTime;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbTradingViewType;
+        private System.Windows.Forms.Panel panelUlt;
+        private System.Windows.Forms.ComboBox cmbUltTime;
+        private System.Windows.Forms.NumericUpDown numUltPoints;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RadioButton radioButtonUlt;
+        private System.Windows.Forms.Panel panelTaPresets;
+        private System.Windows.Forms.ComboBox cmbTaPresetsType;
+        private System.Windows.Forms.ComboBox cmbTaPresetsTime;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RadioButton radioButtonTaPresets;
     }
 }

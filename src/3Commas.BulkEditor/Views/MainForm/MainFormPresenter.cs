@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -29,14 +30,18 @@ namespace _3Commas.BulkEditor.Views.MainForm
             _keys.Secret3Commas = Properties.Settings.Default.Secret3Commas;
         }
 
-        internal void OnViewReady()
+        internal async Task OnViewReady()
         {
             if (!string.IsNullOrWhiteSpace(_keys.ApiKey3Commas) && !string.IsNullOrWhiteSpace(_keys.Secret3Commas))
             {
-                RefreshBots();
+                await RefreshBots();
             }
         }
-        
+
+        private static void EncryptConfigFile()
+        {
+        }
+
         public async Task On3CommasLinkClicked()
         {
             var settingsPersisted = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ApiKey3Commas);
@@ -50,6 +55,8 @@ namespace _3Commas.BulkEditor.Views.MainForm
                 Properties.Settings.Default.ApiKey3Commas = settings.PersistKeys ? settings.ApiKey : "";
                 Properties.Settings.Default.Secret3Commas = settings.PersistKeys ? settings.Secret : "";
                 Properties.Settings.Default.Save();
+
+                EncryptConfigFile();
 
                 await RefreshBots();
             }

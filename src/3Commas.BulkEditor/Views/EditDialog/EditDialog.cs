@@ -12,6 +12,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
     {
         private readonly int _botCount;
         private readonly IMessageBoxService _mbs = new MessageBoxService();
+        private readonly List<BotStrategy> _startConditions = new List<BotStrategy>();
 
         public EditDialog(int botCount)
         {
@@ -36,6 +37,10 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             numCooldownBetweenDeals.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeCooldownBetweenDeals, nameof(CheckBox.Checked));
             cmbDisableAfterDealsCount.DataBindings.Add(nameof(NumericUpDown.Visible), chkDisableAfterDealsCount, nameof(CheckBox.Checked));
             numDisableAfterDealsCount.DataBindings.Add(nameof(NumericUpDown.Visible), chkDisableAfterDealsCount, nameof(CheckBox.Checked));
+            listViewStartConditions.DataBindings.Add(nameof(ListView.Visible), chkChangeDealStartCondition, nameof(CheckBox.Checked));
+            btnAddStartCondition.DataBindings.Add(nameof(Button.Visible), chkChangeDealStartCondition, nameof(CheckBox.Checked));
+            btnRemoveStartCondition.DataBindings.Add(nameof(Button.Visible), chkChangeDealStartCondition, nameof(CheckBox.Checked));
+            lblStartConditionWarning.DataBindings.Add(nameof(Label.Visible), chkChangeDealStartCondition, nameof(CheckBox.Checked));
 
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
             cmbIsEnabled.Items.Add("Enable");
@@ -86,6 +91,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                     if (chkChangeSafetyOrderVolumeScale.Checked) EditDto.MartingaleVolumeCoefficient = numSafetyOrderVolumeScale.Value;
                     if (chkChangeSafetyOrderStepScale.Checked) EditDto.MartingaleStepCoefficient = numSafetyOrderStepScale.Value;
                     if (chkChangeCooldownBetweenDeals.Checked) EditDto.Cooldown = (int)numCooldownBetweenDeals.Value;
+                    if (chkChangeDealStartCondition.Checked) EditDto.DealStartConditions = _startConditions;
 
                     if (chkDisableAfterDealsCount.Checked)
                     {
@@ -113,6 +119,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             if (chkChangeSafetyOrderSize.Checked && numSafetyOrderVolume.Value == 0) errors.Add("New value for \"Safety order size\" missing.");
             if (chkChangeTrailingEnabled.Checked && cmbTtpEnabled.SelectedItem == null) errors.Add("New value for \"TTP Enabled\" missing.");
             if (chkDisableAfterDealsCount.Checked && cmbDisableAfterDealsCount.SelectedItem == null) errors.Add("New value for \"Open deals & stop\" missing.");
+            if (chkChangeDealStartCondition.Checked && !_startConditions.Any()) errors.Add("New value for \"Deal Start Condition\" missing.");
             
             if (errors.Any())
             {
@@ -131,5 +138,37 @@ namespace _3Commas.BulkEditor.Views.EditDialog
         {
             numDisableAfterDealsCount.Enabled = cmbDisableAfterDealsCount.SelectedItem?.ToString() == "Enable";
         }
+
+        private void btnAddStartCondition_Click(object sender, EventArgs e)
+        {
+            ChooseSignal.ChooseSignal form = new ChooseSignal.ChooseSignal();
+            var dr = form.ShowDialog(this);
+            if (dr == DialogResult.OK)
+            {
+                _startConditions.Add(form.Strategy);
+                RefreshStartConditions(_startConditions);
+            }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            foreach (string hash in SelectedStartConditions)
+            {
+                _startConditions.RemoveAll(x => x.GetHashCode().ToString() == hash);
+            }
+            RefreshStartConditions(_startConditions);
+        }
+
+        public void RefreshStartConditions(List<BotStrategy> startConditions)
+        {
+            listViewStartConditions.Clear();
+
+            foreach (var startCondition in startConditions)
+            {
+                listViewStartConditions.Items.Add(new ListViewItem() { Tag = startCondition, Text = startCondition.Name, Name = startCondition.GetHashCode().ToString() });
+            }
+        }
+
+        public List<string> SelectedStartConditions => listViewStartConditions.SelectedItems.Cast<ListViewItem>().Select(selectedItem => selectedItem.Name).ToList();
     }
 }

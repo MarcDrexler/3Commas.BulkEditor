@@ -54,7 +54,6 @@
             this.numMaxActiveSafetyTradesCount = new System.Windows.Forms.NumericUpDown();
             this.lblMaxSafetyTradesCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCreate = new System.Windows.Forms.Button();
             this.chkChangeStartOrderType = new System.Windows.Forms.CheckBox();
             this.chkChangeBaseOrderSize = new System.Windows.Forms.CheckBox();
             this.chkChangeSafetyOrderSize = new System.Windows.Forms.CheckBox();
@@ -78,6 +77,14 @@
             this.numDisableAfterDealsCount = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbDisableAfterDealsCount = new System.Windows.Forms.ComboBox();
+            this.chkChangeDealStartCondition = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.listViewStartConditions = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lblStartConditionWarning = new System.Windows.Forms.Label();
+            this.btnRemoveStartCondition = new System.Windows.Forms.Button();
+            this.btnAddStartCondition = new System.Windows.Forms.Button();
+            this.btnCreate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).BeginInit();
@@ -436,20 +443,6 @@
             this.label1.TabIndex = 115;
             this.label1.Text = "Enabled";
             // 
-            // btnCreate
-            // 
-            this.btnCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCreate.Image = global::_3Commas.BulkEditor.Properties.Resources.Export_16x16;
-            this.btnCreate.Location = new System.Drawing.Point(344, 468);
-            this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(189, 23);
-            this.btnCreate.TabIndex = 28;
-            this.btnCreate.Text = "Publish new settings to Bots";
-            this.btnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCreate.UseVisualStyleBackColor = true;
-            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
-            // 
             // chkChangeStartOrderType
             // 
             this.chkChangeStartOrderType.AutoSize = true;
@@ -596,7 +589,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(539, 468);
+            this.btnCancel.Location = new System.Drawing.Point(539, 560);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 23);
             this.btnCancel.TabIndex = 29;
@@ -667,11 +660,96 @@
             this.cmbDisableAfterDealsCount.TabIndex = 154;
             this.cmbDisableAfterDealsCount.SelectedValueChanged += new System.EventHandler(this.cmbDisableAfterDealsCount_SelectedValueChanged);
             // 
+            // chkChangeDealStartCondition
+            // 
+            this.chkChangeDealStartCondition.AutoSize = true;
+            this.chkChangeDealStartCondition.Location = new System.Drawing.Point(249, 434);
+            this.chkChangeDealStartCondition.Name = "chkChangeDealStartCondition";
+            this.chkChangeDealStartCondition.Size = new System.Drawing.Size(15, 14);
+            this.chkChangeDealStartCondition.TabIndex = 155;
+            this.chkChangeDealStartCondition.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(144, 434);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(101, 13);
+            this.label6.TabIndex = 157;
+            this.label6.Text = "Deal Start Condition";
+            // 
+            // listViewStartConditions
+            // 
+            this.listViewStartConditions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listViewStartConditions.HideSelection = false;
+            this.listViewStartConditions.Location = new System.Drawing.Point(272, 431);
+            this.listViewStartConditions.Name = "listViewStartConditions";
+            this.listViewStartConditions.Size = new System.Drawing.Size(120, 63);
+            this.listViewStartConditions.TabIndex = 160;
+            this.listViewStartConditions.UseCompatibleStateImageBehavior = false;
+            this.listViewStartConditions.View = System.Windows.Forms.View.List;
+            // 
+            // lblStartConditionWarning
+            // 
+            this.lblStartConditionWarning.Image = global::_3Commas.BulkEditor.Properties.Resources.Warning_16x16;
+            this.lblStartConditionWarning.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblStartConditionWarning.Location = new System.Drawing.Point(269, 497);
+            this.lblStartConditionWarning.Name = "lblStartConditionWarning";
+            this.lblStartConditionWarning.Size = new System.Drawing.Size(243, 19);
+            this.lblStartConditionWarning.TabIndex = 161;
+            this.lblStartConditionWarning.Text = "All existing start conditions will be replaced";
+            this.lblStartConditionWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnRemoveStartCondition
+            // 
+            this.btnRemoveStartCondition.Image = global::_3Commas.BulkEditor.Properties.Resources.Cancel_16x16;
+            this.btnRemoveStartCondition.Location = new System.Drawing.Point(398, 458);
+            this.btnRemoveStartCondition.Name = "btnRemoveStartCondition";
+            this.btnRemoveStartCondition.Size = new System.Drawing.Size(29, 23);
+            this.btnRemoveStartCondition.TabIndex = 159;
+            this.btnRemoveStartCondition.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRemoveStartCondition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRemoveStartCondition.UseVisualStyleBackColor = true;
+            this.btnRemoveStartCondition.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnAddStartCondition
+            // 
+            this.btnAddStartCondition.Image = global::_3Commas.BulkEditor.Properties.Resources.Add_16x16;
+            this.btnAddStartCondition.Location = new System.Drawing.Point(398, 431);
+            this.btnAddStartCondition.Name = "btnAddStartCondition";
+            this.btnAddStartCondition.Size = new System.Drawing.Size(29, 23);
+            this.btnAddStartCondition.TabIndex = 158;
+            this.btnAddStartCondition.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddStartCondition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddStartCondition.UseVisualStyleBackColor = true;
+            this.btnAddStartCondition.Click += new System.EventHandler(this.btnAddStartCondition_Click);
+            // 
+            // btnCreate
+            // 
+            this.btnCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreate.Image = global::_3Commas.BulkEditor.Properties.Resources.Export_16x16;
+            this.btnCreate.Location = new System.Drawing.Point(344, 560);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(189, 23);
+            this.btnCreate.TabIndex = 28;
+            this.btnCreate.Text = "Publish new settings to Bots";
+            this.btnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
+            // 
             // EditDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 503);
+            this.ClientSize = new System.Drawing.Size(639, 595);
+            this.Controls.Add(this.lblStartConditionWarning);
+            this.Controls.Add(this.btnRemoveStartCondition);
+            this.Controls.Add(this.btnAddStartCondition);
+            this.Controls.Add(this.listViewStartConditions);
+            this.Controls.Add(this.chkChangeDealStartCondition);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.cmbDisableAfterDealsCount);
             this.Controls.Add(this.chkDisableAfterDealsCount);
             this.Controls.Add(this.numDisableAfterDealsCount);
@@ -797,5 +875,12 @@
         private System.Windows.Forms.NumericUpDown numDisableAfterDealsCount;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbDisableAfterDealsCount;
+        private System.Windows.Forms.CheckBox chkChangeDealStartCondition;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnRemoveStartCondition;
+        private System.Windows.Forms.Button btnAddStartCondition;
+        private System.Windows.Forms.ListView listViewStartConditions;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.Label lblStartConditionWarning;
     }
 }
