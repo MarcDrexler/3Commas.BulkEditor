@@ -25,7 +25,9 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             lblNamePreview.DataBindings.Add(nameof(Label.Visible), chkChangeName, nameof(CheckBox.Checked));
             cmbStartOrderType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeStartOrderType, nameof(CheckBox.Checked));
             numBaseOrderVolume.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeBaseOrderSize, nameof(CheckBox.Checked));
+            cmbBaseOrderVolumeType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeBaseOrderSizeType, nameof(CheckBox.Checked));
             numSafetyOrderVolume.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeSafetyOrderSize, nameof(CheckBox.Checked));
+            cmbSafetyOrderVolumeType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeSafetyOrderSizeType, nameof(CheckBox.Checked));
             numTargetProfit.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeTargetProfit, nameof(CheckBox.Checked));
             cmbTtpEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeTrailingEnabled, nameof(CheckBox.Checked));
             numTrailingDeviation.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeTrailingDeviation, nameof(CheckBox.Checked));
@@ -43,6 +45,13 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             lblStartConditionWarning.DataBindings.Add(nameof(Label.Visible), chkChangeDealStartCondition, nameof(CheckBox.Checked));
 
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
+            cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.QuoteCurrency, "Quote"));
+            cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.BaseCurrency, "Base"));
+            cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.Percent, "% (Base)"));
+            cmbSafetyOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.QuoteCurrency, "Quote"));
+            cmbSafetyOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.BaseCurrency, "Base"));
+            cmbSafetyOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.Percent, "% (Base)"));
+
             cmbIsEnabled.Items.Add("Enable");
             cmbIsEnabled.Items.Add("Disable");
             cmbTtpEnabled.Items.Add("Enable");
@@ -80,8 +89,16 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                         EditDto.StartOrderType = startOrderType;
                     }
                     if (chkChangeBaseOrderSize.Checked) EditDto.BaseOrderVolume = numBaseOrderVolume.Value;
+                    if (chkChangeBaseOrderSizeType.Checked)
+                    {
+                        EditDto.BaseOrderVolumeType = (VolumeType?) ((ComboBoxItem)cmbBaseOrderVolumeType.SelectedItem).EnumValue;
+                    }
                     if (chkChangeName.Checked) EditDto.Name = txtName.Text;
                     if (chkChangeSafetyOrderSize.Checked) EditDto.SafetyOrderVolume = numSafetyOrderVolume.Value;
+                    if (chkChangeSafetyOrderSizeType.Checked)
+                    {
+                        EditDto.SafetyOrderVolumeType = (VolumeType?)((ComboBoxItem)cmbSafetyOrderVolumeType.SelectedItem).EnumValue;
+                    }
                     if (chkChangeTargetProfit.Checked) EditDto.TakeProfit = numTargetProfit.Value;
                     if (chkChangeTrailingEnabled.Checked) EditDto.TrailingEnabled = cmbTtpEnabled.SelectedItem.ToString() == "Enable" ? true : false;
                     if (chkChangeTrailingDeviation.Checked) EditDto.TrailingDeviation = numTrailingDeviation.Value;
@@ -115,6 +132,8 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             if (chkChangeIsEnabled.Checked && cmbIsEnabled.SelectedItem == null) errors.Add("New value for \"Enabled\" missing.");
             if (chkChangeName.Checked && string.IsNullOrWhiteSpace(txtName.Text)) errors.Add("New value for \"Name\" missing.");
             if (chkChangeStartOrderType.Checked && cmbStartOrderType.SelectedItem == null) errors.Add("New value for \"Start Order Type\" missing.");
+            if (chkChangeBaseOrderSizeType.Checked && cmbBaseOrderVolumeType.SelectedItem == null) errors.Add("New value for \"Base Order Type\" missing.");
+            if (chkChangeSafetyOrderSizeType.Checked && cmbSafetyOrderVolumeType.SelectedItem == null) errors.Add("New value for \"Safety Order Type\" missing.");
             if (chkChangeBaseOrderSize.Checked && numBaseOrderVolume.Value == 0) errors.Add("New value for \"Base order size\" missing.");
             if (chkChangeSafetyOrderSize.Checked && numSafetyOrderVolume.Value == 0) errors.Add("New value for \"Safety order size\" missing.");
             if (chkChangeTrailingEnabled.Checked && cmbTtpEnabled.SelectedItem == null) errors.Add("New value for \"TTP Enabled\" missing.");

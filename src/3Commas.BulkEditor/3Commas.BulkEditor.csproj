@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/bulkeditor/</InstallUrl>
     <ProductName>Bulk Editor</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.22</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.23</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -184,12 +184,16 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="XCommas.Net, Version=1.0.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XCommas.Net.1.0.18\lib\net472\XCommas.Net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\IMessageBoxService.cs" />
     <Compile Include="Infrastructure\MessageBoxService.cs" />
     <Compile Include="Misc\AssemblyHelper.cs" />
     <Compile Include="Misc\BotManager.cs" />
+    <Compile Include="Misc\ComboBoxItem.cs" />
     <Compile Include="Misc\Keys.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -312,12 +316,6 @@
     <None Include="Resources\Cancel_16x16.png" />
     <None Include="Resources\Warning_16x16.png" />
     <Content Include="robot.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj">
-      <Project>{46c6f09f-868f-44af-b08d-37dbe2b6b725}</Project>
-      <Name>XCommas.Net</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
