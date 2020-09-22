@@ -29,6 +29,7 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
             panelUlt.Visible = (sender == radioButtonUlt);
             panelTaPresets.Visible = (sender == radioButtonTaPresets);
             panelTradingView.Visible = (sender == radioButtonTradingView);
+            txtCustom.Visible = (sender == radioButtonCustom);
         }
 
         private void okButton_Click(object sender, EventArgs e)
@@ -95,6 +96,7 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
 
             if (radioButtonManual.Checked) _strategy = new ManualStrategy();
             if (radioButtonNonstop.Checked) _strategy = new NonStopBotStrategy();
+            if (radioButtonCustom.Checked) _strategy = new UnknownStrategy(txtCustom.Text);
 
             this.DialogResult = DialogResult.OK;
         }
