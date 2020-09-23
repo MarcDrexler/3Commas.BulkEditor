@@ -96,7 +96,16 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
 
             if (radioButtonManual.Checked) _strategy = new ManualStrategy();
             if (radioButtonNonstop.Checked) _strategy = new NonStopBotStrategy();
-            if (radioButtonCustom.Checked) _strategy = new UnknownStrategy(txtCustom.Text);
+            
+            if (radioButtonCustom.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtCustom.Text))
+                {
+                    MessageBox.Show("Name is missing");
+                    return;
+                }
+                _strategy = new UnknownStrategy(txtCustom.Text);
+            }
 
             this.DialogResult = DialogResult.OK;
         }
