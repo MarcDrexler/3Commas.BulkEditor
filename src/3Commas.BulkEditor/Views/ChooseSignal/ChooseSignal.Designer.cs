@@ -54,6 +54,8 @@
             this.cmbTaPresetsTime = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.radioButtonTaPresets = new System.Windows.Forms.RadioButton();
+            this.radioButtonCustom = new System.Windows.Forms.RadioButton();
+            this.txtCustom = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numRsiPoints)).BeginInit();
             this.panelRsi.SuspendLayout();
             this.panelTradingView.SuspendLayout();
@@ -342,11 +344,32 @@
             this.radioButtonTaPresets.UseVisualStyleBackColor = true;
             this.radioButtonTaPresets.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
+            // radioButtonCustom
+            // 
+            this.radioButtonCustom.AutoSize = true;
+            this.radioButtonCustom.Location = new System.Drawing.Point(13, 151);
+            this.radioButtonCustom.Name = "radioButtonCustom";
+            this.radioButtonCustom.Size = new System.Drawing.Size(60, 17);
+            this.radioButtonCustom.TabIndex = 36;
+            this.radioButtonCustom.Text = "Custom";
+            this.radioButtonCustom.UseVisualStyleBackColor = true;
+            this.radioButtonCustom.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // txtCustom
+            // 
+            this.txtCustom.Location = new System.Drawing.Point(118, 151);
+            this.txtCustom.Name = "txtCustom";
+            this.txtCustom.Size = new System.Drawing.Size(147, 20);
+            this.txtCustom.TabIndex = 37;
+            this.txtCustom.Visible = false;
+            // 
             // ChooseSignal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(457, 221);
+            this.Controls.Add(this.txtCustom);
+            this.Controls.Add(this.radioButtonCustom);
             this.Controls.Add(this.panelTaPresets);
             this.Controls.Add(this.radioButtonTaPresets);
             this.Controls.Add(this.panelUlt);
@@ -408,5 +431,7 @@
         private System.Windows.Forms.ComboBox cmbTaPresetsTime;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RadioButton radioButtonTaPresets;
+        private System.Windows.Forms.RadioButton radioButtonCustom;
+        private System.Windows.Forms.TextBox txtCustom;
     }
 }
