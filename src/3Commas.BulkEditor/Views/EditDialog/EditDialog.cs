@@ -31,6 +31,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             numTargetProfit.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeTargetProfit, nameof(CheckBox.Checked));
             cmbTtpEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeTrailingEnabled, nameof(CheckBox.Checked));
             numTrailingDeviation.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeTrailingDeviation, nameof(CheckBox.Checked));
+            numStopLoss.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeStopLoss, nameof(CheckBox.Checked));
             numMaxSafetyTradesCount.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeMaxSafetyTradesCount, nameof(CheckBox.Checked));
             numMaxActiveSafetyTradesCount.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeMaxActiveSafetyTradesCount, nameof(CheckBox.Checked));
             numPriceDeviationToOpenSafetyOrders.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangePriceDeviationToOpenSafetyOrders, nameof(CheckBox.Checked));
@@ -102,6 +103,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                     if (chkChangeTargetProfit.Checked) EditDto.TakeProfit = numTargetProfit.Value;
                     if (chkChangeTrailingEnabled.Checked) EditDto.TrailingEnabled = cmbTtpEnabled.SelectedItem.ToString() == "Enable" ? true : false;
                     if (chkChangeTrailingDeviation.Checked) EditDto.TrailingDeviation = numTrailingDeviation.Value;
+                    if (chkChangeStopLoss.Checked) EditDto.StopLossPercentage = numStopLoss.Value;
                     if (chkChangeMaxSafetyTradesCount.Checked) EditDto.MaxSafetyOrders = (int)numMaxSafetyTradesCount.Value;
                     if (chkChangeMaxActiveSafetyTradesCount.Checked) EditDto.ActiveSafetyOrdersCount = (int)numMaxActiveSafetyTradesCount.Value;
                     if (chkChangePriceDeviationToOpenSafetyOrders.Checked) EditDto.SafetyOrderStepPercentage = numPriceDeviationToOpenSafetyOrders.Value;

@@ -16,6 +16,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
         public int? ActiveSafetyOrdersCount { get; set; }
         public int? MaxSafetyOrders { get; set; }
         public decimal? TrailingDeviation { get; set; }
+        public decimal? StopLossPercentage { get; set; }
         public bool? TrailingEnabled { get; set; }
         public decimal? TakeProfit { get; set; }
         public decimal? SafetyOrderVolume { get; set; }

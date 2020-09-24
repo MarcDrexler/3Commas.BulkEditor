@@ -77,6 +77,7 @@ namespace _3Commas.BulkEditor.Views
                 if (_newSettings.SafetyOrderVolume.HasValue) updateData.SafetyOrderVolume = _newSettings.SafetyOrderVolume.Value;
                 if (_newSettings.TakeProfit.HasValue) updateData.TakeProfit = _newSettings.TakeProfit.Value;
                 if (_newSettings.TrailingDeviation.HasValue) updateData.TrailingDeviation = _newSettings.TrailingDeviation.Value;
+                if (_newSettings.StopLossPercentage.HasValue) updateData.StopLossPercentage = _newSettings.StopLossPercentage.Value;
                 if (_newSettings.TrailingEnabled.HasValue) updateData.TrailingEnabled = _newSettings.TrailingEnabled.Value;
                 if (_newSettings.BaseOrderVolumeType.HasValue) updateData.BaseOrderVolumeType = _newSettings.BaseOrderVolumeType.Value; 
                 if (_newSettings.SafetyOrderVolumeType.HasValue) updateData.SafetyOrderVolumeType = _newSettings.SafetyOrderVolumeType.Value;
