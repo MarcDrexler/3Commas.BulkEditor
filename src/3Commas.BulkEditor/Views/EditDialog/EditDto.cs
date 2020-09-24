@@ -27,6 +27,10 @@ namespace _3Commas.BulkEditor.Views.EditDialog
         public List<BotStrategy> DealStartConditions { get; set; } = new List<BotStrategy>();
         public VolumeType? BaseOrderVolumeType { get; set; }
         public VolumeType? SafetyOrderVolumeType { get; set; }
+        public decimal? StopLossPercentage { get; set; }
+        public StopLossType? StopLossType { get; set; }
+        public bool? StopLossTimeoutEnabled { get; set; }
+        public int? StopLossTimeout { get; set; }
     }
 
     public class DisableAfterDealsCountDto

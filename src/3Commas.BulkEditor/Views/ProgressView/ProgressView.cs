@@ -80,7 +80,11 @@ namespace _3Commas.BulkEditor.Views
                 if (_newSettings.TrailingEnabled.HasValue) updateData.TrailingEnabled = _newSettings.TrailingEnabled.Value;
                 if (_newSettings.BaseOrderVolumeType.HasValue) updateData.BaseOrderVolumeType = _newSettings.BaseOrderVolumeType.Value; 
                 if (_newSettings.SafetyOrderVolumeType.HasValue) updateData.SafetyOrderVolumeType = _newSettings.SafetyOrderVolumeType.Value;
-                
+                if (_newSettings.StopLossPercentage.HasValue) updateData.StopLossPercentage = _newSettings.StopLossPercentage.Value;
+                if (_newSettings.StopLossType.HasValue) updateData.StopLossType = _newSettings.StopLossType.Value;
+                if (_newSettings.StopLossTimeoutEnabled.HasValue) updateData.StopLossTimeoutEnabled = _newSettings.StopLossTimeoutEnabled.Value;
+                if (_newSettings.StopLossTimeout.HasValue) updateData.StopLossTimeoutInSeconds = _newSettings.StopLossTimeout.Value;
+
                 if (_newSettings.DisableAfterDealsCountInfo != null)
                 {
                     if (_newSettings.DisableAfterDealsCountInfo.Enable)

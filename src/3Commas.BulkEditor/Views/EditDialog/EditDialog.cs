@@ -43,8 +43,13 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             btnAddStartCondition.DataBindings.Add(nameof(Button.Visible), chkChangeDealStartCondition, nameof(CheckBox.Checked));
             btnRemoveStartCondition.DataBindings.Add(nameof(Button.Visible), chkChangeDealStartCondition, nameof(CheckBox.Checked));
             lblStartConditionWarning.DataBindings.Add(nameof(Label.Visible), chkChangeDealStartCondition, nameof(CheckBox.Checked));
+            numStopLossPercentage.DataBindings.Add(nameof(NumericUpDown.Visible), chkStopLossPercentage, nameof(CheckBox.Checked));
+            cmbStopLossType.DataBindings.Add(nameof(ComboBox.Visible), chkStopLossType, nameof(CheckBox.Checked));
+            cmbStopLossTimeoutEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkStopLossTimeoutEnabled, nameof(CheckBox.Checked));
+            numStopLossTimeout.DataBindings.Add(nameof(NumericUpDown.Visible), chkStopLossTimeout, nameof(CheckBox.Checked));
 
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
+            ControlHelper.AddValuesToCombobox<StopLossType>(cmbStopLossType);
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.QuoteCurrency, "Quote"));
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.BaseCurrency, "Base"));
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.Percent, "% (Base)"));
@@ -58,6 +63,8 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             cmbTtpEnabled.Items.Add("Disable");
             cmbDisableAfterDealsCount.Items.Add("Enable");
             cmbDisableAfterDealsCount.Items.Add("Disable");
+            cmbStopLossTimeoutEnabled.Items.Add("Enable");
+            cmbStopLossTimeoutEnabled.Items.Add("Disable");
         }
 
         public EditDto EditDto { get; set; } = new EditDto();
@@ -109,6 +116,14 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                     if (chkChangeSafetyOrderStepScale.Checked) EditDto.MartingaleStepCoefficient = numSafetyOrderStepScale.Value;
                     if (chkChangeCooldownBetweenDeals.Checked) EditDto.Cooldown = (int)numCooldownBetweenDeals.Value;
                     if (chkChangeDealStartCondition.Checked) EditDto.DealStartConditions = _startConditions;
+                    if (chkStopLossPercentage.Checked) EditDto.StopLossPercentage = numStopLossPercentage.Value;
+                    if (chkStopLossType.Checked)
+                    {
+                        Enum.TryParse(cmbStopLossType.SelectedItem.ToString(), out StopLossType stopLossType);
+                        EditDto.StopLossType = stopLossType;
+                    }
+                    if (chkStopLossTimeoutEnabled.Checked) EditDto.StopLossTimeoutEnabled = cmbStopLossTimeoutEnabled.SelectedItem.ToString() == "Enable" ? true : false;
+                    if (chkStopLossTimeout.Checked) EditDto.StopLossTimeout = (int)numStopLossTimeout.Value;
 
                     if (chkDisableAfterDealsCount.Checked)
                     {
@@ -139,7 +154,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             if (chkChangeTrailingEnabled.Checked && cmbTtpEnabled.SelectedItem == null) errors.Add("New value for \"TTP Enabled\" missing.");
             if (chkDisableAfterDealsCount.Checked && cmbDisableAfterDealsCount.SelectedItem == null) errors.Add("New value for \"Open deals & stop\" missing.");
             if (chkChangeDealStartCondition.Checked && !_startConditions.Any()) errors.Add("New value for \"Deal Start Condition\" missing.");
-            
+
             if (errors.Any())
             {
                 _mbs.ShowError(String.Join(Environment.NewLine, errors), "Validation Error");
