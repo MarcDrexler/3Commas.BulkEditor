@@ -84,6 +84,8 @@ namespace _3Commas.BulkEditor.Views
                 if (_newSettings.StopLossType.HasValue) updateData.StopLossType = _newSettings.StopLossType.Value;
                 if (_newSettings.StopLossTimeoutEnabled.HasValue) updateData.StopLossTimeoutEnabled = _newSettings.StopLossTimeoutEnabled.Value;
                 if (_newSettings.StopLossTimeout.HasValue) updateData.StopLossTimeoutInSeconds = _newSettings.StopLossTimeout.Value;
+                if (_newSettings.LeverageType.HasValue) updateData.LeverageType = _newSettings.LeverageType.Value;
+                if (_newSettings.LeverageCustomValue.HasValue) updateData.LeverageCustomValue = _newSettings.LeverageCustomValue.Value;
 
                 if (_newSettings.DisableAfterDealsCountInfo != null)
                 {

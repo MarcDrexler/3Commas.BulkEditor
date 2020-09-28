@@ -103,6 +103,12 @@
             this.chkStopLossTimeout = new System.Windows.Forms.CheckBox();
             this.numStopLossTimeout = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
+            this.chkChangeCustomLeverageValue = new System.Windows.Forms.CheckBox();
+            this.numLeverageCustomValue = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmbLeverageType = new System.Windows.Forms.ComboBox();
+            this.chkChangeLeverageType = new System.Windows.Forms.CheckBox();
+            this.label22 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).BeginInit();
@@ -116,6 +122,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDisableAfterDealsCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossPercentage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossTimeout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLeverageCustomValue)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -609,10 +616,10 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(539, 725);
+            this.btnCancel.Location = new System.Drawing.Point(539, 751);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 23);
-            this.btnCancel.TabIndex = 48;
+            this.btnCancel.TabIndex = 52;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -655,7 +662,7 @@
             0});
             this.numDisableAfterDealsCount.Name = "numDisableAfterDealsCount";
             this.numDisableAfterDealsCount.Size = new System.Drawing.Size(48, 20);
-            this.numDisableAfterDealsCount.TabIndex = 44;
+            this.numDisableAfterDealsCount.TabIndex = 48;
             this.numDisableAfterDealsCount.Value = new decimal(new int[] {
             1,
             0,
@@ -683,16 +690,16 @@
             // chkChangeDealStartCondition
             // 
             this.chkChangeDealStartCondition.AutoSize = true;
-            this.chkChangeDealStartCondition.Location = new System.Drawing.Point(249, 594);
+            this.chkChangeDealStartCondition.Location = new System.Drawing.Point(249, 647);
             this.chkChangeDealStartCondition.Name = "chkChangeDealStartCondition";
             this.chkChangeDealStartCondition.Size = new System.Drawing.Size(15, 14);
-            this.chkChangeDealStartCondition.TabIndex = 42;
+            this.chkChangeDealStartCondition.TabIndex = 46;
             this.chkChangeDealStartCondition.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(144, 594);
+            this.label6.Location = new System.Drawing.Point(144, 647);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 13);
             this.label6.TabIndex = 157;
@@ -703,10 +710,10 @@
             this.listViewStartConditions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listViewStartConditions.HideSelection = false;
-            this.listViewStartConditions.Location = new System.Drawing.Point(272, 591);
+            this.listViewStartConditions.Location = new System.Drawing.Point(272, 644);
             this.listViewStartConditions.Name = "listViewStartConditions";
             this.listViewStartConditions.Size = new System.Drawing.Size(121, 63);
-            this.listViewStartConditions.TabIndex = 43;
+            this.listViewStartConditions.TabIndex = 47;
             this.listViewStartConditions.UseCompatibleStateImageBehavior = false;
             this.listViewStartConditions.View = System.Windows.Forms.View.List;
             // 
@@ -714,7 +721,7 @@
             // 
             this.lblStartConditionWarning.Image = global::_3Commas.BulkEditor.Properties.Resources.Warning_16x16;
             this.lblStartConditionWarning.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblStartConditionWarning.Location = new System.Drawing.Point(269, 657);
+            this.lblStartConditionWarning.Location = new System.Drawing.Point(269, 710);
             this.lblStartConditionWarning.Name = "lblStartConditionWarning";
             this.lblStartConditionWarning.Size = new System.Drawing.Size(243, 19);
             this.lblStartConditionWarning.TabIndex = 161;
@@ -724,10 +731,10 @@
             // btnRemoveStartCondition
             // 
             this.btnRemoveStartCondition.Image = global::_3Commas.BulkEditor.Properties.Resources.Cancel_16x16;
-            this.btnRemoveStartCondition.Location = new System.Drawing.Point(398, 618);
+            this.btnRemoveStartCondition.Location = new System.Drawing.Point(398, 671);
             this.btnRemoveStartCondition.Name = "btnRemoveStartCondition";
             this.btnRemoveStartCondition.Size = new System.Drawing.Size(29, 23);
-            this.btnRemoveStartCondition.TabIndex = 46;
+            this.btnRemoveStartCondition.TabIndex = 50;
             this.btnRemoveStartCondition.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRemoveStartCondition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRemoveStartCondition.UseVisualStyleBackColor = true;
@@ -736,10 +743,10 @@
             // btnAddStartCondition
             // 
             this.btnAddStartCondition.Image = global::_3Commas.BulkEditor.Properties.Resources.Add_16x16;
-            this.btnAddStartCondition.Location = new System.Drawing.Point(398, 591);
+            this.btnAddStartCondition.Location = new System.Drawing.Point(398, 644);
             this.btnAddStartCondition.Name = "btnAddStartCondition";
             this.btnAddStartCondition.Size = new System.Drawing.Size(29, 23);
-            this.btnAddStartCondition.TabIndex = 45;
+            this.btnAddStartCondition.TabIndex = 49;
             this.btnAddStartCondition.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAddStartCondition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddStartCondition.UseVisualStyleBackColor = true;
@@ -749,10 +756,10 @@
             // 
             this.btnCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreate.Image = global::_3Commas.BulkEditor.Properties.Resources.Export_16x16;
-            this.btnCreate.Location = new System.Drawing.Point(344, 725);
+            this.btnCreate.Location = new System.Drawing.Point(344, 751);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(189, 23);
-            this.btnCreate.TabIndex = 47;
+            this.btnCreate.TabIndex = 51;
             this.btnCreate.Text = "Publish new settings to Bots";
             this.btnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -926,11 +933,73 @@
             this.label21.TabIndex = 182;
             this.label21.Text = "Stop Loss Timeout (seconds)";
             // 
+            // chkChangeCustomLeverageValue
+            // 
+            this.chkChangeCustomLeverageValue.AutoSize = true;
+            this.chkChangeCustomLeverageValue.Location = new System.Drawing.Point(249, 621);
+            this.chkChangeCustomLeverageValue.Name = "chkChangeCustomLeverageValue";
+            this.chkChangeCustomLeverageValue.Size = new System.Drawing.Size(15, 14);
+            this.chkChangeCustomLeverageValue.TabIndex = 44;
+            this.chkChangeCustomLeverageValue.UseVisualStyleBackColor = true;
+            // 
+            // numLeverageCustomValue
+            // 
+            this.numLeverageCustomValue.Location = new System.Drawing.Point(272, 618);
+            this.numLeverageCustomValue.Maximum = new decimal(new int[] {
+            2591999,
+            0,
+            0,
+            0});
+            this.numLeverageCustomValue.Name = "numLeverageCustomValue";
+            this.numLeverageCustomValue.Size = new System.Drawing.Size(121, 20);
+            this.numLeverageCustomValue.TabIndex = 45;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(125, 621);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(120, 13);
+            this.label10.TabIndex = 188;
+            this.label10.Text = "Leverage Custom Value";
+            // 
+            // cmbLeverageType
+            // 
+            this.cmbLeverageType.FormattingEnabled = true;
+            this.cmbLeverageType.Location = new System.Drawing.Point(272, 591);
+            this.cmbLeverageType.Name = "cmbLeverageType";
+            this.cmbLeverageType.Size = new System.Drawing.Size(121, 21);
+            this.cmbLeverageType.TabIndex = 43;
+            // 
+            // chkChangeLeverageType
+            // 
+            this.chkChangeLeverageType.AutoSize = true;
+            this.chkChangeLeverageType.Location = new System.Drawing.Point(249, 595);
+            this.chkChangeLeverageType.Name = "chkChangeLeverageType";
+            this.chkChangeLeverageType.Size = new System.Drawing.Size(15, 14);
+            this.chkChangeLeverageType.TabIndex = 42;
+            this.chkChangeLeverageType.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(165, 595);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(79, 13);
+            this.label22.TabIndex = 187;
+            this.label22.Text = "Leverage Type";
+            // 
             // EditDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 760);
+            this.ClientSize = new System.Drawing.Size(639, 786);
+            this.Controls.Add(this.chkChangeCustomLeverageValue);
+            this.Controls.Add(this.numLeverageCustomValue);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.cmbLeverageType);
+            this.Controls.Add(this.chkChangeLeverageType);
+            this.Controls.Add(this.label22);
             this.Controls.Add(this.numStopLossPercentage);
             this.Controls.Add(this.chkStopLossTimeout);
             this.Controls.Add(this.label11);
@@ -1026,6 +1095,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDisableAfterDealsCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossPercentage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossTimeout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLeverageCustomValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1107,5 +1177,11 @@
         private System.Windows.Forms.CheckBox chkStopLossTimeout;
         private System.Windows.Forms.NumericUpDown numStopLossTimeout;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.CheckBox chkChangeCustomLeverageValue;
+        private System.Windows.Forms.NumericUpDown numLeverageCustomValue;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cmbLeverageType;
+        private System.Windows.Forms.CheckBox chkChangeLeverageType;
+        private System.Windows.Forms.Label label22;
     }
 }

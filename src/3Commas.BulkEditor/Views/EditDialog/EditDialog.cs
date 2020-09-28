@@ -47,9 +47,12 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             cmbStopLossType.DataBindings.Add(nameof(ComboBox.Visible), chkStopLossType, nameof(CheckBox.Checked));
             cmbStopLossTimeoutEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkStopLossTimeoutEnabled, nameof(CheckBox.Checked));
             numStopLossTimeout.DataBindings.Add(nameof(NumericUpDown.Visible), chkStopLossTimeout, nameof(CheckBox.Checked));
+            cmbLeverageType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeLeverageType, nameof(CheckBox.Checked));
+            numLeverageCustomValue.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeCustomLeverageValue, nameof(CheckBox.Checked));
 
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
             ControlHelper.AddValuesToCombobox<StopLossType>(cmbStopLossType);
+            ControlHelper.AddValuesToCombobox<LeverageType>(cmbLeverageType);
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.QuoteCurrency, "Quote"));
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.BaseCurrency, "Base"));
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.Percent, "% (Base)"));
@@ -117,6 +120,12 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                     if (chkChangeCooldownBetweenDeals.Checked) EditDto.Cooldown = (int)numCooldownBetweenDeals.Value;
                     if (chkChangeDealStartCondition.Checked) EditDto.DealStartConditions = _startConditions;
                     if (chkStopLossPercentage.Checked) EditDto.StopLossPercentage = numStopLossPercentage.Value;
+                    if (chkChangeLeverageType.Checked)
+                    {
+                        Enum.TryParse(cmbLeverageType.SelectedItem.ToString(), out LeverageType leverageType);
+                        EditDto.LeverageType = leverageType;
+                    }
+                    if (chkChangeCustomLeverageValue.Checked) EditDto.LeverageCustomValue = numLeverageCustomValue.Value;
                     if (chkStopLossType.Checked)
                     {
                         Enum.TryParse(cmbStopLossType.SelectedItem.ToString(), out StopLossType stopLossType);
@@ -154,6 +163,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             if (chkChangeTrailingEnabled.Checked && cmbTtpEnabled.SelectedItem == null) errors.Add("New value for \"TTP Enabled\" missing.");
             if (chkDisableAfterDealsCount.Checked && cmbDisableAfterDealsCount.SelectedItem == null) errors.Add("New value for \"Open deals & stop\" missing.");
             if (chkChangeDealStartCondition.Checked && !_startConditions.Any()) errors.Add("New value for \"Deal Start Condition\" missing.");
+            if (chkChangeLeverageType.Checked && cmbLeverageType.SelectedItem == null) errors.Add("New value for \"Leverage Type\" missing.");
 
             if (errors.Any())
             {

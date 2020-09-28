@@ -31,6 +31,8 @@ namespace _3Commas.BulkEditor.Views.EditDialog
         public StopLossType? StopLossType { get; set; }
         public bool? StopLossTimeoutEnabled { get; set; }
         public int? StopLossTimeout { get; set; }
+        public LeverageType? LeverageType { get; set; }
+        public decimal? LeverageCustomValue { get; set; }
     }
 
     public class DisableAfterDealsCountDto
