@@ -383,7 +383,7 @@
             // 
             // numTrailingDeviation
             // 
-            this.numTrailingDeviation.DecimalPlaces = 1;
+            this.numTrailingDeviation.DecimalPlaces = 2;
             this.numTrailingDeviation.Location = new System.Drawing.Point(272, 276);
             this.numTrailingDeviation.Maximum = new decimal(new int[] {
             99,
@@ -399,10 +399,10 @@
             this.numTrailingDeviation.Size = new System.Drawing.Size(121, 20);
             this.numTrailingDeviation.TabIndex = 19;
             this.numTrailingDeviation.Value = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
-            65536});
+            131072});
             // 
             // label18
             // 

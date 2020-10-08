@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
-using AutoMapper;
-using AutoMapper.Configuration;
 using XCommas.Net.Objects;
 
 namespace _3Commas.BulkEditor.Views.MainForm

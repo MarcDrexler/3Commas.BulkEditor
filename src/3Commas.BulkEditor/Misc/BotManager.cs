@@ -80,5 +80,10 @@ namespace _3Commas.BulkEditor.Misc
         {
             return pattern.Replace("{strategy}", strategy).Replace("{pair}", pair);
         }
+
+        public async Task<Bot> GetBotById(int botId)
+        {
+            return (await _3CommasClient.ShowBotAsync(botId)).Data;
+        }
     }
 }

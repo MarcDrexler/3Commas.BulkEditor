@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
@@ -101,31 +98,38 @@ namespace _3Commas.BulkEditor.Views.MainForm
         {
             var ids = View.SelectedBotIds;
 
+            if (IsValid(ids))
+            {
+                var dlg = new EditDialog.EditDialog(ids.Count);
+                EditDto editData = new EditDto();
+                dlg.EditDto = editData;
+                var dr = dlg.ShowDialog(View);
+                if (dr == DialogResult.OK)
+                {
+                    var loadingView = new ProgressView(ids, editData, _keys, _logger);
+                    loadingView.ShowDialog(View);
+
+                    _logger.LogInformation("Refreshing Bots");
+                    await RefreshBots();
+                }
+            }
+        }
+
+        private bool IsValid(List<int> ids)
+        {
             if (!ids.Any())
             {
                 _mbs.ShowInformation("No Bots selected");
-                return;
+                return false;
             }
 
-            var botsToEdit = _bots.Where(x => ids.Contains(x.Id)).ToList();
-            if (botsToEdit.Any(x => x.Type != "Bot::SingleBot"))
+            if (_bots.Where(x => ids.Contains(x.Id)).Any(x => x.Type != "Bot::SingleBot"))
             {
                 _mbs.ShowError("Sorry, Bulk Edit only works for Simple Bots, not advanced.");
-                return;
+                return false;
             }
 
-            var dlg = new EditDialog.EditDialog(botsToEdit.Count);
-            EditDto editData = new EditDto();
-            dlg.EditDto = editData;
-            var dr = dlg.ShowDialog(View);
-            if (dr == DialogResult.OK)
-            {
-                var loadingView = new ProgressView(botsToEdit, editData, _keys, _logger);
-                loadingView.ShowDialog(View);
-
-                _logger.LogInformation("Refreshing Bots");
-                await RefreshBots();
-            }
+            return true;
         }
 
         public async Task OnRefresh()

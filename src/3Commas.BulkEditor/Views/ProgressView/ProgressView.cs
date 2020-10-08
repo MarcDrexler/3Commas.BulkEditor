@@ -12,14 +12,14 @@ namespace _3Commas.BulkEditor.Views
 {
     public partial class ProgressView : Form
     {
-        private readonly List<Bot> _bots;
+        private readonly List<int> _bots;
         private readonly EditDto _newSettings;
         private readonly Misc.Keys _keys;
         private readonly ILogger _logger;
         private bool _cancelled;
         private MessageBoxService _mbs;
 
-        public ProgressView(List<Bot> bots, EditDto newSettings, Misc.Keys keys, ILogger logger)
+        public ProgressView(List<int> bots, EditDto newSettings, Misc.Keys keys, ILogger logger)
         {
             _bots = bots;
             _newSettings = newSettings;
@@ -35,7 +35,7 @@ namespace _3Commas.BulkEditor.Views
             progressBar.Maximum = _bots.Count;
 
             int i = 0;
-            foreach (var bot in _bots)
+            foreach (var botId in _bots)
             {
                 i++;
                 progressBar.Value = i;
@@ -56,14 +56,15 @@ namespace _3Commas.BulkEditor.Views
                 {
                     if (_newSettings.IsEnabled.Value)
                     {
-                        await botMgr.Enable(bot.Id);
+                        await botMgr.Enable(botId);
                     }
                     else
                     {
-                        await botMgr.Disable(bot.Id);
+                        await botMgr.Disable(botId);
                     }
                 }
 
+                var bot = await botMgr.GetBotById(botId);
                 var updateData = new BotUpdateData(bot);
                 if (_newSettings.ActiveSafetyOrdersCount.HasValue) updateData.ActiveSafetyOrdersCount = _newSettings.ActiveSafetyOrdersCount.Value;
                 if (_newSettings.BaseOrderVolume.HasValue) updateData.BaseOrderVolume = _newSettings.BaseOrderVolume.Value;
@@ -105,14 +106,14 @@ namespace _3Commas.BulkEditor.Views
                     updateData.Strategies.AddRange(_newSettings.DealStartConditions);
                 }
 
-                var res = await botMgr.SaveBot(bot.Id, updateData);
+                var res = await botMgr.SaveBot(botId, updateData);
                 if (res.IsSuccess)
                 {
-                    _logger.LogInformation($"Bot {bot.Id} updated");
+                    _logger.LogInformation($"Bot {botId} updated");
                 }
                 else
                 {
-                    _logger.LogError($"Could not update Bot {bot.Id}. Reason: {res.Error}");
+                    _logger.LogError($"Could not update Bot {botId}. Reason: {res.Error}");
                 }
             }
 

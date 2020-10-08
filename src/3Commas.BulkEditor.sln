@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3Commas.BulkEditor", "3Commas.BulkEditor\3Commas.BulkEditor.csproj", "{02D16940-5926-45EA-A706-21B8D3E1F643}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCommas.Net", "..\..\3Commas.Net\XCommas.Net\XCommas.Net\XCommas.Net.csproj", "{5F80C832-113F-49A0-98D2-771E02AC56AE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{02D16940-5926-45EA-A706-21B8D3E1F643}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D16940-5926-45EA-A706-21B8D3E1F643}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02D16940-5926-45EA-A706-21B8D3E1F643}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F80C832-113F-49A0-98D2-771E02AC56AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F80C832-113F-49A0-98D2-771E02AC56AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F80C832-113F-49A0-98D2-771E02AC56AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F80C832-113F-49A0-98D2-771E02AC56AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
