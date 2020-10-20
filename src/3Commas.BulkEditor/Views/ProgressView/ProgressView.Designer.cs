@@ -1,4 +1,4 @@
-﻿namespace _3Commas.BulkEditor.Views
+﻿namespace _3Commas.BulkEditor.Views.ProgressView
 {
     partial class ProgressView
     {
@@ -61,7 +61,7 @@
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(287, 19);
             this.lblProgress.TabIndex = 2;
-            this.lblProgress.Text = "Applying new settings. Please wait ...";
+            this.lblProgress.Text = "<Text>";
             this.lblProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClose
@@ -102,7 +102,9 @@
             this.Name = "ProgressView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Saving";
-            this.Load += new System.EventHandler(this.LoadingView_Load);
+            this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProgressView_FormClosed);
+            this.Load += new System.EventHandler(this.ProgressView_Load);
             this.ResumeLayout(false);
 
         }

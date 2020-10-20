@@ -41,6 +41,9 @@
             this.lblVisibleBotCount = new System.Windows.Forms.Label();
             this.lblFilterActive = new System.Windows.Forms.Label();
             this.lblSelectedBotCount = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnCopy = new System.Windows.Forms.Button();
             this.btnClearFilter = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -62,12 +65,12 @@
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
+            this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtOutput.Size = new System.Drawing.Size(1008, 172);
             this.txtOutput.TabIndex = 0;
             // 
             // groupBoxCredentials
             // 
-            this.groupBoxCredentials.Controls.Add(this.pbLoading);
             this.groupBoxCredentials.Controls.Add(this.linkLabel3Commas);
             this.groupBoxCredentials.Controls.Add(this.pictureBox1);
             this.groupBoxCredentials.Location = new System.Drawing.Point(12, 12);
@@ -79,10 +82,14 @@
             // 
             // pbLoading
             // 
+            this.pbLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbLoading.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pbLoading.Image = global::_3Commas.BulkEditor.Properties.Resources.loader2;
-            this.pbLoading.Location = new System.Drawing.Point(121, 14);
+            this.pbLoading.Location = new System.Drawing.Point(13, 136);
             this.pbLoading.Name = "pbLoading";
-            this.pbLoading.Size = new System.Drawing.Size(56, 58);
+            this.pbLoading.Size = new System.Drawing.Size(1006, 327);
             this.pbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pbLoading.TabIndex = 65;
             this.pbLoading.TabStop = false;
@@ -181,6 +188,46 @@
             this.lblSelectedBotCount.TabIndex = 72;
             this.lblSelectedBotCount.Text = "0 Bots selected";
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(347, 491);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 76;
+            this.label1.Text = "Actions:";
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Image = global::_3Commas.BulkEditor.Properties.Resources.Delete_16x16;
+            this.btnDelete.Location = new System.Drawing.Point(544, 485);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(67, 25);
+            this.btnDelete.TabIndex = 77;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCopy.Enabled = false;
+            this.btnCopy.Image = global::_3Commas.BulkEditor.Properties.Resources.Copy_16x16;
+            this.btnCopy.Location = new System.Drawing.Point(471, 485);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(67, 25);
+            this.btnCopy.TabIndex = 75;
+            this.btnCopy.Text = "Copy";
+            this.btnCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
             // btnClearFilter
             // 
             this.btnClearFilter.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -215,12 +262,12 @@
             // 
             this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEdit.Enabled = false;
-            this.btnEdit.Image = global::_3Commas.BulkEditor.Properties.Resources.EditDataSource_16x16;
-            this.btnEdit.Location = new System.Drawing.Point(120, 485);
+            this.btnEdit.Image = global::_3Commas.BulkEditor.Properties.Resources.Edit_16x16;
+            this.btnEdit.Location = new System.Drawing.Point(398, 485);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(141, 25);
+            this.btnEdit.Size = new System.Drawing.Size(67, 25);
             this.btnEdit.TabIndex = 69;
-            this.btnEdit.Text = "Change Bot Settings";
+            this.btnEdit.Text = "Edit";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -263,6 +310,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1032, 777);
+            this.Controls.Add(this.pbLoading);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.btnClearFilter);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblSelectedBotCount);
@@ -311,6 +362,9 @@
         private System.Windows.Forms.PictureBox pbLoading;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnClearFilter;
+        private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 

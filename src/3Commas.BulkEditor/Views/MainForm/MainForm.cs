@@ -133,7 +133,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
             txtOutput.Clear();
         }
 
-        public void SetCreateInProgress(bool inProgress)
+        public void SetOperationInProgress(bool inProgress)
         {
             Cursor.Current = inProgress ? Cursors.WaitCursor : Cursors.Default;
             pbLoading.Visible = inProgress;
@@ -141,7 +141,9 @@ namespace _3Commas.BulkEditor.Views.MainForm
             grid.Enabled = !inProgress;
             Application.DoEvents();
             btnEdit.Enabled = !inProgress;
+            btnCopy.Enabled = !inProgress;
             btnRefresh.Enabled = !inProgress;
+            btnDelete.Enabled = !inProgress;
         }
 
         public void SetVisibleCount(int count)
@@ -201,6 +203,16 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
             await _presenter.OnRefresh();
+        }
+
+        private async void btnCopy_Click(object sender, EventArgs e)
+        {
+            await _presenter.OnCopy();
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            await _presenter.OnDelete();
         }
     }
 }

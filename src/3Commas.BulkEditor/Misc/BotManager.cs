@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using XCommas.Net;
@@ -26,6 +27,25 @@ namespace _3Commas.BulkEditor.Misc
         public async Task<XCommasResponse<Bot>> Disable(int botId)
         {
             return await _3CommasClient.DisableBotAsync(botId);
+        }
+
+        public async Task<List<Account>> RetrieveAccounts()
+        {
+            var accounts = new List<Account>();
+
+            var response = await _3CommasClient.GetAccountsAsync();
+            _logger.LogInformation("Retrieving exchange information from 3Commas...");
+            if (!response.IsSuccess)
+            {
+                this._logger.LogError("Problem with 3Commas connection: " + response.Error);
+            }
+            else
+            {
+                _logger.LogInformation($"{response.Data.Length} Exchanges found");
+                accounts = response.Data.ToList();
+            }
+
+            return accounts;
         }
 
         private async Task<List<Bot>> GetBotsByStrategyAndScope(Strategy strategy, BotScope scope)
@@ -76,6 +96,11 @@ namespace _3Commas.BulkEditor.Misc
             return await _3CommasClient.UpdateBotAsync(botId, updateData);
         }
 
+        public async Task<XCommasResponse<bool>> DeleteBot(int botId)
+        {
+            return await _3CommasClient.DeleteBotAsync(botId);
+        }
+
         public static string GenerateNewName(string pattern, string strategy, string pair)
         {
             return pattern.Replace("{strategy}", strategy).Replace("{pair}", pair);
@@ -84,6 +109,11 @@ namespace _3Commas.BulkEditor.Misc
         public async Task<Bot> GetBotById(int botId)
         {
             return (await _3CommasClient.ShowBotAsync(botId)).Data;
+        }
+
+        public async Task<XCommasResponse<Bot>> CreateBot(int accountId, Strategy strategy, BotData botData)
+        {
+            return (await _3CommasClient.CreateBotAsync(accountId, strategy, botData));
         }
     }
 }

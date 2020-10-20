@@ -213,6 +213,12 @@
       <DependentUpon>ChooseSignal.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\ControlHelper.cs" />
+    <Compile Include="Views\ChooseAccount\ChooseAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ChooseAccount\ChooseAccount.Designer.cs">
+      <DependentUpon>ChooseAccount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditDialog\EditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ChooseSignal\ChooseSignal.resx">
       <DependentUpon>ChooseSignal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ChooseAccount\ChooseAccount.resx">
+      <DependentUpon>ChooseAccount.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditDialog\EditDialog.resx">
       <DependentUpon>EditDialog.cs</DependentUpon>
@@ -315,7 +324,11 @@
     <None Include="Resources\Add_16x16.png" />
     <None Include="Resources\Cancel_16x16.png" />
     <None Include="Resources\Warning_16x16.png" />
+    <None Include="Resources\Copy_16x16.png" />
+    <None Include="Resources\Delete_16x16.png" />
+    <None Include="Resources\Edit_16x16.png" />
     <Content Include="robot.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

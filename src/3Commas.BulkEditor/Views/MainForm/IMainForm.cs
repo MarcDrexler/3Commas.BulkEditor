@@ -10,7 +10,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
         void SetTotalBotCount(int count);
         void RefreshBotGrid(List<Bot> bots);
         void ClearLog();
-        void SetCreateInProgress(bool inProgress);
+        void SetOperationInProgress(bool inProgress);
         void SetVisibleCount(int count);
         void ShowFilterInformation(bool show);
         void SetSelectedRowCount(int count);
