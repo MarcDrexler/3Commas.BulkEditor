@@ -18,7 +18,9 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 - View all of your simple 3Commas bots
 - Filtering, sorting, etc
-- Bulk Edit of selected bots
+- Bulk Edit
+- Bulk Copy
+- Bulk Delete
 
 ## Screenshots
 
