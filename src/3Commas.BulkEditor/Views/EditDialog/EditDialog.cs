@@ -29,6 +29,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             numSafetyOrderVolume.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeSafetyOrderSize, nameof(CheckBox.Checked));
             cmbSafetyOrderVolumeType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeSafetyOrderSizeType, nameof(CheckBox.Checked));
             numTargetProfit.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeTargetProfit, nameof(CheckBox.Checked));
+            cmbTakeProfitType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeTakeProfitType, nameof(CheckBox.Checked));
             cmbTtpEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeTrailingEnabled, nameof(CheckBox.Checked));
             numTrailingDeviation.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeTrailingDeviation, nameof(CheckBox.Checked));
             numMaxSafetyTradesCount.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeMaxSafetyTradesCount, nameof(CheckBox.Checked));
@@ -51,6 +52,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             numLeverageCustomValue.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeCustomLeverageValue, nameof(CheckBox.Checked));
 
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
+            ControlHelper.AddValuesToCombobox<TakeProfitType>(cmbTakeProfitType);
             ControlHelper.AddValuesToCombobox<StopLossType>(cmbStopLossType);
             ControlHelper.AddValuesToCombobox<LeverageType>(cmbLeverageType);
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.QuoteCurrency, "Quote"));
@@ -110,6 +112,11 @@ namespace _3Commas.BulkEditor.Views.EditDialog
                         EditDto.SafetyOrderVolumeType = (VolumeType?)((ComboBoxItem)cmbSafetyOrderVolumeType.SelectedItem).EnumValue;
                     }
                     if (chkChangeTargetProfit.Checked) EditDto.TakeProfit = numTargetProfit.Value;
+                    if (chkChangeTakeProfitType.Checked)
+                    {
+                        Enum.TryParse(cmbTakeProfitType.SelectedItem.ToString(), out TakeProfitType takeProfitType);
+                        EditDto.TakeProfitType = takeProfitType;
+                    }
                     if (chkChangeTrailingEnabled.Checked) EditDto.TrailingEnabled = cmbTtpEnabled.SelectedItem.ToString() == "Enable" ? true : false;
                     if (chkChangeTrailingDeviation.Checked) EditDto.TrailingDeviation = numTrailingDeviation.Value;
                     if (chkChangeMaxSafetyTradesCount.Checked) EditDto.MaxSafetyOrders = (int)numMaxSafetyTradesCount.Value;
@@ -155,6 +162,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
 
             if (chkChangeIsEnabled.Checked && cmbIsEnabled.SelectedItem == null) errors.Add("New value for \"Enabled\" missing.");
             if (chkChangeName.Checked && string.IsNullOrWhiteSpace(txtName.Text)) errors.Add("New value for \"Name\" missing.");
+            if (chkChangeTakeProfitType.Checked && cmbTakeProfitType.SelectedItem == null) errors.Add("New value for \"Take Profit Type\" missing.");
             if (chkChangeStartOrderType.Checked && cmbStartOrderType.SelectedItem == null) errors.Add("New value for \"Start Order Type\" missing.");
             if (chkChangeBaseOrderSizeType.Checked && cmbBaseOrderVolumeType.SelectedItem == null) errors.Add("New value for \"Base Order Type\" missing.");
             if (chkChangeSafetyOrderSizeType.Checked && cmbSafetyOrderVolumeType.SelectedItem == null) errors.Add("New value for \"Safety Order Type\" missing.");

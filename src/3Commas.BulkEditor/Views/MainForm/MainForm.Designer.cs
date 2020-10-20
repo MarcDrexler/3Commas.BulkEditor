@@ -50,11 +50,15 @@
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxCredentials.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtOutput
@@ -190,9 +194,8 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(347, 491);
+            this.label1.Location = new System.Drawing.Point(44, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 76;
@@ -200,10 +203,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDelete.Enabled = false;
             this.btnDelete.Image = global::_3Commas.BulkEditor.Properties.Resources.Delete_16x16;
-            this.btnDelete.Location = new System.Drawing.Point(544, 485);
+            this.btnDelete.Location = new System.Drawing.Point(241, 5);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(67, 25);
             this.btnDelete.TabIndex = 77;
@@ -215,10 +217,9 @@
             // 
             // btnCopy
             // 
-            this.btnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCopy.Enabled = false;
             this.btnCopy.Image = global::_3Commas.BulkEditor.Properties.Resources.Copy_16x16;
-            this.btnCopy.Location = new System.Drawing.Point(471, 485);
+            this.btnCopy.Location = new System.Drawing.Point(168, 5);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(67, 25);
             this.btnCopy.TabIndex = 75;
@@ -260,10 +261,9 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEdit.Enabled = false;
             this.btnEdit.Image = global::_3Commas.BulkEditor.Properties.Resources.Edit_16x16;
-            this.btnEdit.Location = new System.Drawing.Point(398, 485);
+            this.btnEdit.Location = new System.Drawing.Point(95, 5);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(67, 25);
             this.btnEdit.TabIndex = 69;
@@ -305,21 +305,45 @@
             // 
             this.bindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.bindingSource1_ListChanged);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnCopy);
+            this.panel1.Controls.Add(this.btnEdit);
+            this.panel1.Controls.Add(this.btnDelete);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(203, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(360, 34);
+            this.panel1.TabIndex = 78;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(141, 485);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 40);
+            this.tableLayoutPanel1.TabIndex = 79;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1032, 777);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pbLoading);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.btnClearFilter);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblSelectedBotCount);
             this.Controls.Add(this.lblFilterActive);
             this.Controls.Add(this.lblVisibleBotCount);
-            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.grid);
             this.Controls.Add(this.lblOutputLog);
             this.Controls.Add(this.lblBotCount);
@@ -339,6 +363,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -365,6 +392,8 @@
         private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 

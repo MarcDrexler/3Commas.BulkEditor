@@ -143,6 +143,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
                         if (editData.StartOrderType.HasValue) updateData.StartOrderType = editData.StartOrderType.Value;
                         if (editData.SafetyOrderVolume.HasValue) updateData.SafetyOrderVolume = editData.SafetyOrderVolume.Value;
                         if (editData.TakeProfit.HasValue) updateData.TakeProfit = editData.TakeProfit.Value;
+                        if (editData.TakeProfitType.HasValue) updateData.TakeProfitType = editData.TakeProfitType.Value;
                         if (editData.TrailingDeviation.HasValue) updateData.TrailingDeviation = editData.TrailingDeviation.Value;
                         if (editData.TrailingEnabled.HasValue) updateData.TrailingEnabled = editData.TrailingEnabled.Value;
                         if (editData.BaseOrderVolumeType.HasValue) updateData.BaseOrderVolumeType = editData.BaseOrderVolumeType.Value;
