@@ -236,6 +236,10 @@ namespace _3Commas.BulkEditor.Views.MainForm
                             var res = await botMgr.CreateBot(dlg.Account.Id, bot.Strategy, bot);
                             if (res.IsSuccess)
                             {
+                                if (bot.IsEnabled)
+                                {
+                                    await botMgr.Enable(res.Data.Id);
+                                }
                                 _logger.LogInformation($"Bot {botId} created");
                             }
                             else
