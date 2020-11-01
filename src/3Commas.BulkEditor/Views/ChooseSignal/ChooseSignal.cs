@@ -19,12 +19,14 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
             ControlHelper.AddValuesToCombobox<IndicatorTime>(cmbUltTime);
             ControlHelper.AddValuesToCombobox<IndicatorTime>(cmbTaPresetsTime);
             ControlHelper.AddValuesToCombobox<TaPresetsType>(cmbTaPresetsType);
+            ControlHelper.AddValuesToCombobox<QflType>(cmbQflType);
         }
 
         public BotStrategy Strategy => _strategy;
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
+            panelQfl.Visible = (sender == radioButtonQfl);
             panelRsi.Visible = (sender == radioButtonRsi);
             panelUlt.Visible = (sender == radioButtonUlt);
             panelTaPresets.Visible = (sender == radioButtonTaPresets);
@@ -34,6 +36,24 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
 
         private void okButton_Click(object sender, EventArgs e)
         {
+            if (radioButtonQfl.Checked)
+            {
+                if (cmbQflType.SelectedItem == null)
+                {
+                    MessageBox.Show("QFL Type is missing");
+                    return;
+                }
+
+                if (numQflPercent.Value == 0)
+                {
+                    MessageBox.Show("QFL Percentage is missing");
+                    return;
+                }
+
+                QflType.TryParse(cmbQflType.SelectedItem.ToString(), out QflType type);
+                _strategy = new QflBotStrategy() { Options = new QflOptions(type, numQflPercent.Value) };
+            }
+
             if (radioButtonRsi.Checked)
             {
                 if (cmbRsiTime.SelectedItem == null)
