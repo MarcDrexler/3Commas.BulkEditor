@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/bulkeditor/</InstallUrl>
     <ProductName>Bulk Editor</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.36</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.37</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>37</ApplicationRevision>
+    <ApplicationRevision>38</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
