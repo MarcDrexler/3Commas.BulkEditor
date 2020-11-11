@@ -180,10 +180,10 @@ namespace _3Commas.BulkEditor.Views.EditDialog
 
             return !errors.Any();
         }
-
+         
         private void txtName_TextChanged(object sender, EventArgs e)
         {
-            lblNamePreview.Text = BotManager.GenerateNewName(txtName.Text, "Long", "USDT_BTC");
+            lblNamePreview.Text = BotManager.GenerateNewName(txtName.Text, "Long", "USDT_BTC", "AccountName");
         }
 
         private void cmbDisableAfterDealsCount_SelectedValueChanged(object sender, EventArgs e)
@@ -217,7 +217,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
 
             foreach (var startCondition in startConditions)
             {
-                listViewStartConditions.Items.Add(new ListViewItem() { Tag = startCondition, Text = startCondition.Name, Name = startCondition.GetHashCode().ToString() });
+                listViewStartConditions.Items.Add(new ListViewItem() { Tag = startCondition, Text = startCondition.ToHumanReadableString(), Name = startCondition.GetHashCode().ToString() });
             }
         }
 

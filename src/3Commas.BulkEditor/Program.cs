@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Net;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Views.MainForm;
 
@@ -35,9 +36,12 @@ namespace _3Commas.BulkEditor
         {
             System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
             ConfigurationSection section = config.GetSection("userSettings/_3Commas.BulkEditor.Properties.Settings");
-            section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
-            section.SectionInformation.ForceSave = true;
-            config.Save(ConfigurationSaveMode.Full);
+            if (!section.SectionInformation.IsProtected)
+            {
+                section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                section.SectionInformation.ForceSave = true;
+                config.Save(ConfigurationSaveMode.Full);
+            }
         }
     }
 }

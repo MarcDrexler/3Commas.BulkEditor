@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,6 +35,24 @@ namespace _3Commas.BulkEditor.Views.MainForm
             if (!string.IsNullOrWhiteSpace(_keys.ApiKey3Commas) && !string.IsNullOrWhiteSpace(_keys.Secret3Commas))
             {
                 await RefreshBots();
+            }
+
+            await ShowMessage();
+        }
+
+        private async Task ShowMessage()
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                string result = await client.GetStringAsync("https://marcdrexler.blob.core.windows.net/bulkeditor/message.txt");
+                if (!String.IsNullOrWhiteSpace(result))
+                {
+                    _mbs.ShowInformation(result);
+                }
+            }
+            catch (Exception e)
+            {
             }
         }
 
@@ -104,7 +124,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
                     var cancellationTokenSource = new CancellationTokenSource();
                     var loadingView = new ProgressView.ProgressView("Applying new settings", cancellationTokenSource, ids.Count);
                     loadingView.Show(View);
-                    
+
                     var botMgr = new BotManager(_keys, _logger);
 
                     int i = 0;
@@ -138,7 +158,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
                         if (editData.MartingaleStepCoefficient.HasValue) updateData.MartingaleStepCoefficient = editData.MartingaleStepCoefficient.Value;
                         if (editData.MartingaleVolumeCoefficient.HasValue) updateData.MartingaleVolumeCoefficient = editData.MartingaleVolumeCoefficient.Value;
                         if (editData.MaxSafetyOrders.HasValue) updateData.MaxSafetyOrders = editData.MaxSafetyOrders.Value;
-                        if (!string.IsNullOrWhiteSpace(editData.Name)) updateData.Name = BotManager.GenerateNewName(editData.Name, bot.Strategy.ToString(), bot.Pairs.Single());
+                        if (!string.IsNullOrWhiteSpace(editData.Name)) updateData.Name = BotManager.GenerateNewName(editData.Name, bot.Strategy.ToString(), bot.Pairs.Single(), bot.AccountName);
                         if (editData.SafetyOrderStepPercentage.HasValue) updateData.SafetyOrderStepPercentage = editData.SafetyOrderStepPercentage.Value;
                         if (editData.StartOrderType.HasValue) updateData.StartOrderType = editData.StartOrderType.Value;
                         if (editData.SafetyOrderVolume.HasValue) updateData.SafetyOrderVolume = editData.SafetyOrderVolume.Value;

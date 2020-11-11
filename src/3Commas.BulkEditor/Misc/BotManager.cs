@@ -101,9 +101,12 @@ namespace _3Commas.BulkEditor.Misc
             return await _3CommasClient.DeleteBotAsync(botId);
         }
 
-        public static string GenerateNewName(string pattern, string strategy, string pair)
+        public static string GenerateNewName(string pattern, string strategy, string pair, string accountName)
         {
-            return pattern.Replace("{strategy}", strategy).Replace("{pair}", pair);
+            return pattern
+                .Replace("{account}", accountName)
+                .Replace("{strategy}", strategy)
+                .Replace("{pair}", pair);
         }
 
         public async Task<Bot> GetBotById(int botId)
