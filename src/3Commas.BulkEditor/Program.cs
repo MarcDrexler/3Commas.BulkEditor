@@ -16,10 +16,10 @@ namespace _3Commas.BulkEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            EncryptConfigFile();
 
             try
             {
-                EncryptConfigFile();
                 Application.Run(new MainForm());
             }
             catch (Exception e)
@@ -34,13 +34,20 @@ namespace _3Commas.BulkEditor
 
         private static void EncryptConfigFile()
         {
-            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            ConfigurationSection section = config.GetSection("userSettings/_3Commas.BulkEditor.Properties.Settings");
-            if (!section.SectionInformation.IsProtected)
+            try
             {
-                section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
-                section.SectionInformation.ForceSave = true;
-                config.Save(ConfigurationSaveMode.Full);
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                ConfigurationSection section = config.GetSection("userSettings/_3Commas.BulkEditor.Properties.Settings");
+                if (!section.SectionInformation.IsProtected)
+                {
+                    section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                    section.SectionInformation.ForceSave = true;
+                    config.Save(ConfigurationSaveMode.Full);
+                }
+            }
+            catch (Exception e)
+            {
+                // ignore
             }
         }
     }
