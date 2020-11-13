@@ -62,6 +62,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.radioButtonQfl = new System.Windows.Forms.RadioButton();
+            this.radioButtonMarketplaceItems = new System.Windows.Forms.RadioButton();
+            this.cmbMarketplaceSignals = new System.Windows.Forms.ComboBox();
+            this.panelMarketplaceItems = new System.Windows.Forms.Panel();
+            this.pbLoading = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.numRsiPoints)).BeginInit();
             this.panelRsi.SuspendLayout();
             this.panelTradingView.SuspendLayout();
@@ -70,6 +74,8 @@
             this.panelTaPresets.SuspendLayout();
             this.panelQfl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQflPercent)).BeginInit();
+            this.panelMarketplaceItems.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // radioButtonNonstop
@@ -121,10 +127,10 @@
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(370, 208);
+            this.okButton.Location = new System.Drawing.Point(370, 232);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
-            this.okButton.TabIndex = 9;
+            this.okButton.TabIndex = 10;
             this.okButton.Text = "&OK";
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
@@ -132,10 +138,10 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(289, 208);
+            this.button1.Location = new System.Drawing.Point(289, 232);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 8;
+            this.button1.TabIndex = 9;
             this.button1.Text = "&Cancel";
             // 
             // label1
@@ -355,17 +361,17 @@
             // radioButtonCustom
             // 
             this.radioButtonCustom.AutoSize = true;
-            this.radioButtonCustom.Location = new System.Drawing.Point(13, 176);
+            this.radioButtonCustom.Location = new System.Drawing.Point(13, 201);
             this.radioButtonCustom.Name = "radioButtonCustom";
             this.radioButtonCustom.Size = new System.Drawing.Size(60, 17);
-            this.radioButtonCustom.TabIndex = 7;
+            this.radioButtonCustom.TabIndex = 8;
             this.radioButtonCustom.Text = "Custom";
             this.radioButtonCustom.UseVisualStyleBackColor = true;
             this.radioButtonCustom.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // txtCustom
             // 
-            this.txtCustom.Location = new System.Drawing.Point(118, 176);
+            this.txtCustom.Location = new System.Drawing.Point(118, 201);
             this.txtCustom.Name = "txtCustom";
             this.txtCustom.Size = new System.Drawing.Size(147, 20);
             this.txtCustom.TabIndex = 37;
@@ -442,11 +448,56 @@
             this.radioButtonQfl.UseVisualStyleBackColor = true;
             this.radioButtonQfl.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
+            // radioButtonMarketplaceItems
+            // 
+            this.radioButtonMarketplaceItems.AutoSize = true;
+            this.radioButtonMarketplaceItems.Location = new System.Drawing.Point(13, 177);
+            this.radioButtonMarketplaceItems.Name = "radioButtonMarketplaceItems";
+            this.radioButtonMarketplaceItems.Size = new System.Drawing.Size(84, 17);
+            this.radioButtonMarketplaceItems.TabIndex = 7;
+            this.radioButtonMarketplaceItems.Text = "Marketplace";
+            this.radioButtonMarketplaceItems.UseVisualStyleBackColor = true;
+            this.radioButtonMarketplaceItems.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // cmbMarketplaceSignals
+            // 
+            this.cmbMarketplaceSignals.FormattingEnabled = true;
+            this.cmbMarketplaceSignals.Location = new System.Drawing.Point(0, 2);
+            this.cmbMarketplaceSignals.Name = "cmbMarketplaceSignals";
+            this.cmbMarketplaceSignals.Size = new System.Drawing.Size(147, 21);
+            this.cmbMarketplaceSignals.TabIndex = 32;
+            // 
+            // panelMarketplaceItems
+            // 
+            this.panelMarketplaceItems.Controls.Add(this.cmbMarketplaceSignals);
+            this.panelMarketplaceItems.Controls.Add(this.pbLoading);
+            this.panelMarketplaceItems.Location = new System.Drawing.Point(118, 173);
+            this.panelMarketplaceItems.Name = "panelMarketplaceItems";
+            this.panelMarketplaceItems.Size = new System.Drawing.Size(327, 26);
+            this.panelMarketplaceItems.TabIndex = 34;
+            this.panelMarketplaceItems.Visible = false;
+            // 
+            // pbLoading
+            // 
+            this.pbLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbLoading.BackColor = System.Drawing.SystemColors.Control;
+            this.pbLoading.Image = global::_3Commas.BulkEditor.Properties.Resources.loader4;
+            this.pbLoading.Location = new System.Drawing.Point(155, -3);
+            this.pbLoading.Name = "pbLoading";
+            this.pbLoading.Size = new System.Drawing.Size(32, 30);
+            this.pbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLoading.TabIndex = 66;
+            this.pbLoading.TabStop = false;
+            // 
             // ChooseSignal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 243);
+            this.ClientSize = new System.Drawing.Size(457, 267);
+            this.Controls.Add(this.panelMarketplaceItems);
+            this.Controls.Add(this.radioButtonMarketplaceItems);
             this.Controls.Add(this.panelQfl);
             this.Controls.Add(this.radioButtonQfl);
             this.Controls.Add(this.txtCustom);
@@ -469,6 +520,7 @@
             this.Name = "ChooseSignal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Start Condition";
+            this.Load += new System.EventHandler(this.ChooseSignal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numRsiPoints)).EndInit();
             this.panelRsi.ResumeLayout(false);
             this.panelRsi.PerformLayout();
@@ -482,6 +534,8 @@
             this.panelQfl.ResumeLayout(false);
             this.panelQfl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQflPercent)).EndInit();
+            this.panelMarketplaceItems.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -523,5 +577,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RadioButton radioButtonQfl;
+        private System.Windows.Forms.RadioButton radioButtonMarketplaceItems;
+        private System.Windows.Forms.ComboBox cmbMarketplaceSignals;
+        private System.Windows.Forms.PictureBox pbLoading;
+        private System.Windows.Forms.Panel panelMarketplaceItems;
     }
 }

@@ -11,12 +11,14 @@ namespace _3Commas.BulkEditor.Views.EditDialog
     public partial class EditDialog : Form
     {
         private readonly int _botCount;
+        private readonly BotManager _manager;
         private readonly IMessageBoxService _mbs = new MessageBoxService();
         private readonly List<BotStrategy> _startConditions = new List<BotStrategy>();
 
-        public EditDialog(int botCount)
+        public EditDialog(int botCount, BotManager manager)
         {
             _botCount = botCount;
+            _manager = manager;
             InitializeComponent();
 
             cmbIsEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeIsEnabled, nameof(CheckBox.Checked));
@@ -193,7 +195,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
 
         private void btnAddStartCondition_Click(object sender, EventArgs e)
         {
-            ChooseSignal.ChooseSignal form = new ChooseSignal.ChooseSignal();
+            ChooseSignal.ChooseSignal form = new ChooseSignal.ChooseSignal(_manager);
             var dr = form.ShowDialog(this);
             if (dr == DialogResult.OK)
             {

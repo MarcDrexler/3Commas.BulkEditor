@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Misc;
 using XCommas.Net.Objects;
@@ -7,10 +8,12 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
 {
     public partial class ChooseSignal : Form
     {
+        private readonly BotManager _botManager;
         private BotStrategy _strategy;
-
-        public ChooseSignal()
+        
+        public ChooseSignal(BotManager botManager)
         {
+            _botManager = botManager;
             InitializeComponent();
 
             ControlHelper.AddValuesToCombobox<TradingViewTime>(cmbTradingViewTime);
@@ -32,6 +35,7 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
             panelTaPresets.Visible = (sender == radioButtonTaPresets);
             panelTradingView.Visible = (sender == radioButtonTradingView);
             txtCustom.Visible = (sender == radioButtonCustom);
+            panelMarketplaceItems.Visible = (sender == radioButtonMarketplaceItems);
         }
 
         private void okButton_Click(object sender, EventArgs e)
@@ -127,7 +131,26 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
                 _strategy = new UnknownStrategy(txtCustom.Text);
             }
 
+            if (radioButtonMarketplaceItems.Checked)
+            {
+                if (cmbMarketplaceSignals.SelectedItem == null)
+                {
+                    MessageBox.Show("No Item selected");
+                    return;
+                }
+                _strategy = new UnknownStrategy(((MarketplaceItem) cmbMarketplaceSignals.SelectedItem).StrategyKey);
+            }
+
             this.DialogResult = DialogResult.OK;
+        }
+
+        private async void ChooseSignal_Load(object sender, EventArgs e)
+        {
+            var signals = await _botManager.GetMarketplaceItems();
+            cmbMarketplaceSignals.DataSource = signals.Where(x => x.StrategyType == "signal").OrderBy(x => x.Name).ToList();
+            cmbMarketplaceSignals.DisplayMember = nameof(MarketplaceItem.Name);
+            cmbMarketplaceSignals.ValueMember = nameof(MarketplaceItem.StrategyKey);
+            pbLoading.Visible = false;
         }
     }
 }

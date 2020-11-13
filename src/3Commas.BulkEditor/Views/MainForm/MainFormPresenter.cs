@@ -115,7 +115,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
 
             if (IsValid(ids))
             {
-                var dlg = new EditDialog.EditDialog(ids.Count);
+                var dlg = new EditDialog.EditDialog(ids.Count, new BotManager(_keys, _logger));
                 EditDto editData = new EditDto();
                 dlg.EditDto = editData;
                 var dr = dlg.ShowDialog(View);

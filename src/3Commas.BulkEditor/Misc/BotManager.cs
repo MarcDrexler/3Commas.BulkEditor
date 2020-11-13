@@ -114,6 +114,11 @@ namespace _3Commas.BulkEditor.Misc
             return (await _3CommasClient.ShowBotAsync(botId)).Data;
         }
 
+        public async Task<MarketplaceItem[]> GetMarketplaceItems()
+        {
+            return (await _3CommasClient.GetMarketplaceItemsAsync()).Data;
+        }
+
         public async Task<XCommasResponse<Bot>> CreateBot(int accountId, Strategy strategy, BotData botData)
         {
             return (await _3CommasClient.CreateBotAsync(accountId, strategy, botData));
