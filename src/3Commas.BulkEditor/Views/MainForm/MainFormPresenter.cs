@@ -260,7 +260,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
                                 {
                                     await botMgr.Enable(res.Data.Id);
                                 }
-                                _logger.LogInformation($"Bot {botId} created");
+                                _logger.LogInformation($"Bot {res.Data.Id} created (as a copy of Bot {botId})");
                             }
                             else
                             {
