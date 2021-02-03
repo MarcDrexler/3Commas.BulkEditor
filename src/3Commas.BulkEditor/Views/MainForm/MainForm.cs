@@ -117,6 +117,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
                 nameof(BotViewModel.DisableAfterDealsCount),
                 nameof(BotViewModel.FinishedDealsCount),
                 nameof(BotViewModel.FinishedDealsProfitUsd),
+                nameof(BotViewModel.ProfitRatio),
                 nameof(BotViewModel.CreatedAt),
                 nameof(BotViewModel.UpdatedAt),
                 nameof(BotViewModel.IsDeleteable)))

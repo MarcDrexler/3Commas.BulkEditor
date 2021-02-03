@@ -25,7 +25,7 @@ namespace _3Commas.BulkEditor
             catch (Exception e)
             {
                 MessageBox.Show("Sorry, but something went wrong!" + Environment.NewLine + Environment.NewLine +
-                                "Please let me know that there was a problem and I will try to fit it for you. You can report this error here: " +
+                                "Please let me know that there was a problem and I will try to fix it for you. You can report this error here: " +
                                 "https://github.com/MarcDrexler/3Commas.BulkEditor/issues" + Environment.NewLine + Environment.NewLine +
                                 "Error Details: " + Environment.NewLine +
                                 e.ToString(), "Sorry!", MessageBoxButtons.OK, MessageBoxIcon.Error);
