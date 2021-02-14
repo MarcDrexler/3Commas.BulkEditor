@@ -1,4 +1,6 @@
-﻿namespace _3Commas.BulkEditor.Views.MainForm
+﻿using XCommas.Net.Objects;
+
+namespace _3Commas.BulkEditor.Views.MainForm
 {
     partial class MainForm
     {
@@ -28,81 +30,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.txtOutput = new System.Windows.Forms.TextBox();
-            this.groupBoxCredentials = new System.Windows.Forms.GroupBox();
-            this.pbLoading = new System.Windows.Forms.PictureBox();
             this.linkLabel3Commas = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblBotCount = new System.Windows.Forms.Label();
             this.lblOutputLog = new System.Windows.Forms.Label();
-            this.grid = new Zuby.ADGV.AdvancedDataGridView();
-            this.lblVisibleBotCount = new System.Windows.Forms.Label();
-            this.lblFilterActive = new System.Windows.Forms.Label();
-            this.lblSelectedBotCount = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnCopy = new System.Windows.Forms.Button();
-            this.btnClearFilter = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBoxCredentials.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).BeginInit();
+            this.manageDealControl = new _3Commas.BulkEditor.Views.ManageDealControl.ManageDealControl();
+            this.manageBotControl = new _3Commas.BulkEditor.Views.ManageBotControl.ManageBotControl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtOutput
             // 
             this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOutput.Location = new System.Drawing.Point(12, 593);
+            this.txtOutput.Location = new System.Drawing.Point(12, 550);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtOutput.Size = new System.Drawing.Size(1008, 172);
+            this.txtOutput.Size = new System.Drawing.Size(1042, 172);
             this.txtOutput.TabIndex = 0;
-            // 
-            // groupBoxCredentials
-            // 
-            this.groupBoxCredentials.Controls.Add(this.linkLabel3Commas);
-            this.groupBoxCredentials.Controls.Add(this.pictureBox1);
-            this.groupBoxCredentials.Location = new System.Drawing.Point(12, 12);
-            this.groupBoxCredentials.Name = "groupBoxCredentials";
-            this.groupBoxCredentials.Size = new System.Drawing.Size(189, 89);
-            this.groupBoxCredentials.TabIndex = 64;
-            this.groupBoxCredentials.TabStop = false;
-            this.groupBoxCredentials.Text = "API Credentials";
-            // 
-            // pbLoading
-            // 
-            this.pbLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbLoading.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pbLoading.Image = global::_3Commas.BulkEditor.Properties.Resources.loader2;
-            this.pbLoading.Location = new System.Drawing.Point(13, 136);
-            this.pbLoading.Name = "pbLoading";
-            this.pbLoading.Size = new System.Drawing.Size(1006, 327);
-            this.pbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbLoading.TabIndex = 65;
-            this.pbLoading.TabStop = false;
-            this.pbLoading.Visible = false;
             // 
             // linkLabel3Commas
             // 
             this.linkLabel3Commas.AutoSize = true;
-            this.linkLabel3Commas.Location = new System.Drawing.Point(15, 64);
+            this.linkLabel3Commas.Location = new System.Drawing.Point(118, 18);
             this.linkLabel3Commas.Name = "linkLabel3Commas";
             this.linkLabel3Commas.Size = new System.Drawing.Size(64, 13);
             this.linkLabel3Commas.TabIndex = 64;
@@ -113,171 +74,64 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::_3Commas.BulkEditor.Properties.Resources._3Commas;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 30);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 11);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 27);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 63;
             this.pictureBox1.TabStop = false;
             // 
-            // lblBotCount
-            // 
-            this.lblBotCount.Location = new System.Drawing.Point(207, 60);
-            this.lblBotCount.Name = "lblBotCount";
-            this.lblBotCount.Size = new System.Drawing.Size(127, 13);
-            this.lblBotCount.TabIndex = 66;
-            this.lblBotCount.Text = "0 Bots found";
-            this.lblBotCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lblOutputLog
             // 
             this.lblOutputLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblOutputLog.AutoSize = true;
-            this.lblOutputLog.Location = new System.Drawing.Point(12, 574);
+            this.lblOutputLog.Location = new System.Drawing.Point(12, 531);
             this.lblOutputLog.Name = "lblOutputLog";
             this.lblOutputLog.Size = new System.Drawing.Size(63, 13);
             this.lblOutputLog.TabIndex = 67;
             this.lblOutputLog.Text = "Output Log:";
             // 
-            // grid
+            // tabControl1
             // 
-            this.grid.AllowUserToAddRows = false;
-            this.grid.AllowUserToDeleteRows = false;
-            this.grid.AllowUserToOrderColumns = true;
-            this.grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.grid.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.grid.FilterAndSortEnabled = true;
-            this.grid.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.grid.Location = new System.Drawing.Point(12, 107);
-            this.grid.Name = "grid";
-            this.grid.ReadOnly = true;
-            this.grid.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.grid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.grid.Size = new System.Drawing.Size(1008, 372);
-            this.grid.TabIndex = 68;
-            this.grid.FilterStringChanged += new System.EventHandler<Zuby.ADGV.AdvancedDataGridView.FilterEventArgs>(this.grid_FilterStringChanged);
-            this.grid.SelectionChanged += new System.EventHandler(this.grid_SelectionChanged);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 54);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1042, 459);
+            this.tabControl1.TabIndex = 80;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
-            // lblVisibleBotCount
+            // tabPage1
             // 
-            this.lblVisibleBotCount.AutoSize = true;
-            this.lblVisibleBotCount.Location = new System.Drawing.Point(370, 60);
-            this.lblVisibleBotCount.Name = "lblVisibleBotCount";
-            this.lblVisibleBotCount.Size = new System.Drawing.Size(69, 13);
-            this.lblVisibleBotCount.TabIndex = 70;
-            this.lblVisibleBotCount.Text = "0 Bots visible";
+            this.tabPage1.Controls.Add(this.manageBotControl);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1034, 433);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Bots";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // lblFilterActive
+            // tabPage2
             // 
-            this.lblFilterActive.AutoSize = true;
-            this.lblFilterActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblFilterActive.Location = new System.Drawing.Point(374, 81);
-            this.lblFilterActive.Name = "lblFilterActive";
-            this.lblFilterActive.Size = new System.Drawing.Size(87, 13);
-            this.lblFilterActive.TabIndex = 71;
-            this.lblFilterActive.Text = "Filter is turned on";
-            this.lblFilterActive.Visible = false;
-            // 
-            // lblSelectedBotCount
-            // 
-            this.lblSelectedBotCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSelectedBotCount.AutoSize = true;
-            this.lblSelectedBotCount.Location = new System.Drawing.Point(24, 491);
-            this.lblSelectedBotCount.Name = "lblSelectedBotCount";
-            this.lblSelectedBotCount.Size = new System.Drawing.Size(80, 13);
-            this.lblSelectedBotCount.TabIndex = 72;
-            this.lblSelectedBotCount.Text = "0 Bots selected";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(44, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 76;
-            this.label1.Text = "Actions:";
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Enabled = false;
-            this.btnDelete.Image = global::_3Commas.BulkEditor.Properties.Resources.Delete_16x16;
-            this.btnDelete.Location = new System.Drawing.Point(241, 5);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(67, 25);
-            this.btnDelete.TabIndex = 77;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnCopy
-            // 
-            this.btnCopy.Enabled = false;
-            this.btnCopy.Image = global::_3Commas.BulkEditor.Properties.Resources.Copy_16x16;
-            this.btnCopy.Location = new System.Drawing.Point(168, 5);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(67, 25);
-            this.btnCopy.TabIndex = 75;
-            this.btnCopy.Text = "Copy";
-            this.btnCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
-            // 
-            // btnClearFilter
-            // 
-            this.btnClearFilter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClearFilter.FlatAppearance.BorderSize = 0;
-            this.btnClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearFilter.Image = global::_3Commas.BulkEditor.Properties.Resources.Close_16x16;
-            this.btnClearFilter.Location = new System.Drawing.Point(350, 75);
-            this.btnClearFilter.Name = "btnClearFilter";
-            this.btnClearFilter.Size = new System.Drawing.Size(26, 25);
-            this.btnClearFilter.TabIndex = 74;
-            this.btnClearFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClearFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnClearFilter.UseVisualStyleBackColor = true;
-            this.btnClearFilter.Visible = false;
-            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Enabled = false;
-            this.btnRefresh.Image = global::_3Commas.BulkEditor.Properties.Resources.Convert_16x16;
-            this.btnRefresh.Location = new System.Drawing.Point(207, 76);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(127, 25);
-            this.btnRefresh.TabIndex = 73;
-            this.btnRefresh.Text = "Reload Bots";
-            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Enabled = false;
-            this.btnEdit.Image = global::_3Commas.BulkEditor.Properties.Resources.Edit_16x16;
-            this.btnEdit.Location = new System.Drawing.Point(95, 5);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(67, 25);
-            this.btnEdit.TabIndex = 69;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.tabPage2.Controls.Add(this.manageDealControl);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1034, 433);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Deals";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // btnAbout
             // 
             this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAbout.Image = global::_3Commas.BulkEditor.Properties.Resources.Info_16x16;
-            this.btnAbout.Location = new System.Drawing.Point(936, 12);
+            this.btnAbout.Location = new System.Drawing.Point(970, 12);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(84, 25);
             this.btnAbout.TabIndex = 2;
@@ -291,7 +145,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Image = global::_3Commas.BulkEditor.Properties.Resources.Clear_16x16;
-            this.button1.Location = new System.Drawing.Point(950, 562);
+            this.button1.Location = new System.Drawing.Point(984, 519);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(70, 25);
             this.button1.TabIndex = 1;
@@ -301,53 +155,31 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // bindingSource
+            // manageDealControl
             // 
-            this.bindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.bindingSource1_ListChanged);
+            this.manageDealControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageDealControl.Location = new System.Drawing.Point(3, 3);
+            this.manageDealControl.Name = "manageDealControl";
+            this.manageDealControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageDealControl.TabIndex = 0;
             // 
-            // panel1
+            // manageBotControl
             // 
-            this.panel1.Controls.Add(this.btnCopy);
-            this.panel1.Controls.Add(this.btnEdit);
-            this.panel1.Controls.Add(this.btnDelete);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(203, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(360, 34);
-            this.panel1.TabIndex = 78;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(141, 485);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 40);
-            this.tableLayoutPanel1.TabIndex = 79;
+            this.manageBotControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageBotControl.Location = new System.Drawing.Point(3, 3);
+            this.manageBotControl.Name = "manageBotControl";
+            this.manageBotControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageBotControl.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1032, 777);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.pbLoading);
-            this.Controls.Add(this.btnClearFilter);
-            this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.lblSelectedBotCount);
-            this.Controls.Add(this.lblFilterActive);
-            this.Controls.Add(this.lblVisibleBotCount);
-            this.Controls.Add(this.grid);
+            this.ClientSize = new System.Drawing.Size(1066, 734);
+            this.Controls.Add(this.linkLabel3Commas);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblOutputLog);
-            this.Controls.Add(this.lblBotCount);
-            this.Controls.Add(this.groupBoxCredentials);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtOutput);
@@ -357,15 +189,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bulk Editor";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.groupBoxCredentials.ResumeLayout(false);
-            this.groupBoxCredentials.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,25 +202,14 @@
         private System.Windows.Forms.TextBox txtOutput;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAbout;
-        private System.Windows.Forms.GroupBox groupBoxCredentials;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel linkLabel3Commas;
-        private System.Windows.Forms.Label lblBotCount;
         private System.Windows.Forms.Label lblOutputLog;
-        private Zuby.ADGV.AdvancedDataGridView grid;
-        private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.BindingSource bindingSource;
-        private System.Windows.Forms.Label lblVisibleBotCount;
-        private System.Windows.Forms.Label lblFilterActive;
-        private System.Windows.Forms.Label lblSelectedBotCount;
-        private System.Windows.Forms.PictureBox pbLoading;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button btnClearFilter;
-        private System.Windows.Forms.Button btnCopy;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private ManageDealControl.ManageDealControl manageDealControl;
+        private ManageBotControl.ManageBotControl manageBotControl;
     }
 }
 

@@ -1,11 +1,11 @@
 # 3Commas.BulkEditor
 
-This unofficial tool allows you to bulk edit your simple DCA bots.
+This unofficial tool allows you to bulk edit your simple DCA bots + some actions to manage your deals
 
 
 ## Technical description
 
-The implementation is based on .Net Framework. I will probably upgrade to .NET 5 in November when ClickOnce will also be available for automatic updates.
+The implementation is based on .Net Framework.
 
 Implementation is build upon the AdvancedDataGridView and 3Commas.Net library. Thanks for the brilliant work!
 
@@ -16,15 +16,24 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 ## Features
 
-- View all of your simple 3Commas bots
-- Filtering, sorting, etc
-- Bulk Edit
-- Bulk Copy
-- Bulk Delete
+- Bots
+  - View all of your simple + multi 3Commas DCA bots
+  - Filtering, sorting, etc
+  - Bulk Edit
+  - Bulk Copy
+  - Bulk Delete
+- Deals
+  - View all of your deals
+  - Filtering, sorting, etc
+  - Bulk Enable/Disable TTP
+  - Bulk Cancel
+  - Bulk Panic Sell
 
 ## Screenshots
 
-![Main Screen](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/Mainscreen.png)
+![Main Screen Bots](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/MainscreenBots.png)
+
+![Main Screen Deals](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/MainscreenDeals.png)
 
 ![Edit Dialog](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/EditDialog.png)
 

@@ -133,9 +133,39 @@ namespace _3Commas.BulkEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Currency_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Currency_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Currency_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("Currency_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Delete_16x16 {
             get {
                 object obj = ResourceManager.GetObject("Delete_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Delete_16x161 {
+            get {
+                object obj = ResourceManager.GetObject("Delete_16x161", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -176,6 +206,26 @@ namespace _3Commas.BulkEditor.Properties {
         internal static System.Drawing.Bitmap Export_16x16 {
             get {
                 object obj = ResourceManager.GetObject("Export_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Hide_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Hide_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Hide_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("Hide_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

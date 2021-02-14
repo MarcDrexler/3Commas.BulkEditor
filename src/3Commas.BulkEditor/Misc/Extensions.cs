@@ -1,7 +1,7 @@
 ﻿using System;
 using XCommas.Net.Objects;
 
-namespace XCommas.Net.Objects
+namespace _3Commas.BulkEditor.Misc
 {
     public static class Extensions
     {

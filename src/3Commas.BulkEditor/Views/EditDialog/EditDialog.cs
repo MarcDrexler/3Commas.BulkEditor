@@ -11,11 +11,11 @@ namespace _3Commas.BulkEditor.Views.EditDialog
     public partial class EditDialog : Form
     {
         private readonly int _botCount;
-        private readonly BotManager _manager;
+        private readonly XCommasLayer _manager;
         private readonly IMessageBoxService _mbs = new MessageBoxService();
         private readonly List<BotStrategy> _startConditions = new List<BotStrategy>();
 
-        public EditDialog(int botCount, BotManager manager)
+        public EditDialog(int botCount, XCommasLayer manager)
         {
             _botCount = botCount;
             _manager = manager;
@@ -185,7 +185,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
          
         private void txtName_TextChanged(object sender, EventArgs e)
         {
-            lblNamePreview.Text = BotManager.GenerateNewName(txtName.Text, "Long", "USDT_BTC", "AccountName");
+            lblNamePreview.Text = XCommasLayer.GenerateNewName(txtName.Text, "Long", "USDT_BTC", "AccountName");
         }
 
         private void cmbDisableAfterDealsCount_SelectedValueChanged(object sender, EventArgs e)

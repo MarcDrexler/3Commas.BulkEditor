@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using _3Commas.BulkEditor.Misc;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BulkEditor.Views.MainForm
+namespace _3Commas.BulkEditor.Views.ManageBotControl
 {
     public class BotViewModel : Bot
     {

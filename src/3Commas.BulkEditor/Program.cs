@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Net;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Views.MainForm;
 
@@ -45,7 +44,7 @@ namespace _3Commas.BulkEditor
                     config.Save(ConfigurationSaveMode.Full);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 // ignore
             }

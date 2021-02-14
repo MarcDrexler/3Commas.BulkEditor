@@ -33,7 +33,7 @@ namespace _3Commas.BulkEditor.Views.ChooseAccount
 
         private async Task BindAccountsAndSetSelection()
         {
-            var botMgr = new BotManager(_keys, _logger);
+            var botMgr = new XCommasLayer(_keys, _logger);
             var accounts = await botMgr.RetrieveAccounts();
             cmbAccount.DataSource = accounts;
             cmbAccount.ValueMember = nameof(Account.Id);

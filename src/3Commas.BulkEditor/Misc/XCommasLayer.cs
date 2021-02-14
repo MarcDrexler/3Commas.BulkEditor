@@ -8,12 +8,12 @@ using XCommas.Net.Objects;
 
 namespace _3Commas.BulkEditor.Misc
 {
-    public class BotManager
+    public class XCommasLayer
     {
         private readonly ILogger _logger;
         private readonly XCommasApi _3CommasClient;
 
-        public BotManager(Keys settings, ILogger logger)
+        public XCommasLayer(Keys settings, ILogger logger)
         {
             _logger = logger;
             _3CommasClient = new XCommasApi(settings.ApiKey3Commas, settings.Secret3Commas);
@@ -89,6 +89,113 @@ namespace _3Commas.BulkEditor.Misc
                 _logger.LogError($"An error occurred: {e.Message}");
             }
             return bots;
+        }
+
+        public async Task<List<Deal>> GetAllDeals()
+        {
+            var deals = new List<Deal>();
+
+            try
+            {
+
+                _logger.LogInformation("Retrieving deals from 3Commas...");
+
+                int take = 1000;
+                int skip = 0;
+                while (true)
+                {
+                    var result = await _3CommasClient.GetDealsAsync(limit: take, offset: skip, dealScope: DealScope.Active, dealOrder: DealOrder.CreatedAt);
+                    if (!result.IsSuccess)
+                    {
+                        throw new Exception("3Commas Connection Issue: " + result.Error);
+                    }
+                    if (result.Data.Length == 0)
+                    {
+                        break;
+                    }
+
+                    deals.AddRange(result.Data);
+                    skip += take;
+                }
+
+                _logger.LogInformation($"{deals.Count} deals found.");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"An error occurred: {e.Message}");
+            }
+
+            return deals;
+        }
+
+        public async Task EnableTrailing(int dealId)
+        {
+            await SetTrailing(dealId, true);
+        }
+
+        public async Task DisableTrailing(int dealId)
+        {
+            await SetTrailing(dealId, false);
+        }
+
+        private async Task SetTrailing(int dealId, bool enableTrailing)
+        {
+            try
+            {
+                var res = await _3CommasClient.UpdateDealAsync(dealId, new DealUpdateData(dealId) { TrailingEnabled = enableTrailing });
+                if (!res.IsSuccess)
+                {
+                    _logger.LogError($"Could not update deal {dealId}: {res.Error}");
+                }
+                else
+                {
+                    _logger.LogInformation($"Deal {dealId} updated.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"An error occurred: {e.Message}");
+            }
+        }
+
+        public async Task CancelDeal(int dealId)
+        {
+            try
+            {
+                var res = await _3CommasClient.CancelDealAsync(dealId);
+                if (!res.IsSuccess)
+                {
+                    _logger.LogError($"Could not cancel deal {dealId}: {res.Error}");
+                }
+                else
+                {
+                    _logger.LogInformation($"Deal {dealId} cancelled.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"An error occurred: {e.Message}");
+            }
+        }
+
+        public async Task PanicSellDeal(int dealId)
+        {
+            try
+            {
+                var res = await _3CommasClient.PanicSellDealAsync(dealId);
+                if (!res.IsSuccess)
+                {
+                    _logger.LogError($"Could not panic sell deal {dealId}: {res.Error}");
+                }
+                else
+                {
+                    _logger.LogInformation($"Deal {dealId} panic sold.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"An error occurred: {e.Message}");
+            }
         }
 
         public async Task<XCommasResponse<Bot>> SaveBot(int botId, BotUpdateData updateData)

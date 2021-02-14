@@ -1,18 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using _3Commas.BulkEditor.Infrastructure;
-using XCommas.Net.Objects;
+using _3Commas.BulkEditor.Misc;
+using Microsoft.Extensions.Logging;
 
 namespace _3Commas.BulkEditor.Views.MainForm
 {
     public interface IMainForm : IViewBase
     {
-        List<int> SelectedBotIds { get; }
-        void SetTotalBotCount(int count);
-        void RefreshBotGrid(List<Bot> bots);
         void ClearLog();
-        void SetOperationInProgress(bool inProgress);
-        void SetVisibleCount(int count);
-        void ShowFilterInformation(bool show);
-        void SetSelectedRowCount(int count);
+        void InitGrids(Keys keys, ILogger logger, IMessageBoxService mbs);
+        Task ReloadData();
     }
 }

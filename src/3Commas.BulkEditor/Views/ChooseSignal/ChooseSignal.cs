@@ -8,10 +8,10 @@ namespace _3Commas.BulkEditor.Views.ChooseSignal
 {
     public partial class ChooseSignal : Form
     {
-        private readonly BotManager _botManager;
+        private readonly XCommasLayer _botManager;
         private BotStrategy _strategy;
         
-        public ChooseSignal(BotManager botManager)
+        public ChooseSignal(XCommasLayer botManager)
         {
             _botManager = botManager;
             InitializeComponent();

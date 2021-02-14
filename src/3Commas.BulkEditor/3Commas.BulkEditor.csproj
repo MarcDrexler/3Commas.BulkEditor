@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/bulkeditor/</InstallUrl>
     <ProductName>Bulk Editor</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.42</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.45</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>44</ApplicationRevision>
+    <ApplicationRevision>46</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -85,11 +85,11 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvancedDataGridView, Version=1.1.24722.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DG.AdvancedDataGridView.1.1.24722.8\lib\net40\AdvancedDataGridView.dll</HintPath>
+    <Reference Include="AdvancedDataGridView, Version=1.1.25411.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DG.AdvancedDataGridView.1.1.25411.9\lib\net40\AdvancedDataGridView.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="FastMember, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FastMember.1.5.0\lib\net461\FastMember.dll</HintPath>
@@ -193,7 +193,7 @@
     <Compile Include="Infrastructure\IMessageBoxService.cs" />
     <Compile Include="Infrastructure\MessageBoxService.cs" />
     <Compile Include="Misc\AssemblyHelper.cs" />
-    <Compile Include="Misc\BotManager.cs" />
+    <Compile Include="Misc\XCommasLayer.cs" />
     <Compile Include="Misc\ComboBoxItem.cs" />
     <Compile Include="Misc\Keys.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -207,6 +207,7 @@
     <Compile Include="Views\AboutBox\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\BaseControls\IsBusyEventArgs.cs" />
     <Compile Include="Views\ChooseSignal\ChooseSignal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,8 +228,33 @@
       <DependentUpon>EditDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\EditDialog\EditDto.cs" />
-    <Compile Include="Views\MainForm\BotViewModel.cs" />
-    <Compile Include="Views\MainForm\Extensions.cs" />
+    <Compile Include="Views\ManageBotControl\BotViewModel.cs" />
+    <Compile Include="Views\ManageBotControl\ManageBotControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ManageBotControl\ManageBotControl.Designer.cs">
+      <DependentUpon>ManageBotControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageDealControl\DealTableControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ManageDealControl\DealViewModel.cs" />
+    <Compile Include="Misc\Extensions.cs" />
+    <Compile Include="Views\ManageBotControl\BotTableControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\BaseControls\EntityTableControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\BaseControls\EntityTableControl.Designer.cs">
+      <DependentUpon>EntityTableControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageDealControl\ManageDealControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ManageDealControl\ManageDealControl.Designer.cs">
+      <DependentUpon>ManageDealControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProgressView\ProgressView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,6 +291,23 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditDialog\EditDialog.resx">
       <DependentUpon>EditDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ManageBotControl\ManageBotControl.resx">
+      <DependentUpon>ManageBotControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ManageBotControl\BotTableControl.resx">
+      <DependentUpon>BotTableControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BaseControls\EntityTableControl.resx">
+      <DependentUpon>EntityTableControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ManageDealControl\DealTableControl.resx">
+      <DependentUpon>DealTableControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ManageDealControl\ManageDealControl.resx">
+      <DependentUpon>ManageDealControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ProgressView\ProgressView.resx">
       <DependentUpon>ProgressView.cs</DependentUpon>
@@ -329,7 +372,13 @@
     <None Include="Resources\Delete_16x16.png" />
     <None Include="Resources\Edit_16x16.png" />
     <None Include="Resources\loader4.gif" />
+    <None Include="Resources\Hide_16x16.png" />
+    <None Include="Resources\Currency_16x16.png" />
+    <None Include="Resources\Currency_32x32.png" />
+    <None Include="Resources\Hide_32x32.png" />
+    <None Include="Resources\Delete_16x161.png" />
     <Content Include="robot.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
