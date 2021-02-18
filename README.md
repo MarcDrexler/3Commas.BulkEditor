@@ -25,6 +25,7 @@ Also if you think something is broken or have any questions, please open an [Iss
 - Deals
   - View all of your deals
   - Filtering, sorting, etc
+  - Bulk Edit
   - Bulk Enable/Disable TTP
   - Bulk Cancel
   - Bulk Panic Sell

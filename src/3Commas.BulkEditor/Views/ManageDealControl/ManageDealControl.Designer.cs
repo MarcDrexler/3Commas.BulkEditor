@@ -37,6 +37,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             this.btnEnableTTP = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tableControl = new _3Commas.BulkEditor.Views.ManageDealControl.DealTableControl();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -59,21 +60,22 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnEdit);
             this.panel2.Controls.Add(this.btnPanicSell);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnDisableTTP);
             this.panel2.Controls.Add(this.btnEnableTTP);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(300, 3);
+            this.panel2.Location = new System.Drawing.Point(279, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(596, 34);
+            this.panel2.Size = new System.Drawing.Size(638, 34);
             this.panel2.TabIndex = 78;
             // 
             // btnPanicSell
             // 
             this.btnPanicSell.Enabled = false;
             this.btnPanicSell.Image = global::_3Commas.BulkEditor.Properties.Resources.Currency_16x16;
-            this.btnPanicSell.Location = new System.Drawing.Point(350, 4);
+            this.btnPanicSell.Location = new System.Drawing.Point(405, 4);
             this.btnPanicSell.Name = "btnPanicSell";
             this.btnPanicSell.Size = new System.Drawing.Size(147, 27);
             this.btnPanicSell.TabIndex = 80;
@@ -89,7 +91,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             this.btnCancel.Enabled = false;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Image = global::_3Commas.BulkEditor.Properties.Resources.Hide_16x16;
-            this.btnCancel.Location = new System.Drawing.Point(271, 4);
+            this.btnCancel.Location = new System.Drawing.Point(326, 4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(73, 27);
             this.btnCancel.TabIndex = 79;
@@ -102,7 +104,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             // btnDisableTTP
             // 
             this.btnDisableTTP.Enabled = false;
-            this.btnDisableTTP.Location = new System.Drawing.Point(190, 4);
+            this.btnDisableTTP.Location = new System.Drawing.Point(245, 4);
             this.btnDisableTTP.Name = "btnDisableTTP";
             this.btnDisableTTP.Size = new System.Drawing.Size(75, 27);
             this.btnDisableTTP.TabIndex = 78;
@@ -115,7 +117,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             // btnEnableTTP
             // 
             this.btnEnableTTP.Enabled = false;
-            this.btnEnableTTP.Location = new System.Drawing.Point(111, 4);
+            this.btnEnableTTP.Location = new System.Drawing.Point(166, 4);
             this.btnEnableTTP.Name = "btnEnableTTP";
             this.btnEnableTTP.Size = new System.Drawing.Size(73, 27);
             this.btnEnableTTP.TabIndex = 77;
@@ -139,10 +141,25 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             this.tableControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableControl.IsBusy = false;
             this.tableControl.Location = new System.Drawing.Point(3, 3);
             this.tableControl.Name = "tableControl";
             this.tableControl.Size = new System.Drawing.Size(1197, 678);
             this.tableControl.TabIndex = 0;
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Enabled = false;
+            this.btnEdit.Image = global::_3Commas.BulkEditor.Properties.Resources.Edit_16x16;
+            this.btnEdit.Location = new System.Drawing.Point(93, 4);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(67, 27);
+            this.btnEdit.TabIndex = 81;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // ManageDealControl
             // 
@@ -169,5 +186,6 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         private System.Windows.Forms.Button btnDisableTTP;
         private System.Windows.Forms.Button btnEnableTTP;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnEdit;
     }
 }

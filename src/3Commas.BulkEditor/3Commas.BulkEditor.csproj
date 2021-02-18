@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/bulkeditor/</InstallUrl>
     <ProductName>Bulk Editor</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.45</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.46</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>46</ApplicationRevision>
+    <ApplicationRevision>47</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -221,6 +221,14 @@
     <Compile Include="Views\ChooseAccount\ChooseAccount.Designer.cs">
       <DependentUpon>ChooseAccount.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditDealsDialog\EditDealDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\EditDealsDialog\EditDealDialog.Designer.cs">
+      <DependentUpon>EditDealDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditDealsDialog\EditDealDto.cs" />
+    <Compile Include="Views\EditDealsDialog\EditDto.cs" />
     <Compile Include="Views\EditDialog\EditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ChooseAccount\ChooseAccount.resx">
       <DependentUpon>ChooseAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EditDealsDialog\EditDealDialog.resx">
+      <DependentUpon>EditDealDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditDialog\EditDialog.resx">
       <DependentUpon>EditDialog.cs</DependentUpon>

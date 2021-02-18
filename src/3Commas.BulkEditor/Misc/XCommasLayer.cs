@@ -221,6 +221,20 @@ namespace _3Commas.BulkEditor.Misc
             return (await _3CommasClient.ShowBotAsync(botId)).Data;
         }
 
+        public async Task UpdateDealAsync(DealUpdateData data)
+        {
+            var res = await _3CommasClient.UpdateDealAsync(data.DealId, data);
+
+            if (res.IsSuccess)
+            {
+                _logger.LogInformation($"Deal {data.DealId} updated");
+            }
+            else
+            {
+                _logger.LogError($"Could not update deal {data.DealId}. Reason: {res.Error}");
+            }
+        }
+
         public async Task<MarketplaceItem[]> GetMarketplaceItems()
         {
             return (await _3CommasClient.GetMarketplaceItemsAsync()).Data;

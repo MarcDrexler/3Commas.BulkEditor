@@ -7,7 +7,9 @@ using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using _3Commas.BulkEditor.Views.BaseControls;
+using _3Commas.BulkEditor.Views.EditDealsDialog;
 using Microsoft.Extensions.Logging;
+using XCommas.Net.Objects;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.ManageDealControl
@@ -39,6 +41,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
 
         public void SetButtonState(bool enableButtons)
         {
+            btnEdit.Enabled = enableButtons;
             btnDisableTTP.Enabled = enableButtons;
             btnEnableTTP.Enabled = enableButtons;
             btnCancel.Enabled = enableButtons;
@@ -54,6 +57,38 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             }
 
             return true;
+        }
+
+        private async void btnEdit_Click(object sender, EventArgs e)
+        {
+            var ids = tableControl.SelectedIds;
+            if (IsValid(ids))
+            {
+                var dlg = new EditDealDialog(ids.Count, new XCommasLayer(_keys, _logger));
+                EditDealDto editData = new EditDealDto();
+                dlg.EditDto = editData;
+                var dr = dlg.ShowDialog(this);
+                if (dr == DialogResult.OK)
+                {
+                    var botMgr = new XCommasLayer(_keys, _logger);
+                    await ExecuteBulkOperation($"Are you sure to update {tableControl.SelectedIds.Count} deals?", "Applying new settings", async dealId =>
+                    {
+                        var updateData = new DealUpdateData(dealId);
+                        if (editData.ActiveSafetyOrdersCount.HasValue) updateData.MaxSafetyOrdersCount = editData.ActiveSafetyOrdersCount.Value;
+                        if (editData.MaxSafetyOrders.HasValue) updateData.MaxSafetyOrders = editData.MaxSafetyOrders.Value;
+                        if (editData.TakeProfit.HasValue) updateData.TakeProfit = editData.TakeProfit.Value;
+                        if (editData.TakeProfitType.HasValue) updateData.TakeProfitType = editData.TakeProfitType.Value;
+                        if (editData.TrailingDeviation.HasValue) updateData.TrailingDeviation = editData.TrailingDeviation.Value;
+                        if (editData.TrailingEnabled.HasValue) updateData.TrailingEnabled = editData.TrailingEnabled.Value;
+                        if (editData.StopLossPercentage.HasValue) updateData.StopLossPercentage = editData.StopLossPercentage.Value;
+                        if (editData.StopLossType.HasValue) updateData.StopLossType = editData.StopLossType.Value;
+                        if (editData.StopLossTimeoutEnabled.HasValue) updateData.StopLossTimeoutEnabled = editData.StopLossTimeoutEnabled.Value;
+                        if (editData.StopLossTimeout.HasValue) updateData.StopLossTimeoutInSeconds = editData.StopLossTimeout.Value;
+                        
+                        await botMgr.UpdateDealAsync(updateData);
+                    });
+                }
+            }
         }
 
         private async void btnEnableTTP_Click(object sender, EventArgs e)

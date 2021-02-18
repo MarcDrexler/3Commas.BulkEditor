@@ -155,8 +155,6 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                     }
                 });
             }
-
-            var ids = tableControl.SelectedIds;
         }
 
         private async void btnDelete_Click(object sender, EventArgs e)
