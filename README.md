@@ -17,11 +17,11 @@ Also if you think something is broken or have any questions, please open an [Iss
 ## Features
 
 - Bots
-  - View all of your simple + multi 3Commas DCA bots
+  - View all of your DCA bots
   - Filtering, sorting, etc
-  - Bulk Edit
-  - Bulk Copy
-  - Bulk Delete
+  - Bulk Edit (simple bots only)
+  - Bulk Copy (simple bots only)
+  - Bulk Delete (simple bots only)
 - Deals
   - View all of your deals
   - Filtering, sorting, etc
