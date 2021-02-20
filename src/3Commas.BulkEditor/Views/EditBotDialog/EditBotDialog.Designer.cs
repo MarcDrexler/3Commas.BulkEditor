@@ -1,6 +1,6 @@
-﻿namespace _3Commas.BulkEditor.Views.EditDialog
+﻿namespace _3Commas.BulkEditor.Views.EditBotDialog
 {
-    partial class EditDialog
+    partial class EditBotDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label3 = new System.Windows.Forms.Label();
             this.numBaseOrderVolume = new System.Windows.Forms.NumericUpDown();
             this.chkChangeIsEnabled = new System.Windows.Forms.CheckBox();
@@ -112,6 +113,8 @@
             this.chkChangeTakeProfitType = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.cmbTakeProfitType = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolTipName = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).BeginInit();
@@ -126,6 +129,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossPercentage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossTimeout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLeverageCustomValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -630,7 +634,7 @@
             // lblPreviewTitle
             // 
             this.lblPreviewTitle.AutoSize = true;
-            this.lblPreviewTitle.Location = new System.Drawing.Point(399, 67);
+            this.lblPreviewTitle.Location = new System.Drawing.Point(407, 67);
             this.lblPreviewTitle.Name = "lblPreviewTitle";
             this.lblPreviewTitle.Size = new System.Drawing.Size(48, 13);
             this.lblPreviewTitle.TabIndex = 149;
@@ -639,7 +643,7 @@
             // lblNamePreview
             // 
             this.lblNamePreview.AutoSize = true;
-            this.lblNamePreview.Location = new System.Drawing.Point(453, 67);
+            this.lblNamePreview.Location = new System.Drawing.Point(461, 67);
             this.lblNamePreview.Name = "lblNamePreview";
             this.lblNamePreview.Size = new System.Drawing.Size(110, 13);
             this.lblNamePreview.TabIndex = 150;
@@ -1019,11 +1023,29 @@
             this.cmbTakeProfitType.Size = new System.Drawing.Size(121, 21);
             this.cmbTakeProfitType.TabIndex = 17;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::_3Commas.BulkEditor.Properties.Resources.Info_16x16;
+            this.pictureBox1.Location = new System.Drawing.Point(189, 65);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 192;
+            this.pictureBox1.TabStop = false;
+            this.toolTipName.SetToolTip(this.pictureBox1, "There are 2 placeholders available:\r\n\r\n\"{strategy}\" will be replaced by \"Long\" or" +
+        " \"Short\".\r\n\"{pair}\" will be replaced by \"BASE_QUOTE\" for simple bots and \"QUOTE\"" +
+        " for composite bots.");
+            // 
+            // toolTipName
+            // 
+            this.toolTipName.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
             // EditDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(639, 809);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.chkChangeTakeProfitType);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.cmbTakeProfitType);
@@ -1110,7 +1132,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "EditDialog";
+            this.Name = "EditBotDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -1129,6 +1151,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossPercentage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStopLossTimeout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLeverageCustomValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1219,5 +1242,7 @@
         private System.Windows.Forms.CheckBox chkChangeTakeProfitType;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.ComboBox cmbTakeProfitType;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolTip toolTipName;
     }
 }

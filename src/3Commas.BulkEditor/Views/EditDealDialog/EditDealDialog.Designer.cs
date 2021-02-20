@@ -1,4 +1,4 @@
-﻿namespace _3Commas.BulkEditor.Views.EditDealsDialog
+﻿namespace _3Commas.BulkEditor.Views.EditDealDialog
 {
     partial class EditDealDialog
     {

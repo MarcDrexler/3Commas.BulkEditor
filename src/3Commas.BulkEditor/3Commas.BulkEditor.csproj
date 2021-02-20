@@ -190,6 +190,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Container.cs" />
     <Compile Include="Infrastructure\IMessageBoxService.cs" />
     <Compile Include="Infrastructure\MessageBoxService.cs" />
     <Compile Include="Misc\AssemblyHelper.cs" />
@@ -221,21 +222,20 @@
     <Compile Include="Views\ChooseAccount\ChooseAccount.Designer.cs">
       <DependentUpon>ChooseAccount.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDealsDialog\EditDealDialog.cs">
+    <Compile Include="Views\EditDealDialog\EditDealDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\EditDealsDialog\EditDealDialog.Designer.cs">
+    <Compile Include="Views\EditDealDialog\EditDealDialog.Designer.cs">
       <DependentUpon>EditDealDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDealsDialog\EditDealDto.cs" />
-    <Compile Include="Views\EditDealsDialog\EditDto.cs" />
-    <Compile Include="Views\EditDialog\EditDialog.cs">
+    <Compile Include="Views\EditDealDialog\EditDealDto.cs" />
+    <Compile Include="Views\EditBotDialog\EditBotDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\EditDialog\EditDialog.Designer.cs">
-      <DependentUpon>EditDialog.cs</DependentUpon>
+    <Compile Include="Views\EditBotDialog\EditBotDialog.Designer.cs">
+      <DependentUpon>EditBotDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDialog\EditDto.cs" />
+    <Compile Include="Views\EditBotDialog\EditDto.cs" />
     <Compile Include="Views\ManageBotControl\BotViewModel.cs" />
     <Compile Include="Views\ManageBotControl\ManageBotControl.cs">
       <SubType>UserControl</SubType>
@@ -297,11 +297,11 @@
     <EmbeddedResource Include="Views\ChooseAccount\ChooseAccount.resx">
       <DependentUpon>ChooseAccount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\EditDealsDialog\EditDealDialog.resx">
+    <EmbeddedResource Include="Views\EditDealDialog\EditDealDialog.resx">
       <DependentUpon>EditDealDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\EditDialog\EditDialog.resx">
-      <DependentUpon>EditDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Views\EditBotDialog\EditBotDialog.resx">
+      <DependentUpon>EditBotDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ManageBotControl\ManageBotControl.resx">
       <DependentUpon>ManageBotControl.cs</DependentUpon>

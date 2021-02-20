@@ -6,16 +6,16 @@ using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BulkEditor.Views.EditDialog
+namespace _3Commas.BulkEditor.Views.EditBotDialog
 {
-    public partial class EditDialog : Form
+    public partial class EditBotDialog : Form
     {
         private readonly int _botCount;
         private readonly XCommasLayer _manager;
         private readonly IMessageBoxService _mbs = new MessageBoxService();
         private readonly List<BotStrategy> _startConditions = new List<BotStrategy>();
 
-        public EditDialog(int botCount, XCommasLayer manager)
+        public EditBotDialog(int botCount, XCommasLayer manager)
         {
             _botCount = botCount;
             _manager = manager;
@@ -74,7 +74,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
             cmbStopLossTimeoutEnabled.Items.Add("Disable");
         }
 
-        public EditDto EditDto { get; set; } = new EditDto();
+        public EditBotDto EditDto { get; set; } = new EditBotDto();
 
         public bool HasChanges => Controls.OfType<CheckBox>().Any(x => x.Checked);
 
@@ -185,7 +185,7 @@ namespace _3Commas.BulkEditor.Views.EditDialog
          
         private void txtName_TextChanged(object sender, EventArgs e)
         {
-            lblNamePreview.Text = XCommasLayer.GenerateNewName(txtName.Text, "Long", "USDT_BTC", "AccountName");
+            lblNamePreview.Text = XCommasLayer.GenerateNewName(txtName.Text, "Long", new[] {"USDT_BTC"}, "AccountName");
         }
 
         private void cmbDisableAfterDealsCount_SelectedValueChanged(object sender, EventArgs e)

@@ -1,6 +1,6 @@
 # 3Commas.BulkEditor
 
-This unofficial tool allows you to bulk edit your simple DCA bots + some actions to manage your deals
+This unofficial tool allows you to bulk edit your DCA bots (simple & composite) + some actions to manage your deals
 
 
 ## Technical description
@@ -19,9 +19,9 @@ Also if you think something is broken or have any questions, please open an [Iss
 - Bots
   - View all of your DCA bots
   - Filtering, sorting, etc
-  - Bulk Edit (simple bots only)
-  - Bulk Copy (simple bots only)
-  - Bulk Delete (simple bots only)
+  - Bulk Edit
+  - Bulk Copy
+  - Bulk Delete
 - Deals
   - View all of your deals
   - Filtering, sorting, etc

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using _3Commas.BulkEditor.Views.BaseControls;
-using _3Commas.BulkEditor.Views.EditDealsDialog;
+using _3Commas.BulkEditor.Views.EditDealDialog;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
@@ -64,7 +64,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             var ids = tableControl.SelectedIds;
             if (IsValid(ids))
             {
-                var dlg = new EditDealDialog(ids.Count, new XCommasLayer(_keys, _logger));
+                var dlg = new EditDealDialog.EditDealDialog(ids.Count, new XCommasLayer(_keys, _logger));
                 EditDealDto editData = new EditDealDto();
                 dlg.EditDto = editData;
                 var dr = dlg.ShowDialog(this);
@@ -156,7 +156,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
 
         public void SetDataSource()
         {
-            tableControl.SetDataSource();
+            tableControl.SetDataSource<DealViewModel>();
         }
 
         public async Task RefreshData()

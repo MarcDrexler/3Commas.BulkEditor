@@ -208,12 +208,23 @@ namespace _3Commas.BulkEditor.Misc
             return await _3CommasClient.DeleteBotAsync(botId);
         }
 
-        public static string GenerateNewName(string pattern, string strategy, string pair, string accountName)
+        public static string GenerateNewName(string pattern, string strategy, string[] pairs, string accountName)
         {
+            string pairText;
+
+            if (pairs.Length > 1)
+            {
+                pairText = pairs.First().Split('_').First();
+            }
+            else
+            {
+                pairText = pairs.Single();
+            }
+
             return pattern
                 .Replace("{account}", accountName)
                 .Replace("{strategy}", strategy)
-                .Replace("{pair}", pair);
+                .Replace("{pair}", pairText);
         }
 
         public async Task<Bot> GetBotById(int botId)

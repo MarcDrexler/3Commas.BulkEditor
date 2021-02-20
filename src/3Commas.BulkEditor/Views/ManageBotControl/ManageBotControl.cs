@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using _3Commas.BulkEditor.Views.BaseControls;
-using _3Commas.BulkEditor.Views.EditDialog;
+using _3Commas.BulkEditor.Views.EditBotDialog;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
@@ -31,7 +31,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             _mbs = mbs;
             _keys = keys;
             _logger = logger;
-            tableControl.Init(keys, logger, mbs);
+            tableControl.Init(keys, logger);
         }
 
         private void TableControlOnIsBusy(object sender, IsBusyEventArgs e)
@@ -51,8 +51,8 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             var ids = tableControl.SelectedIds;
             if (IsValid(ids))
             {
-                var dlg = new EditDialog.EditDialog(ids.Count, new XCommasLayer(_keys, _logger));
-                EditDto editData = new EditDto();
+                var dlg = new EditBotDialog.EditBotDialog(ids.Count, new XCommasLayer(_keys, _logger));
+                EditBotDto editData = new EditBotDto();
                 dlg.EditDto = editData;
                 var dr = dlg.ShowDialog(this);
                 if (dr == DialogResult.OK)
@@ -80,7 +80,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                         if (editData.MartingaleStepCoefficient.HasValue) updateData.MartingaleStepCoefficient = editData.MartingaleStepCoefficient.Value;
                         if (editData.MartingaleVolumeCoefficient.HasValue) updateData.MartingaleVolumeCoefficient = editData.MartingaleVolumeCoefficient.Value;
                         if (editData.MaxSafetyOrders.HasValue) updateData.MaxSafetyOrders = editData.MaxSafetyOrders.Value;
-                        if (!string.IsNullOrWhiteSpace(editData.Name)) updateData.Name = XCommasLayer.GenerateNewName(editData.Name, bot.Strategy.ToString(), bot.Pairs.Single(), bot.AccountName);
+                        if (!string.IsNullOrWhiteSpace(editData.Name)) updateData.Name = XCommasLayer.GenerateNewName(editData.Name, bot.Strategy.ToString(), bot.Pairs, bot.AccountName);
                         if (editData.SafetyOrderStepPercentage.HasValue) updateData.SafetyOrderStepPercentage = editData.SafetyOrderStepPercentage.Value;
                         if (editData.StartOrderType.HasValue) updateData.StartOrderType = editData.StartOrderType.Value;
                         if (editData.SafetyOrderVolume.HasValue) updateData.SafetyOrderVolume = editData.SafetyOrderVolume.Value;
@@ -112,6 +112,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                         if (editData.DealStartConditions.Any())
                         {
                             updateData.Strategies.Clear();
+                            updateData.Strategies.Add(new NonStopBotStrategy());
                             updateData.Strategies.AddRange(editData.DealStartConditions);
                         }
 
@@ -223,18 +224,12 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                 return false;
             }
 
-            if (tableControl.Items.Where(x => ids.Contains(x.Id)).Any(x => x.Type != "Bot::SingleBot"))
-            {
-                _mbs.ShowError("Sorry, Bulk Edit only works for Simple Bots, not advanced.");
-                return false;
-            }
-
             return true;
         }
 
         public void SetDataSource()
         {
-            tableControl.SetDataSource();
+            tableControl.SetDataSource<BotViewModel>();
         }
 
         public async Task RefreshData()

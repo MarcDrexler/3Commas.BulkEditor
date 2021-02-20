@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using _3Commas.BulkEditor.Views.BaseControls;
 using Microsoft.Extensions.Logging;
@@ -14,17 +13,15 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
     {
         private Keys _keys;
         private ILogger _logger;
-        private IMessageBoxService _mbs;
 
         public BotTableControl()
         {
             InitializeComponent();
-            base.OnRefreshClicked += OnOnRefreshClicked;
+            OnRefreshClicked += OnOnRefreshClicked;
         }
 
-        public void Init(Misc.Keys keys, ILogger logger, IMessageBoxService mbs)
+        public void Init(Keys keys, ILogger logger)
         {
-            _mbs = mbs;
             _keys = keys;
             _logger = logger;
             base.Init("Bots", _keys);
@@ -34,7 +31,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
         {
             await RefreshData();
         }
-        
+
         public async Task RefreshData()
         {
             await base.RefreshData<BotViewModel>(async () =>
@@ -42,61 +39,63 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                     var botMgr = new XCommasLayer(_keys, _logger);
                     return (await botMgr.GetAllBots()).OrderBy(x => x.Id).ToList();
                 },
-                nameof(BotViewModel.Id),
-                nameof(BotViewModel.Type),
-                nameof(BotViewModel.IsEnabled),
-                nameof(BotViewModel.Name),
-                nameof(BotViewModel.Strategy),
-                nameof(BotViewModel.Pair),
-                nameof(BotViewModel.AccountName),
-                nameof(BotViewModel.MaxActiveDeals),
-                nameof(BotViewModel.ActiveDealsCount),
-                nameof(BotViewModel.TakeProfit),
-                nameof(BotViewModel.TakeProfitType),
-                nameof(BotViewModel.ProfitCurrency),
-                nameof(BotViewModel.TrailingEnabled),
-                nameof(BotViewModel.TrailingDeviation),
-                nameof(BotViewModel.DealStartCondition),
-                nameof(BotViewModel.StopLossPercentage),
-                nameof(BotViewModel.StopLossType),
-                nameof(BotViewModel.StopLossTimeoutEnabled),
-                nameof(BotViewModel.StopLossTimeoutInSeconds),
-                nameof(BotViewModel.BaseOrderVolume),
-                nameof(BotViewModel.BaseOrderVolumeType),
-                nameof(BotViewModel.StartOrderType),
-                nameof(BotViewModel.SafetyOrderVolume),
-                nameof(BotViewModel.SafetyOrderVolumeType),
-                nameof(BotViewModel.MaxSafetyOrders),
-                nameof(BotViewModel.ActiveSafetyOrdersCount),
-                nameof(BotViewModel.SafetyOrderStepPercentage),
-                nameof(BotViewModel.StopLossPercentage),
-                nameof(BotViewModel.LeverageType),
-                nameof(BotViewModel.LeverageCustomValue),
-                nameof(BotViewModel.MartingaleVolumeCoefficient),
-                nameof(BotViewModel.MartingaleStepCoefficient),
-                nameof(BotViewModel.MinPrice),
-                nameof(BotViewModel.MaxPrice),
-                nameof(BotViewModel.MinVolumeBtc24h),
-                nameof(BotViewModel.Cooldown),
-                nameof(BotViewModel.DisableAfterDealsCount),
-                nameof(BotViewModel.FinishedDealsCount),
-                nameof(BotViewModel.FinishedDealsProfitUsd),
-                nameof(BotViewModel.ProfitRatio),
-                nameof(BotViewModel.CreatedAt),
-                nameof(BotViewModel.UpdatedAt),
-                nameof(BotViewModel.IsDeleteable));
+                new[]
+                {
+                    new Tuple<string, int>(nameof(BotViewModel.Id), 55),
+                    new Tuple<string, int>(nameof(BotViewModel.BotType), 70),
+                    new Tuple<string, int>(nameof(BotViewModel.IsEnabled), 65),
+                    new Tuple<string, int>(nameof(BotViewModel.Name), 120),
+                    new Tuple<string, int>(nameof(BotViewModel.Strategy), 70),
+                    new Tuple<string, int>(nameof(BotViewModel.Pair), 100),
+                    new Tuple<string, int>(nameof(BotViewModel.AccountName), 90),
+                    new Tuple<string, int>(nameof(BotViewModel.MaxActiveDeals), 100),
+                    new Tuple<string, int>(nameof(BotViewModel.ActiveDealsCount), 100),
+                    new Tuple<string, int>(nameof(BotViewModel.TakeProfit), 50),
+                    new Tuple<string, int>(nameof(BotViewModel.TakeProfitType), 70),
+                    new Tuple<string, int>(nameof(BotViewModel.ProfitCurrency), 90),
+                    new Tuple<string, int>(nameof(BotViewModel.TrailingEnabled), 70),
+                    new Tuple<string, int>(nameof(BotViewModel.TrailingDeviation), 90),
+                    new Tuple<string, int>(nameof(BotViewModel.DealStartCondition), 200),
+                    new Tuple<string, int>(nameof(BotViewModel.StopLossPercentage), 100),
+                    new Tuple<string, int>(nameof(BotViewModel.StopLossType), 70),
+                    new Tuple<string, int>(nameof(BotViewModel.StopLossTimeoutEnabled), 100),
+                    new Tuple<string, int>(nameof(BotViewModel.StopLossTimeoutInSeconds), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.BaseOrderVolume), 60),
+                    new Tuple<string, int>(nameof(BotViewModel.BaseOrderVolumeType), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.StartOrderType), 60),
+                    new Tuple<string, int>(nameof(BotViewModel.SafetyOrderVolume), 60),
+                    new Tuple<string, int>(nameof(BotViewModel.SafetyOrderVolumeType), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.MaxSafetyOrders), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.ActiveSafetyOrdersCount), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.SafetyOrderStepPercentage), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.LeverageType), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.LeverageCustomValue), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.MartingaleVolumeCoefficient), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.MartingaleStepCoefficient), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.MinPrice), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.MaxPrice), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.MinVolumeBtc24h), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.Cooldown), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.DisableAfterDealsCount), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.FinishedDealsCount), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.FinishedDealsProfitUsd), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.ProfitRatio), 80),
+                    new Tuple<string, int>(nameof(BotViewModel.CreatedAt), 100),
+                    new Tuple<string, int>(nameof(BotViewModel.UpdatedAt), 100),
+                    new Tuple<string, int>(nameof(BotViewModel.IsDeleteable), 80)
+                });
         }
-        
+
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // BotTableControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Name = "BotTableControl";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            Name = "BotTableControl";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
     }

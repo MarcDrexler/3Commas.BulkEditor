@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using Microsoft.Extensions.Logging;
-using XCommas.Net.Objects;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.MainForm
@@ -15,7 +13,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private readonly Keys _keys = new Keys();
         private readonly ILogger _logger;
         private readonly IMessageBoxService _mbs;
-        private List<Bot> _bots = new List<Bot>();
 
         public MainFormPresenter(IMainForm view, ILogger logger, IMessageBoxService mbs) : base(view)
         {

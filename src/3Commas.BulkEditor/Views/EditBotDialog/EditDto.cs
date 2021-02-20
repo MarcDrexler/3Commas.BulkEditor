@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BulkEditor.Views.EditDialog
+namespace _3Commas.BulkEditor.Views.EditBotDialog
 {
-    public class EditDto
+    public class EditBotDto
     {
         public int? Cooldown { get; set; }
         public decimal? MartingaleStepCoefficient { get; set; }

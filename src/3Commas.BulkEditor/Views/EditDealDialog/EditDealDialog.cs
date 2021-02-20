@@ -6,7 +6,7 @@ using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using XCommas.Net.Objects;
 
-namespace _3Commas.BulkEditor.Views.EditDealsDialog
+namespace _3Commas.BulkEditor.Views.EditDealDialog
 {
     public partial class EditDealDialog : Form
     {

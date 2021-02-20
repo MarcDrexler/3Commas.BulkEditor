@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoMapper;
 using AutoMapper.Configuration;
 using FastMember;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
+using PropertyAttributes = System.Data.PropertyAttributes;
+
 // ReSharper disable LocalizableElement
 
 namespace _3Commas.BulkEditor.Views.BaseControls
@@ -21,6 +25,7 @@ namespace _3Commas.BulkEditor.Views.BaseControls
         private List<T> _items;
         private Keys _keys;
         private bool _isBusy;
+        private Tuple<string, int>[] _fields;
 
         public EntityTableControl()
         {
@@ -48,9 +53,47 @@ namespace _3Commas.BulkEditor.Views.BaseControls
             grid.SetDoubleBuffered();
         }
 
-        public void SetDataSource()
+        public void SetDataSource<TViewModel>()
         {
             grid.DataSource = bindingSource;
+            SetInitialColumnWidth();
+
+            var viewModelProperties = typeof(TViewModel).GetProperties().ToList();
+            for (int i = 0; i < grid.ColumnCount; i++)
+            {
+                var properties = viewModelProperties.Where(x => x.Name == grid.Columns[i].Name).ToList();
+                if (properties.Any())
+                {
+                    PropertyInfo property;
+                    if (properties.Count > 1)
+                    {
+                        var pViewModel = properties.SingleOrDefault(x => x.DeclaringType.Name == typeof(TViewModel).Name);
+                        property = pViewModel != null ? pViewModel : properties.First(x => x.DeclaringType.Name != typeof(TViewModel).Name);
+                    }
+                    else
+                    {
+                        property = properties.Single();
+                    }
+
+                    var displayNameAttribute = property.GetCustomAttribute(typeof(DisplayNameAttribute));
+                    if (displayNameAttribute != null)
+                    {
+                        grid.Columns[i].HeaderText = ((DisplayNameAttribute) displayNameAttribute).DisplayName;
+                    }
+                }
+            }
+        }
+
+        private void SetInitialColumnWidth()
+        {
+            for (int i = 0; i < grid.ColumnCount; i++)
+            {
+                var fieldDefinition = _fields.SingleOrDefault(x => x.Item1 == grid.Columns[i].Name);
+                if (fieldDefinition != null)
+                {
+                    grid.Columns[i].Width = fieldDefinition.Item2;
+                }
+            }
         }
 
         public List<int> SelectedIds
@@ -96,9 +139,11 @@ namespace _3Commas.BulkEditor.Views.BaseControls
             grid.CleanFilter();
         }
 
-        private void RefreshGrid<TViewModel>(List<T> entities, params string[] fields)
+        private void RefreshGrid<TViewModel>(List<T> entities, params Tuple<string, int>[] fields)
         {
             _isDataLoaded = true;
+
+            _fields = fields;
 
             _dataTable.Clear();
 
@@ -108,13 +153,13 @@ namespace _3Commas.BulkEditor.Views.BaseControls
             var mapper = mapperConfig.CreateMapper();
             var botViewModels = mapper.Map<IEnumerable<T>, IEnumerable<TViewModel>>(entities);
 
-            using (var reader = ObjectReader.Create(botViewModels, fields))
+            using (var reader = ObjectReader.Create(botViewModels, fields.Select(x => x.Item1).ToArray()))
             {
                 _dataTable.Load(reader);
             }
 
             bindingSource.DataMember = _dataTable.TableName;
-
+            
             SetTotalCount(entities.Count);
 
             grid.ClearSelection();
@@ -143,7 +188,7 @@ namespace _3Commas.BulkEditor.Views.BaseControls
             OnRefreshClicked?.Invoke(sender, e);
         }
 
-        protected async Task RefreshData<TViewModel>(Func<Task<List<T>>> getDataFunc, params string[] fields)
+        protected async Task RefreshData<TViewModel>(Func<Task<List<T>>> getDataFunc, params Tuple<string, int>[] fields)
         {
             _items = new List<T>();
             IsBusy = true;

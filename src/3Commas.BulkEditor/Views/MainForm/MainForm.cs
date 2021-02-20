@@ -8,7 +8,7 @@ using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.MainForm
 {
-    public partial class MainForm : Form, IMainForm
+    public sealed partial class MainForm : Form, IMainForm
     {
         private readonly MainFormPresenter _presenter;
 
@@ -16,8 +16,11 @@ namespace _3Commas.BulkEditor.Views.MainForm
         {
             InitializeComponent();
 
-            this.Text = $"{AssemblyHelper.AssemblyTitle} {AssemblyHelper.AssemblyVersion}";
-            _presenter = new MainFormPresenter(this, new TextBoxLogger(txtOutput), new MessageBoxService());
+            Text = $"{AssemblyHelper.AssemblyTitle} {AssemblyHelper.AssemblyVersion}";
+
+            ObjectContainer.Logger = new TextBoxLogger(txtOutput);
+
+            _presenter = new MainFormPresenter(this, ObjectContainer.Logger, ObjectContainer.MessageBoxService);
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -61,7 +64,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private void NotifyCurrentTab()
         {
             // Workaround:
-            // we can only set the datasource, if the grid is really visible to the user. Otherwise this gridview will throw an exception while binding the data :/
+            // we can only set the datasource if the grid is really visible to the user. Otherwise this gridview will throw an exception while binding the data :/
             if (tabControl1.SelectedTab.Text == "Bots")
             {
                 manageBotControl.SetDataSource();

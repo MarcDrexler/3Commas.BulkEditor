@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using XCommas.Net.Objects;
+﻿using XCommas.Net.Objects;
 
-namespace _3Commas.BulkEditor.Views.EditDealsDialog
+namespace _3Commas.BulkEditor.Views.EditDealDialog
 {
     public class EditDealDto
     {
