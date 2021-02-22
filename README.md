@@ -68,3 +68,5 @@ or
 
 <a href="https://www.buymeacoffee.com/marcdrexler" target="_blank"><img width="136" height="40" src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 136px !important;" ></a>
 
+Best used with [Binance](https://www.binance.com/en/register?ref=37132298) and [3Commas](https://3commas.io/?c=tc240413) :v:
+
