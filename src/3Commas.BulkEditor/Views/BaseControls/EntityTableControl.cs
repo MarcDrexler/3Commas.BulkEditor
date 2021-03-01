@@ -9,8 +9,8 @@ using System.Windows.Forms;
 using AutoMapper;
 using AutoMapper.Configuration;
 using FastMember;
+using static System.String;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
-using PropertyAttributes = System.Data.PropertyAttributes;
 
 // ReSharper disable LocalizableElement
 
@@ -119,7 +119,7 @@ namespace _3Commas.BulkEditor.Views.BaseControls
 
         private void grid_FilterStringChanged(object sender, Zuby.ADGV.AdvancedDataGridView.FilterEventArgs e)
         {
-            ShowFilterInformation(!string.IsNullOrWhiteSpace(e.FilterString));
+            ShowFilterInformation(!IsNullOrWhiteSpace(e.FilterString));
             lblVisibleCount.Text = $"{grid.RowCount} {_entityName} visible";
         }
 
@@ -193,7 +193,7 @@ namespace _3Commas.BulkEditor.Views.BaseControls
             _items = new List<T>();
             IsBusy = true;
             RefreshGrid<TViewModel>(_items, fields);
-            if (!String.IsNullOrWhiteSpace(_keys.Secret3Commas) && !String.IsNullOrWhiteSpace(_keys.ApiKey3Commas))
+            if (!IsNullOrWhiteSpace(_keys.Secret3Commas) && !IsNullOrWhiteSpace(_keys.ApiKey3Commas))
             {
                 _items = await getDataFunc();
             }

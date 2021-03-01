@@ -8,6 +8,8 @@ using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using _3Commas.BulkEditor.Views.BaseControls;
 using _3Commas.BulkEditor.Views.EditBotDialog;
+using Dasync.Collections;
+using M.EventBroker;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
@@ -19,6 +21,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
         private IMessageBoxService _mbs;
         private Keys _keys;
         private ILogger _logger;
+        private IEventBroker _eventBroker;
 
         public ManageBotControl()
         {
@@ -26,12 +29,19 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             tableControl.IsBusyChanged += TableControlOnIsBusy;
         }
 
-        public void Init(Misc.Keys keys, ILogger logger, IMessageBoxService mbs)
+        public void Init(Keys keys, ILogger logger, IMessageBoxService mbs)
         {
             _mbs = mbs;
             _keys = keys;
             _logger = logger;
+            _eventBroker = ObjectContainer.EventBroker;
+            _eventBroker.Subscribe<KeysChangedEventArgs>(args => this.RunInUiThread(RefreshData));
             tableControl.Init(keys, logger);
+
+            if (!keys.IsEmpty())
+            {
+                RefreshData().ConfigureAwait(false);
+            }
         }
 
         private void TableControlOnIsBusy(object sender, IsBusyEventArgs e)
@@ -180,7 +190,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             var dr = _mbs.ShowQuestion(confirmationMessage);
             if (dr == DialogResult.Yes)
             {
-                await ExecuteBulkOperation(inProgressText, updateOperation);
+                await ExecuteBulkOperation(inProgressText, updateOperation).ConfigureAwait(false);
             }
         }
 
@@ -189,17 +199,15 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             var cancellationTokenSource = new CancellationTokenSource();
             var loadingView = new ProgressView.ProgressView(inProgressText, cancellationTokenSource, tableControl.SelectedIds.Count);
             loadingView.Show(this);
-
+            
             int i = 0;
-            foreach (var botId in tableControl.SelectedIds)
-            {
-                i++;
-                loadingView.SetProgress(i);
-
-                if (cancellationTokenSource.IsCancellationRequested) break;
-
-                await updateOperation(botId);
-            }
+            await tableControl.SelectedIds.ParallelForEachAsync(
+                async botId =>
+                {
+                    await updateOperation(botId);
+                    i++;
+                    loadingView.SetProgress(i);
+                }, 5, cancellationTokenSource.Token).ConfigureAwait(true);
 
             loadingView.Close();
             if (cancellationTokenSource.IsCancellationRequested)
@@ -235,6 +243,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
         public async Task RefreshData()
         {
             await tableControl.RefreshData();
+            SetDataSource();
         }
     }
 }

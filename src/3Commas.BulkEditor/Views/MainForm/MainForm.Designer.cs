@@ -37,11 +37,12 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.lblOutputLog = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.manageBotControl = new _3Commas.BulkEditor.Views.ManageBotControl.ManageBotControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.manageDealControl = new _3Commas.BulkEditor.Views.ManageDealControl.ManageDealControl();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.manageDealControl = new _3Commas.BulkEditor.Views.ManageDealControl.ManageDealControl();
-            this.manageBotControl = new _3Commas.BulkEditor.Views.ManageBotControl.ManageBotControl();
+            this.lblAccountsLoaded = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -116,6 +117,14 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.tabPage1.Text = "Bots";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // manageBotControl
+            // 
+            this.manageBotControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageBotControl.Location = new System.Drawing.Point(3, 3);
+            this.manageBotControl.Name = "manageBotControl";
+            this.manageBotControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageBotControl.TabIndex = 0;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.manageDealControl);
@@ -126,6 +135,14 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Deals";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // manageDealControl
+            // 
+            this.manageDealControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageDealControl.Location = new System.Drawing.Point(3, 3);
+            this.manageDealControl.Name = "manageDealControl";
+            this.manageDealControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageDealControl.TabIndex = 0;
             // 
             // btnAbout
             // 
@@ -155,27 +172,21 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // manageDealControl
+            // lblAccountsLoaded
             // 
-            this.manageDealControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.manageDealControl.Location = new System.Drawing.Point(3, 3);
-            this.manageDealControl.Name = "manageDealControl";
-            this.manageDealControl.Size = new System.Drawing.Size(1028, 427);
-            this.manageDealControl.TabIndex = 0;
-            // 
-            // manageBotControl
-            // 
-            this.manageBotControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.manageBotControl.Location = new System.Drawing.Point(3, 3);
-            this.manageBotControl.Name = "manageBotControl";
-            this.manageBotControl.Size = new System.Drawing.Size(1028, 427);
-            this.manageBotControl.TabIndex = 0;
+            this.lblAccountsLoaded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblAccountsLoaded.AutoSize = true;
+            this.lblAccountsLoaded.Location = new System.Drawing.Point(201, 18);
+            this.lblAccountsLoaded.Name = "lblAccountsLoaded";
+            this.lblAccountsLoaded.Size = new System.Drawing.Size(99, 13);
+            this.lblAccountsLoaded.TabIndex = 81;
+            this.lblAccountsLoaded.Text = "Accounts loaded: 0";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1066, 734);
+            this.Controls.Add(this.lblAccountsLoaded);
             this.Controls.Add(this.linkLabel3Commas);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.pictureBox1);
@@ -210,6 +221,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private System.Windows.Forms.TabPage tabPage1;
         private ManageDealControl.ManageDealControl manageDealControl;
         private ManageBotControl.ManageBotControl manageBotControl;
+        private System.Windows.Forms.Label lblAccountsLoaded;
     }
 }
 

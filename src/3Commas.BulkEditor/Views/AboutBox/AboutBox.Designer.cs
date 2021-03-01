@@ -1,6 +1,6 @@
 ﻿namespace _3Commas.BulkEditor.Views.AboutBox
 {
-    partial class AboutBox
+    sealed partial class AboutBox
     {
         /// <summary>
         /// Required designer variable.
@@ -34,6 +34,7 @@
             this.pbBuyMeACoffee = new System.Windows.Forms.PictureBox();
             this.linkGithubProject = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
+            this.linkLabelChangelog = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuyMeACoffee)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,12 +118,24 @@
             this.label1.Text = "If you think something is broken or have any questions, please open an Issue";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // linkLabelChangelog
+            // 
+            this.linkLabelChangelog.AutoSize = true;
+            this.linkLabelChangelog.Location = new System.Drawing.Point(168, 175);
+            this.linkLabelChangelog.Name = "linkLabelChangelog";
+            this.linkLabelChangelog.Size = new System.Drawing.Size(99, 13);
+            this.linkLabelChangelog.TabIndex = 50;
+            this.linkLabelChangelog.TabStop = true;
+            this.linkLabelChangelog.Text = "Click for Changelog";
+            this.linkLabelChangelog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelChangelog_LinkClicked);
+            // 
             // AboutBox
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(435, 277);
+            this.Controls.Add(this.linkLabelChangelog);
             this.Controls.Add(this.linkGithubProject);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelProductName);
@@ -153,5 +166,6 @@
         private System.Windows.Forms.PictureBox pbBuyMeACoffee;
         private System.Windows.Forms.LinkLabel linkGithubProject;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel linkLabelChangelog;
     }
 }

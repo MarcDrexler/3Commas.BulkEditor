@@ -21,7 +21,13 @@ namespace _3Commas.BulkEditor.Misc
                 message += formatter(state, exception);
             }
 
-            _txtOutput.AppendText($"{DateTime.Now} {logLevel}: {message}{Environment.NewLine}");
+            if (_txtOutput.InvokeRequired)
+            {
+                _txtOutput.BeginInvoke(new MethodInvoker(() =>
+                {
+                    _txtOutput.AppendText($"{DateTime.Now} {logLevel}: {message}{Environment.NewLine}");
+                }));
+            }
         }
 
         public bool IsEnabled(LogLevel logLevel)

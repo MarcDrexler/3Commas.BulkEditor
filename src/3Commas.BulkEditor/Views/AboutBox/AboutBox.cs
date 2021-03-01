@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Misc;
 
 namespace _3Commas.BulkEditor.Views.AboutBox
 {
-    partial class AboutBox : Form
+    [SuppressMessage("ReSharper", "LocalizableElement")]
+    sealed partial class AboutBox : Form
     {
         public AboutBox()
         {
@@ -25,6 +27,11 @@ namespace _3Commas.BulkEditor.Views.AboutBox
         private void linkGithubProject_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/MarcDrexler/3Commas.BulkEditor/issues/new");
+        }
+
+        private void linkLabelChangelog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/MarcDrexler/3Commas.BulkEditor/releases");
         }
     }
 }

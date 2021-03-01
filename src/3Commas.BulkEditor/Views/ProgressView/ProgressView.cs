@@ -20,9 +20,15 @@ namespace _3Commas.BulkEditor.Views.ProgressView
 
         public void SetProgress(int currentValue)
         {
-            progressBar.Value = currentValue;
-            decimal percentage = ((decimal)currentValue / _totalCount) * 100;
-            lblPercentage.Text = $"{(int)percentage} %";
+            if (this.InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() => 
+                {
+                    progressBar.Value = currentValue;
+                    decimal percentage = ((decimal)currentValue / _totalCount) * 100;
+                    lblPercentage.Text = $"{(int)percentage} %";
+                }));
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

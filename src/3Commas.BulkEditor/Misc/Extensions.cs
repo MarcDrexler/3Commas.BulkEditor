@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using XCommas.Net.Objects;
 
 namespace _3Commas.BulkEditor.Misc
@@ -79,6 +81,25 @@ namespace _3Commas.BulkEditor.Misc
                     return "Cumulative";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(time), time, null);
+            }
+        }
+
+        public static void RunInUiThread(this UserControl control, Func<Task> func)
+        {
+            if (control.InvokeRequired)
+            {
+                control.Invoke(new MethodInvoker(async delegate
+                {
+                    await func.Invoke();
+                }));
+            }
+        }
+
+        public static void RunInUiThread(this UserControl control, Action func)
+        {
+            if (control.InvokeRequired)
+            {
+                control.Invoke(new MethodInvoker(func.Invoke));
             }
         }
     }

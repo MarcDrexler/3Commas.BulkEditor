@@ -9,6 +9,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
     {
         void ClearLog();
         void InitGrids(Keys keys, ILogger logger, IMessageBoxService mbs);
-        Task ReloadData();
+        void SetAccountCount(int numberOfAccounts);
     }
 }

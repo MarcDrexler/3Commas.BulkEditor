@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
@@ -20,7 +19,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
 
             ObjectContainer.Logger = new TextBoxLogger(txtOutput);
 
-            _presenter = new MainFormPresenter(this, ObjectContainer.Logger, ObjectContainer.MessageBoxService);
+            _presenter = new MainFormPresenter(this, ObjectContainer.Logger, ObjectContainer.MessageBoxService, ObjectContainer.EventBroker);
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -39,9 +38,9 @@ namespace _3Commas.BulkEditor.Views.MainForm
             box.ShowDialog(this);
         }
 
-        private async void linkLabel3Commas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel3Commas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            await _presenter.On3CommasLinkClicked();
+            _presenter.On3CommasLinkClicked();
         }
         
         public void ClearLog()
@@ -55,10 +54,14 @@ namespace _3Commas.BulkEditor.Views.MainForm
             manageDealControl.Init(keys, logger, mbs);
         }
 
-        public async Task ReloadData()
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            await Task.WhenAll(manageBotControl.RefreshData(), manageDealControl.RefreshData());
             NotifyCurrentTab();
+        }
+
+        public void SetAccountCount(int numberOfAccounts)
+        {
+            lblAccountsLoaded.Text = $"Accounts loaded: {numberOfAccounts}";
         }
 
         private void NotifyCurrentTab()
@@ -73,11 +76,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
             {
                 manageDealControl.SetDataSource();
             }
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            NotifyCurrentTab();
         }
     }
 }

@@ -44,9 +44,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                 {
                     new Tuple<string, int>(nameof(DealViewModel.Id), 65),
                     new Tuple<string, int>(nameof(DealViewModel.DealType), 50),
-                    new Tuple<string, int>(nameof(DealViewModel.AccountId), 60),
-                    // Currently 3c API returns empty string for account: https://github.com/3commas-io/3commas-official-api-docs/issues/35
-                    //nameof(DealViewModel.AccountName), 50),
+                    new Tuple<string, int>(nameof(DealViewModel.Account), 100),
                     new Tuple<string, int>(nameof(DealViewModel.BotId), 55),
                     new Tuple<string, int>(nameof(DealViewModel.BotName), 130),
                     new Tuple<string, int>(nameof(DealViewModel.Pair), 100),

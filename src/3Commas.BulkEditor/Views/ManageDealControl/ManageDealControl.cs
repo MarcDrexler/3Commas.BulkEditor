@@ -8,6 +8,8 @@ using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using _3Commas.BulkEditor.Views.BaseControls;
 using _3Commas.BulkEditor.Views.EditDealDialog;
+using Dasync.Collections;
+using M.EventBroker;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
@@ -19,6 +21,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         private IMessageBoxService _mbs;
         private Keys _keys;
         private ILogger _logger;
+        private IEventBroker _eventBroker;
 
         public ManageDealControl()
         {
@@ -31,7 +34,14 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             _mbs = mbs;
             _keys = keys;
             _logger = logger;
+            _eventBroker = ObjectContainer.EventBroker;
+            _eventBroker.Subscribe<KeysChangedEventArgs>(args => this.RunInUiThread(RefreshData));
             tableControl.Init(keys, logger, mbs);
+
+            if (!keys.IsEmpty())
+            {
+                RefreshData().ConfigureAwait(false);
+            }
         }
 
         private void TableControlOnIsBusy(object sender, IsBusyEventArgs e)
@@ -84,7 +94,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                         if (editData.StopLossType.HasValue) updateData.StopLossType = editData.StopLossType.Value;
                         if (editData.StopLossTimeoutEnabled.HasValue) updateData.StopLossTimeoutEnabled = editData.StopLossTimeoutEnabled.Value;
                         if (editData.StopLossTimeout.HasValue) updateData.StopLossTimeoutInSeconds = editData.StopLossTimeout.Value;
-                        
+
                         await botMgr.UpdateDealAsync(updateData);
                     });
                 }
@@ -125,18 +135,16 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                     var cancellationTokenSource = new CancellationTokenSource();
                     var loadingView = new ProgressView.ProgressView(operationName, cancellationTokenSource, tableControl.SelectedIds.Count);
                     loadingView.Show(this);
-                    
+
                     int i = 0;
-                    foreach (var dealId in tableControl.SelectedIds)
-                    {
-                        i++;
-                        loadingView.SetProgress(i);
-
-                        if (cancellationTokenSource.IsCancellationRequested) break;
-
-                        await updateOperation(dealId);
-                    }
-
+                    await tableControl.SelectedIds.ParallelForEachAsync(
+                        async dealId =>
+                        {
+                            await updateOperation(dealId);
+                            i++;
+                            loadingView.SetProgress(i);
+                        }, 2, cancellationTokenSource.Token).ConfigureAwait(true);
+                    
                     loadingView.Close();
                     if (cancellationTokenSource.IsCancellationRequested)
                     {
@@ -162,6 +170,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         public async Task RefreshData()
         {
             await tableControl.RefreshData();
+            SetDataSource();
         }
     }
 }
