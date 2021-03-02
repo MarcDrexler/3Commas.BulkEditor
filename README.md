@@ -56,7 +56,7 @@ An installer with the current version is hosted [here](https://marcdrexler.blob.
 
 Updates are automatically checked for each start.
 
-Because the package is not signed with a public certificate, you might see some security warnings when installing and starting the app if you are using Windows 7 or later.
+Because the package is not signed with a public certificate, you might see some security warnings when installing and starting the app.
 
 ## Support
 
@@ -68,4 +68,6 @@ XMR: 89rmrxDAGAWWhSZXhnNf335qYfyXz4vQsNAM1VFSg6Y7Tve9BGF9pwte9ps61E9FY76r4onhWw7
 or
 
 <a href="https://www.buymeacoffee.com/marcdrexler" target="_blank"><img width="136" height="40" src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 136px !important;" ></a>
+
+Best used with [Binance](https://www.binance.com/en/register?ref=37132298) and [3Commas](https://3commas.io/?c=tc240413) :v:
 
