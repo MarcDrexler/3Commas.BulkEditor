@@ -19,6 +19,7 @@ Also if you think something is broken or have any questions, please open an [Iss
 - Bots
   - View all of your DCA bots
   - Filtering, sorting, etc
+  - Stop All Bots
   - Bulk Edit
   - Bulk Copy
   - Bulk Delete
