@@ -55,30 +55,33 @@ namespace _3Commas.BulkEditor.Views.BaseControls
 
         public void SetDataSource<TViewModel>()
         {
-            grid.DataSource = bindingSource;
-            SetInitialColumnWidth();
-
-            var viewModelProperties = typeof(TViewModel).GetProperties().ToList();
-            for (int i = 0; i < grid.ColumnCount; i++)
+            if (grid.Visible)
             {
-                var properties = viewModelProperties.Where(x => x.Name == grid.Columns[i].Name).ToList();
-                if (properties.Any())
-                {
-                    PropertyInfo property;
-                    if (properties.Count > 1)
-                    {
-                        var pViewModel = properties.SingleOrDefault(x => x.DeclaringType.Name == typeof(TViewModel).Name);
-                        property = pViewModel != null ? pViewModel : properties.First(x => x.DeclaringType.Name != typeof(TViewModel).Name);
-                    }
-                    else
-                    {
-                        property = properties.Single();
-                    }
+                grid.DataSource = bindingSource;
+                SetInitialColumnWidth();
 
-                    var displayNameAttribute = property.GetCustomAttribute(typeof(DisplayNameAttribute));
-                    if (displayNameAttribute != null)
+                var viewModelProperties = typeof(TViewModel).GetProperties().ToList();
+                for (int i = 0; i < grid.ColumnCount; i++)
+                {
+                    var properties = viewModelProperties.Where(x => x.Name == grid.Columns[i].Name).ToList();
+                    if (properties.Any())
                     {
-                        grid.Columns[i].HeaderText = ((DisplayNameAttribute) displayNameAttribute).DisplayName;
+                        PropertyInfo property;
+                        if (properties.Count > 1)
+                        {
+                            var pViewModel = properties.SingleOrDefault(x => x.DeclaringType.Name == typeof(TViewModel).Name);
+                            property = pViewModel != null ? pViewModel : properties.First(x => x.DeclaringType.Name != typeof(TViewModel).Name);
+                        }
+                        else
+                        {
+                            property = properties.Single();
+                        }
+
+                        var displayNameAttribute = property.GetCustomAttribute(typeof(DisplayNameAttribute));
+                        if (displayNameAttribute != null)
+                        {
+                            grid.Columns[i].HeaderText = ((DisplayNameAttribute)displayNameAttribute).DisplayName;
+                        }
                     }
                 }
             }

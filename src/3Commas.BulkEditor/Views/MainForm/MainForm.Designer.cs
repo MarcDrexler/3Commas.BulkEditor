@@ -33,20 +33,21 @@ namespace _3Commas.BulkEditor.Views.MainForm
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.linkLabel3Commas = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblOutputLog = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.manageBotControl = new _3Commas.BulkEditor.Views.ManageBotControl.ManageBotControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.manageDealControl = new _3Commas.BulkEditor.Views.ManageDealControl.ManageDealControl();
+            this.lblAccountsLoaded = new System.Windows.Forms.Label();
+            this.btnStopAllBots = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.lblAccountsLoaded = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtOutput
@@ -71,16 +72,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.linkLabel3Commas.TabStop = true;
             this.linkLabel3Commas.Text = "Set API Key";
             this.linkLabel3Commas.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3Commas_LinkClicked);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::_3Commas.BulkEditor.Properties.Resources._3Commas;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 11);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 27);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 63;
-            this.pictureBox1.TabStop = false;
             // 
             // lblOutputLog
             // 
@@ -144,13 +135,49 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.manageDealControl.Size = new System.Drawing.Size(1028, 427);
             this.manageDealControl.TabIndex = 0;
             // 
+            // lblAccountsLoaded
+            // 
+            this.lblAccountsLoaded.AutoSize = true;
+            this.lblAccountsLoaded.Location = new System.Drawing.Point(201, 18);
+            this.lblAccountsLoaded.Name = "lblAccountsLoaded";
+            this.lblAccountsLoaded.Size = new System.Drawing.Size(99, 13);
+            this.lblAccountsLoaded.TabIndex = 81;
+            this.lblAccountsLoaded.Text = "Accounts loaded: 0";
+            // 
+            // btnStopAllBots
+            // 
+            this.btnStopAllBots.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStopAllBots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnStopAllBots.Enabled = false;
+            this.btnStopAllBots.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStopAllBots.Image = global::_3Commas.BulkEditor.Properties.Resources.Info_16x161;
+            this.btnStopAllBots.Location = new System.Drawing.Point(831, 12);
+            this.btnStopAllBots.Name = "btnStopAllBots";
+            this.btnStopAllBots.Size = new System.Drawing.Size(98, 27);
+            this.btnStopAllBots.TabIndex = 82;
+            this.btnStopAllBots.Text = "Stop all bots";
+            this.btnStopAllBots.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnStopAllBots.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnStopAllBots.UseVisualStyleBackColor = false;
+            this.btnStopAllBots.Click += new System.EventHandler(this.btnStopAllBots_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::_3Commas.BulkEditor.Properties.Resources._3Commas;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 11);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 27);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 63;
+            this.pictureBox1.TabStop = false;
+            // 
             // btnAbout
             // 
             this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAbout.Image = global::_3Commas.BulkEditor.Properties.Resources.Info_16x16;
             this.btnAbout.Location = new System.Drawing.Point(970, 12);
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(84, 25);
+            this.btnAbout.Size = new System.Drawing.Size(84, 27);
             this.btnAbout.TabIndex = 2;
             this.btnAbout.Text = "About";
             this.btnAbout.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -172,20 +199,11 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // lblAccountsLoaded
-            // 
-            this.lblAccountsLoaded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblAccountsLoaded.AutoSize = true;
-            this.lblAccountsLoaded.Location = new System.Drawing.Point(201, 18);
-            this.lblAccountsLoaded.Name = "lblAccountsLoaded";
-            this.lblAccountsLoaded.Size = new System.Drawing.Size(99, 13);
-            this.lblAccountsLoaded.TabIndex = 81;
-            this.lblAccountsLoaded.Text = "Accounts loaded: 0";
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1066, 734);
+            this.Controls.Add(this.btnStopAllBots);
             this.Controls.Add(this.lblAccountsLoaded);
             this.Controls.Add(this.linkLabel3Commas);
             this.Controls.Add(this.tabControl1);
@@ -200,10 +218,10 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bulk Editor";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,6 +240,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private ManageDealControl.ManageDealControl manageDealControl;
         private ManageBotControl.ManageBotControl manageBotControl;
         private System.Windows.Forms.Label lblAccountsLoaded;
+        private System.Windows.Forms.Button btnStopAllBots;
     }
 }
 

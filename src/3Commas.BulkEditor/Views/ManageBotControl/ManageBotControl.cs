@@ -36,6 +36,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             _logger = logger;
             _eventBroker = ObjectContainer.EventBroker;
             _eventBroker.Subscribe<KeysChangedEventArgs>(args => this.RunInUiThread(RefreshData));
+            _eventBroker.Subscribe<StopAllBotsEventArgs>(args => this.RunInUiThread(StopAllBots));
             tableControl.Init(keys, logger);
 
             if (!keys.IsEmpty())
@@ -68,7 +69,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                 if (dr == DialogResult.OK)
                 {
                     var botMgr = new XCommasLayer(_keys, _logger);
-                    await ExecuteBulkOperation("Applying new settings", async botId =>
+                    await ExecuteBulkOperation("Applying new settings", tableControl.SelectedIds, async botId =>
                     {
                         if (editData.IsEnabled.HasValue)
                         {
@@ -122,7 +123,6 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                         if (editData.DealStartConditions.Any())
                         {
                             updateData.Strategies.Clear();
-                            updateData.Strategies.Add(new NonStopBotStrategy());
                             updateData.Strategies.AddRange(editData.DealStartConditions);
                         }
 
@@ -147,7 +147,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             if (dr == DialogResult.OK)
             {
                 var botMgr = new XCommasLayer(_keys, _logger);
-                await ExecuteBulkOperation($"Copy {tableControl.SelectedIds.Count} Bots in Account '{dlg.Account.Name}' now?", "Bots are now being copied", async botId =>
+                await ExecuteBulkOperation($"Copy {tableControl.SelectedIds.Count} Bots in Account '{dlg.Account.Name}' now?", "Bots are now being copied", tableControl.SelectedIds, async botId =>
                 {
                     var bot = await botMgr.GetBotById(botId);
                     bot.AccountId = dlg.Account.Id;
@@ -171,7 +171,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
         private async void btnDelete_Click(object sender, EventArgs e)
         {
             var botMgr = new XCommasLayer(_keys, _logger);
-            await ExecuteBulkOperation($"Do you really want to delete {tableControl.SelectedIds.Count} Bots?", "Bots are now being deleted", async botId =>
+            await ExecuteBulkOperation($"Do you really want to delete {tableControl.SelectedIds.Count} Bots?", "Bots are now being deleted", tableControl.SelectedIds, async botId =>
             {
                 var res = await botMgr.DeleteBot(botId);
                 if (res.IsSuccess)
@@ -185,23 +185,41 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             });
         }
 
-        private async Task ExecuteBulkOperation(string confirmationMessage, string inProgressText, Func<int, Task> updateOperation)
+        public async Task StopAllBots()
+        {
+            var botMgr = new XCommasLayer(_keys, _logger);
+            var allIds = tableControl.Items.Select(x => x.Id).ToList();
+            await ExecuteBulkOperation($"Do you really want to stop {allIds.Count} Bots?", "Bots are now being stopped", allIds, async botId =>
+            {
+                var res = await botMgr.Disable(botId);
+                if (res.IsSuccess)
+                {
+                    _logger.LogInformation($"Bot {botId} stopped");
+                }
+                else
+                {
+                    _logger.LogError($"Could not stop Bot {botId}. Reason: {res.Error}");
+                }
+            });
+        }
+
+        private async Task ExecuteBulkOperation(string confirmationMessage, string inProgressText, List<int> botIds, Func<int, Task> updateOperation)
         {
             var dr = _mbs.ShowQuestion(confirmationMessage);
             if (dr == DialogResult.Yes)
             {
-                await ExecuteBulkOperation(inProgressText, updateOperation).ConfigureAwait(false);
+                await ExecuteBulkOperation(inProgressText, botIds, updateOperation).ConfigureAwait(false);
             }
         }
 
-        private async Task ExecuteBulkOperation(string inProgressText, Func<int, Task> updateOperation)
+        private async Task ExecuteBulkOperation(string inProgressText, List<int> botIds, Func<int, Task> updateOperation)
         {
             var cancellationTokenSource = new CancellationTokenSource();
-            var loadingView = new ProgressView.ProgressView(inProgressText, cancellationTokenSource, tableControl.SelectedIds.Count);
+            var loadingView = new ProgressView.ProgressView(inProgressText, cancellationTokenSource, botIds.Count);
             loadingView.Show(this);
-            
+
             int i = 0;
-            await tableControl.SelectedIds.ParallelForEachAsync(
+            await botIds.ParallelForEachAsync(
                 async botId =>
                 {
                     await updateOperation(botId);

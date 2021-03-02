@@ -64,6 +64,11 @@ namespace _3Commas.BulkEditor.Views.MainForm
             lblAccountsLoaded.Text = $"Accounts loaded: {numberOfAccounts}";
         }
 
+        public void EnablePanicButton()
+        {
+            btnStopAllBots.Enabled = true;
+        }
+
         private void NotifyCurrentTab()
         {
             // Workaround:
@@ -76,6 +81,11 @@ namespace _3Commas.BulkEditor.Views.MainForm
             {
                 manageDealControl.SetDataSource();
             }
+        }
+
+        private void btnStopAllBots_Click(object sender, EventArgs e)
+        {
+            _presenter.OnStopAllBots();
         }
     }
 }

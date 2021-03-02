@@ -39,6 +39,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
             var accounts = await xCommas.RetrieveAccounts();
             ObjectContainer.Cache.SetAccounts(accounts);
             View.SetAccountCount(accounts.Count);
+            View.EnablePanicButton();
         }
 
         private async Task ShowMessage()
@@ -80,6 +81,11 @@ namespace _3Commas.BulkEditor.Views.MainForm
         public void OnClearClick()
         {
             View.ClearLog();
+        }
+
+        public void OnStopAllBots()
+        {
+            _eventBroker.Publish(new StopAllBotsEventArgs());
         }
     }
 }

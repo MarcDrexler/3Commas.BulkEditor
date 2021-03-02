@@ -404,6 +404,7 @@
     <None Include="Resources\Currency_32x32.png" />
     <None Include="Resources\Hide_32x32.png" />
     <None Include="Resources\Delete_16x161.png" />
+    <None Include="Resources\Info_16x161.png" />
     <Content Include="robot.ico" />
   </ItemGroup>
   <ItemGroup />

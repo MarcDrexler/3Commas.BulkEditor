@@ -104,13 +104,13 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         private async void btnEnableTTP_Click(object sender, EventArgs e)
         {
             var mgr = new XCommasLayer(_keys, _logger);
-            await ExecuteBulkOperation($"Are you sure to enable TTP for {tableControl.SelectedIds.Count} deals?", "Enable Take Trailing Profit", dealId => mgr.EnableTrailing(dealId));
+            await ExecuteBulkOperation($"Are you sure to enable TTP for {tableControl.SelectedIds.Count} deals?", "Enable Trailing Take Profit", dealId => mgr.EnableTrailing(dealId)).ConfigureAwait(true);
         }
 
         private async void btnDisableTTP_Click(object sender, EventArgs e)
         {
             var mgr = new XCommasLayer(_keys, _logger);
-            await ExecuteBulkOperation($"Are you sure to disable TTP for {tableControl.SelectedIds.Count} deals?", "Disable Take Trailing Profit", dealId => mgr.DisableTrailing(dealId));
+            await ExecuteBulkOperation($"Are you sure to disable TTP for {tableControl.SelectedIds.Count} deals?", "Disable Trailing Take Profit", dealId => mgr.DisableTrailing(dealId));
         }
 
         private async void btnCancel_Click(object sender, EventArgs e)

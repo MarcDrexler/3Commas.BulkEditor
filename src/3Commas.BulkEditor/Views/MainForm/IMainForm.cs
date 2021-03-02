@@ -10,5 +10,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
         void ClearLog();
         void InitGrids(Keys keys, ILogger logger, IMessageBoxService mbs);
         void SetAccountCount(int numberOfAccounts);
+        void EnablePanicButton();
     }
 }

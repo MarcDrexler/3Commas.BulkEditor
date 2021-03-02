@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Extensions.Logging;
+using _3Commas.BulkEditor.Misc;
 
 namespace _3Commas.BulkEditor.Misc
 {
@@ -20,13 +21,17 @@ namespace _3Commas.BulkEditor.Misc
             {
                 message += formatter(state, exception);
             }
-
+            
             if (_txtOutput.InvokeRequired)
             {
                 _txtOutput.BeginInvoke(new MethodInvoker(() =>
                 {
                     _txtOutput.AppendText($"{DateTime.Now} {logLevel}: {message}{Environment.NewLine}");
                 }));
+            }
+            else
+            {
+                _txtOutput.AppendText($"{DateTime.Now} {logLevel}: {message}{Environment.NewLine}");
             }
         }
 
