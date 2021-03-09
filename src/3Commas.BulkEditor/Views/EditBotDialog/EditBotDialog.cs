@@ -23,6 +23,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
 
             cmbIsEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeIsEnabled, nameof(CheckBox.Checked));
             txtName.DataBindings.Add(nameof(TextBox.Visible), chkChangeName, nameof(CheckBox.Checked));
+            numMaxActiveDeals.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeMaxActiveDeals, nameof(CheckBox.Checked));
             lblPreviewTitle.DataBindings.Add(nameof(Label.Visible), chkChangeName, nameof(CheckBox.Checked));
             lblNamePreview.DataBindings.Add(nameof(Label.Visible), chkChangeName, nameof(CheckBox.Checked));
             cmbStartOrderType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeStartOrderType, nameof(CheckBox.Checked));
@@ -76,7 +77,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
 
         public EditBotDto EditDto { get; set; } = new EditBotDto();
 
-        public bool HasChanges => Controls.OfType<CheckBox>().Any(x => x.Checked);
+        public bool HasChanges => panel1.Controls.OfType<CheckBox>().Any(x => x.Checked);
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
@@ -96,6 +97,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
                         if (cmbIsEnabled.SelectedItem.ToString() == "Enable") EditDto.IsEnabled = true;
                         else if (cmbIsEnabled.SelectedItem.ToString() == "Disable") EditDto.IsEnabled = false;
                     }
+                    if (chkChangeMaxActiveDeals.Checked) EditDto.MaxActiveDeals = (int)numMaxActiveDeals.Value;
 
                     if (chkChangeStartOrderType.Checked)
                     {

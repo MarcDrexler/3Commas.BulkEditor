@@ -85,6 +85,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
 
                         var bot = await botMgr.GetBotById(botId);
                         var updateData = new BotUpdateData(bot);
+                        if (editData.MaxActiveDeals.HasValue) updateData.MaxActiveDeals = editData.MaxActiveDeals.Value;
                         if (editData.ActiveSafetyOrdersCount.HasValue) updateData.ActiveSafetyOrdersCount = editData.ActiveSafetyOrdersCount.Value;
                         if (editData.BaseOrderVolume.HasValue) updateData.BaseOrderVolume = editData.BaseOrderVolume.Value;
                         if (editData.Cooldown.HasValue) updateData.Cooldown = editData.Cooldown.Value;
