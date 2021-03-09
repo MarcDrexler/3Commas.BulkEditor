@@ -1,6 +1,6 @@
-﻿namespace _3Commas.BulkEditor.Views.ChooseAccount
+﻿namespace _3Commas.BulkEditor.Views.CopyBotDialog
 {
-    partial class ChooseAccount
+    partial class CopyBotDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -32,6 +32,8 @@
             this.cmbAccount = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
+            this.cmbIsEnabled = new System.Windows.Forms.ComboBox();
+            this.lblState = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblAccount
@@ -55,7 +57,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(234, 74);
+            this.btnCancel.Location = new System.Drawing.Point(234, 99);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 23);
             this.btnCancel.TabIndex = 52;
@@ -66,7 +68,7 @@
             // btnCreate
             // 
             this.btnCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCreate.Location = new System.Drawing.Point(139, 74);
+            this.btnCreate.Location = new System.Drawing.Point(139, 99);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(89, 23);
             this.btnCreate.TabIndex = 51;
@@ -75,11 +77,30 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
+            // cmbIsEnabled
+            // 
+            this.cmbIsEnabled.FormattingEnabled = true;
+            this.cmbIsEnabled.Location = new System.Drawing.Point(113, 53);
+            this.cmbIsEnabled.Name = "cmbIsEnabled";
+            this.cmbIsEnabled.Size = new System.Drawing.Size(178, 21);
+            this.cmbIsEnabled.TabIndex = 116;
+            // 
+            // lblState
+            // 
+            this.lblState.AutoSize = true;
+            this.lblState.Location = new System.Drawing.Point(10, 56);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(97, 13);
+            this.lblState.TabIndex = 117;
+            this.lblState.Text = "State of copied bot";
+            // 
             // ChooseAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 109);
+            this.ClientSize = new System.Drawing.Size(334, 134);
+            this.Controls.Add(this.cmbIsEnabled);
+            this.Controls.Add(this.lblState);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.lblAccount);
@@ -102,5 +123,7 @@
         private System.Windows.Forms.Label lblAccount;
         private System.Windows.Forms.ComboBox cmbAccount;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ComboBox cmbIsEnabled;
+        private System.Windows.Forms.Label lblState;
     }
 }

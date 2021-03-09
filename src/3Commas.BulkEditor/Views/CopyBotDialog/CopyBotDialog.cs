@@ -9,22 +9,28 @@ using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
 using Keys = _3Commas.BulkEditor.Misc.Keys;
 
-namespace _3Commas.BulkEditor.Views.ChooseAccount
+namespace _3Commas.BulkEditor.Views.CopyBotDialog
 {
-    public partial class ChooseAccount : Form
+    public partial class CopyBotDialog : Form
     {
         private readonly Keys _keys;
         private readonly ILogger _logger;
         private readonly IMessageBoxService _mbs = new MessageBoxService();
 
-        public ChooseAccount(Keys keys, ILogger logger)
+        public CopyBotDialog(Keys keys, ILogger logger)
         {
             _keys = keys;
             _logger = logger;
             InitializeComponent();
+
+            cmbIsEnabled.Items.Add("Same as original bot");
+            cmbIsEnabled.Items.Add("Enabled");
+            cmbIsEnabled.Items.Add("Disabled");
+            cmbIsEnabled.SelectedIndex = 0;
         }
 
         public Account Account { get; private set; }
+        public bool? IsEnabled { get; set; }
         
         private async void ChooseAccount_Load(object sender, EventArgs e)
         {
@@ -45,6 +51,18 @@ namespace _3Commas.BulkEditor.Views.ChooseAccount
             if (IsValid())
             {
                 Account = cmbAccount.SelectedItem as Account;
+                if (cmbIsEnabled.SelectedIndex == 0)
+                {
+                    IsEnabled = null;
+                }
+                else if (cmbIsEnabled.SelectedIndex == 1)
+                {
+                    IsEnabled = true;
+                }
+                else if (cmbIsEnabled.SelectedIndex == 2)
+                {
+                    IsEnabled = false;
+                }
 
                 this.DialogResult = DialogResult.OK;
             }

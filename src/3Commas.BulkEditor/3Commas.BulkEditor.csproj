@@ -231,11 +231,11 @@
       <DependentUpon>ChooseSignal.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\ControlHelper.cs" />
-    <Compile Include="Views\ChooseAccount\ChooseAccount.cs">
+    <Compile Include="Views\CopyBotDialog\CopyBotDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ChooseAccount\ChooseAccount.Designer.cs">
-      <DependentUpon>ChooseAccount.cs</DependentUpon>
+    <Compile Include="Views\CopyBotDialog\CopyBotDialog.Designer.cs">
+      <DependentUpon>CopyBotDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\EditDealDialog\EditDealDialog.cs">
       <SubType>Form</SubType>
@@ -310,8 +310,8 @@
     <EmbeddedResource Include="Views\ChooseSignal\ChooseSignal.resx">
       <DependentUpon>ChooseSignal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ChooseAccount\ChooseAccount.resx">
-      <DependentUpon>ChooseAccount.cs</DependentUpon>
+    <EmbeddedResource Include="Views\CopyBotDialog\CopyBotDialog.resx">
+      <DependentUpon>CopyBotDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditDealDialog\EditDealDialog.resx">
       <DependentUpon>EditDealDialog.cs</DependentUpon>

@@ -142,7 +142,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
 
         private async void btnCopy_Click(object sender, EventArgs e)
         {
-            var dlg = new ChooseAccount.ChooseAccount(_keys, _logger);
+            var dlg = new CopyBotDialog.CopyBotDialog(_keys, _logger);
             var dr = dlg.ShowDialog(this);
             if (dr == DialogResult.OK)
             {
@@ -151,10 +151,11 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                 {
                     var bot = await botMgr.GetBotById(botId);
                     bot.AccountId = dlg.Account.Id;
+
                     var res = await botMgr.CreateBot(dlg.Account.Id, bot.Strategy, bot);
                     if (res.IsSuccess)
                     {
-                        if (bot.IsEnabled)
+                        if (dlg.IsEnabled.HasValue && dlg.IsEnabled.Value || !dlg.IsEnabled.HasValue && bot.IsEnabled)
                         {
                             await botMgr.Enable(res.Data.Id);
                         }

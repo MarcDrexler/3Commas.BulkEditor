@@ -1040,10 +1040,11 @@
             // 
             this.toolTipName.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // EditDialog
+            // EditBotDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(639, 809);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.chkChangeTakeProfitType);
