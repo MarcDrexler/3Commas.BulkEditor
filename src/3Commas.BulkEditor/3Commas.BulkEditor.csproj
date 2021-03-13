@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/bulkeditor/</InstallUrl>
     <ProductName>Bulk Editor</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.51</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.52</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>52</ApplicationRevision>
+    <ApplicationRevision>53</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -237,6 +237,13 @@
     <Compile Include="Views\CopyBotDialog\CopyBotDialog.Designer.cs">
       <DependentUpon>CopyBotDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddFundsDialog\AddFundsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AddFundsDialog\AddFundsDialog.Designer.cs">
+      <DependentUpon>AddFundsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddFundsDialog\AddFundsDto.cs" />
     <Compile Include="Views\EditDealDialog\EditDealDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CopyBotDialog\CopyBotDialog.resx">
       <DependentUpon>CopyBotDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AddFundsDialog\AddFundsDialog.resx">
+      <DependentUpon>AddFundsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EditDealDialog\EditDealDialog.resx">
       <DependentUpon>EditDealDialog.cs</DependentUpon>
@@ -405,6 +415,7 @@
     <None Include="Resources\Hide_32x32.png" />
     <None Include="Resources\Delete_16x161.png" />
     <None Include="Resources\Info_16x161.png" />
+    <None Include="Resources\Financial_16x16.png" />
     <Content Include="robot.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

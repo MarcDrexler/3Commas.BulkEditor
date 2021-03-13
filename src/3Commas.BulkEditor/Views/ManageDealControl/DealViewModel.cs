@@ -10,7 +10,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         [DisplayName("Type")] public new string DealType { get; set; }
 
         [DisplayName("Account")]
-        public new string Account
+        public string Account
         {
             get { return ObjectContainer.Cache.Accounts.SingleOrDefault(x => x.Id == AccountId)?.Name; }
         }

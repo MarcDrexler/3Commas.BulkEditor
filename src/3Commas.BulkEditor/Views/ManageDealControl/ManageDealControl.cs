@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
+using _3Commas.BulkEditor.Views.AddFundsDialog;
 using _3Commas.BulkEditor.Views.BaseControls;
 using _3Commas.BulkEditor.Views.EditDealDialog;
 using Dasync.Collections;
@@ -56,6 +58,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             btnEnableTTP.Enabled = enableButtons;
             btnCancel.Enabled = enableButtons;
             btnPanicSell.Enabled = enableButtons;
+            btnAddFunds.Enabled = enableButtons;
         }
 
         private bool IsValid(List<int> ids)
@@ -69,13 +72,19 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             return true;
         }
 
+        private List<Deal> GetSelectedDeals(List<int> ids)
+        {
+            var selectedDeals = tableControl.Items.Where(x => ids.Contains(x.Id)).ToList();
+            return selectedDeals;
+        }
+
         private async void btnEdit_Click(object sender, EventArgs e)
         {
             var ids = tableControl.SelectedIds;
             if (IsValid(ids))
             {
                 var dlg = new EditDealDialog.EditDealDialog(ids.Count, new XCommasLayer(_keys, _logger));
-                EditDealDto editData = new EditDealDto();
+                var editData = new EditDealDto();
                 dlg.EditDto = editData;
                 var dr = dlg.ShowDialog(this);
                 if (dr == DialogResult.OK)
@@ -96,6 +105,60 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                         if (editData.StopLossTimeout.HasValue) updateData.StopLossTimeoutInSeconds = editData.StopLossTimeout.Value;
 
                         await botMgr.UpdateDealAsync(updateData);
+                    });
+                }
+            }
+        }
+
+        private async void btnAddFunds_Click(object sender, EventArgs e)
+        {
+            var ids = tableControl.SelectedIds;
+            if (IsValid(ids))
+            {
+                var dlg = new AddFundsDialog.AddFundsDialog();
+                var editData = new AddFundsDto();
+                dlg.EditDto = editData;
+                var dr = dlg.ShowDialog(this);
+                if (dr == DialogResult.OK)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    Application.DoEvents();
+                    var botMgr = new XCommasLayer(_keys, _logger);
+                    var accountTableDataDict = new Dictionary<int, List<AccountTableData>>();
+                    foreach (var accountId in GetSelectedDeals(ids).Select(x => x.AccountId).Distinct())
+                    {
+                        accountTableDataDict.Add(accountId, await botMgr.GetAccountTableData(accountId));
+                    }
+                    Cursor.Current = Cursors.Default;
+                    await ExecuteBulkOperation($"Are you sure to add funds to {tableControl.SelectedIds.Count} deals?", "Adding funds", async dealId =>
+                    {
+                        var deal = GetSelectedDeals(ids).Single(x => x.Id == dealId);
+                        var accountTableData = accountTableDataDict[deal.AccountId];
+                        var quoteCoin = deal.Pair.Split('_')[0];
+                        var baseCoin = deal.Pair.Split('_')[1];
+                        var quote = accountTableData.Single(x => x.CurrencyCode == quoteCoin);
+                        var baseC = accountTableData.Single(x => x.CurrencyCode == baseCoin);
+
+                        decimal qtyInBaseCoin = 0;
+                        decimal qtyInQuoteCurrency = 0;
+                        if (editData.QtyInBTC.HasValue)
+                        {
+                            var btc = editData.QtyInBTC.Value;
+                            qtyInBaseCoin = btc / baseC.CurrentPrice;
+                            qtyInQuoteCurrency = btc / quote.CurrentPrice;
+                        }
+                        if (editData.QtyInUSD.HasValue)
+                        {
+                            var usdt = editData.QtyInUSD.Value;
+                            qtyInBaseCoin = usdt / baseC.CurrentPriceUsd;
+                            qtyInQuoteCurrency = usdt / quote.CurrentPriceUsd;
+                        }
+
+                        DealAddFundsParameters updateData = new DealAddFundsParameters();
+                        updateData.DealId = dealId;
+                        updateData.IsMarket = true;
+                        updateData.Quantity = qtyInBaseCoin;
+                        await botMgr.AddFundsAsync(updateData, baseCoin, qtyInQuoteCurrency, quoteCoin);
                     });
                 }
             }

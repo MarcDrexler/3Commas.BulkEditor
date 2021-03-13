@@ -31,13 +31,14 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         {
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnPanicSell = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.btnDisableTTP = new System.Windows.Forms.Button();
             this.btnEnableTTP = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tableControl = new _3Commas.BulkEditor.Views.ManageDealControl.DealTableControl();
+            this.btnAddFunds = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.btnPanicSell = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -60,51 +61,22 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnAddFunds);
             this.panel2.Controls.Add(this.btnEdit);
             this.panel2.Controls.Add(this.btnPanicSell);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnDisableTTP);
             this.panel2.Controls.Add(this.btnEnableTTP);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(279, 3);
+            this.panel2.Location = new System.Drawing.Point(261, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(638, 34);
+            this.panel2.Size = new System.Drawing.Size(673, 34);
             this.panel2.TabIndex = 78;
-            // 
-            // btnPanicSell
-            // 
-            this.btnPanicSell.Enabled = false;
-            this.btnPanicSell.Image = global::_3Commas.BulkEditor.Properties.Resources.Currency_16x16;
-            this.btnPanicSell.Location = new System.Drawing.Point(405, 4);
-            this.btnPanicSell.Name = "btnPanicSell";
-            this.btnPanicSell.Size = new System.Drawing.Size(147, 27);
-            this.btnPanicSell.TabIndex = 80;
-            this.btnPanicSell.Text = "Close at market price";
-            this.btnPanicSell.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPanicSell.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnPanicSell.UseVisualStyleBackColor = true;
-            this.btnPanicSell.Click += new System.EventHandler(this.btnPanicSell_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnCancel.Enabled = false;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Image = global::_3Commas.BulkEditor.Properties.Resources.Hide_16x16;
-            this.btnCancel.Location = new System.Drawing.Point(326, 4);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(73, 27);
-            this.btnCancel.TabIndex = 79;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnDisableTTP
             // 
             this.btnDisableTTP.Enabled = false;
-            this.btnDisableTTP.Location = new System.Drawing.Point(245, 4);
+            this.btnDisableTTP.Location = new System.Drawing.Point(235, 4);
             this.btnDisableTTP.Name = "btnDisableTTP";
             this.btnDisableTTP.Size = new System.Drawing.Size(75, 27);
             this.btnDisableTTP.TabIndex = 78;
@@ -117,7 +89,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             // btnEnableTTP
             // 
             this.btnEnableTTP.Enabled = false;
-            this.btnEnableTTP.Location = new System.Drawing.Point(166, 4);
+            this.btnEnableTTP.Location = new System.Drawing.Point(156, 4);
             this.btnEnableTTP.Name = "btnEnableTTP";
             this.btnEnableTTP.Size = new System.Drawing.Size(73, 27);
             this.btnEnableTTP.TabIndex = 77;
@@ -130,7 +102,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(44, 11);
+            this.label1.Location = new System.Drawing.Point(34, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 76;
@@ -147,11 +119,25 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             this.tableControl.Size = new System.Drawing.Size(1197, 678);
             this.tableControl.TabIndex = 0;
             // 
+            // btnAddFunds
+            // 
+            this.btnAddFunds.Enabled = false;
+            this.btnAddFunds.Image = global::_3Commas.BulkEditor.Properties.Resources.Financial_16x16;
+            this.btnAddFunds.Location = new System.Drawing.Point(548, 4);
+            this.btnAddFunds.Name = "btnAddFunds";
+            this.btnAddFunds.Size = new System.Drawing.Size(95, 27);
+            this.btnAddFunds.TabIndex = 82;
+            this.btnAddFunds.Text = "Add funds";
+            this.btnAddFunds.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddFunds.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddFunds.UseVisualStyleBackColor = true;
+            this.btnAddFunds.Click += new System.EventHandler(this.btnAddFunds_Click);
+            // 
             // btnEdit
             // 
             this.btnEdit.Enabled = false;
             this.btnEdit.Image = global::_3Commas.BulkEditor.Properties.Resources.Edit_16x16;
-            this.btnEdit.Location = new System.Drawing.Point(93, 4);
+            this.btnEdit.Location = new System.Drawing.Point(83, 4);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(67, 27);
             this.btnEdit.TabIndex = 81;
@@ -160,6 +146,36 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             this.btnEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnPanicSell
+            // 
+            this.btnPanicSell.Enabled = false;
+            this.btnPanicSell.Image = global::_3Commas.BulkEditor.Properties.Resources.Currency_16x16;
+            this.btnPanicSell.Location = new System.Drawing.Point(395, 4);
+            this.btnPanicSell.Name = "btnPanicSell";
+            this.btnPanicSell.Size = new System.Drawing.Size(147, 27);
+            this.btnPanicSell.TabIndex = 80;
+            this.btnPanicSell.Text = "Close at market price";
+            this.btnPanicSell.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPanicSell.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPanicSell.UseVisualStyleBackColor = true;
+            this.btnPanicSell.Click += new System.EventHandler(this.btnPanicSell_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnCancel.Enabled = false;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Image = global::_3Commas.BulkEditor.Properties.Resources.Hide_16x16;
+            this.btnCancel.Location = new System.Drawing.Point(316, 4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(73, 27);
+            this.btnCancel.TabIndex = 79;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // ManageDealControl
             // 
@@ -187,5 +203,6 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         private System.Windows.Forms.Button btnEnableTTP;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnAddFunds;
     }
 }

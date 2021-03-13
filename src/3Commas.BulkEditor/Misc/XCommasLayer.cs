@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.SqlServer.Server;
 using XCommas.Net;
 using XCommas.Net.Objects;
 
@@ -48,10 +49,27 @@ namespace _3Commas.BulkEditor.Misc
             return accounts;
         }
 
+        public async Task<List<AccountTableData>> GetAccountTableData(int accountId)
+        {
+            var accounts = new List<AccountTableData>();
+
+            var response = await _3CommasClient.GetAccountTableDataAsync(accountId);
+            if (!response.IsSuccess)
+            {
+                this._logger.LogError("Problem with 3Commas connection: " + response.Error);
+            }
+            else
+            {
+                accounts = response.Data.ToList();
+            }
+
+            return accounts;
+        }
+
         private async Task<List<Bot>> GetBotsByStrategyAndScope(Strategy strategy, BotScope scope)
         {
             var bots = new List<Bot>();
-            int take = 100;
+            int take = 50;
             int skip = 0;
             while (true)
             {
@@ -243,6 +261,20 @@ namespace _3Commas.BulkEditor.Misc
             else
             {
                 _logger.LogError($"Could not update deal {data.DealId}. Reason: {res.Error}");
+            }
+        }
+
+        public async Task AddFundsAsync(DealAddFundsParameters data, string baseCoin, decimal quoteQty, string quoteCoin)
+        {
+            var res = await _3CommasClient.AddFundsToDealAsync(data);
+            
+            if (res.IsSuccess)
+            {
+                _logger.LogInformation($"Funds added to deal {data.DealId}: {data.Quantity.ToString("0.#####")} {baseCoin.ToUpper()} / {quoteQty.ToString("0.#####")} {quoteCoin.ToUpper()}");
+            }
+            else
+            {
+                _logger.LogError($"Could not add funds to deal {data.DealId}. Reason: {res.Error}");
             }
         }
 
