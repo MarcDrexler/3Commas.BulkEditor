@@ -35,6 +35,8 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 ## Screenshots
 
+![Manage Accounts](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/ManageAccounts.png)
+
 ![Main Screen Bots](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/MainscreenBots.png)
 
 ![Edit Bots Dialog](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/EditBotsDialog.png)
