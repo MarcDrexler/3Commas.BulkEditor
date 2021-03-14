@@ -28,122 +28,105 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtBinanceApiKey = new System.Windows.Forms.TextBox();
-            this.txtBinanceSecret = new System.Windows.Forms.TextBox();
             this.btnApply = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblPermissionsNeeded = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.chkPersist = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.listBox = new System.Windows.Forms.ListBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // txtBinanceApiKey
-            // 
-            this.txtBinanceApiKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBinanceApiKey.Location = new System.Drawing.Point(79, 12);
-            this.txtBinanceApiKey.Name = "txtBinanceApiKey";
-            this.txtBinanceApiKey.Size = new System.Drawing.Size(483, 20);
-            this.txtBinanceApiKey.TabIndex = 0;
-            // 
-            // txtBinanceSecret
-            // 
-            this.txtBinanceSecret.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBinanceSecret.Location = new System.Drawing.Point(79, 38);
-            this.txtBinanceSecret.Name = "txtBinanceSecret";
-            this.txtBinanceSecret.Size = new System.Drawing.Size(483, 20);
-            this.txtBinanceSecret.TabIndex = 1;
             // 
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(406, 95);
+            this.btnApply.Location = new System.Drawing.Point(210, 190);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(75, 23);
-            this.btnApply.TabIndex = 2;
+            this.btnApply.Size = new System.Drawing.Size(75, 25);
+            this.btnApply.TabIndex = 5;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
-            // pictureBox2
+            // chkPersist
             // 
-            this.pictureBox2.Image = global::_3Commas.BulkEditor.Properties.Resources.Info_16x16;
-            this.pictureBox2.Location = new System.Drawing.Point(79, 64);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 28;
-            this.pictureBox2.TabStop = false;
+            this.chkPersist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkPersist.AutoSize = true;
+            this.chkPersist.Location = new System.Drawing.Point(90, 195);
+            this.chkPersist.Name = "chkPersist";
+            this.chkPersist.Size = new System.Drawing.Size(98, 17);
+            this.chkPersist.TabIndex = 4;
+            this.chkPersist.Text = "Persist Settings";
+            this.chkPersist.UseVisualStyleBackColor = true;
+            this.chkPersist.CheckedChanged += new System.EventHandler(this.chkPersist_CheckedChanged);
             // 
-            // label1
+            // listBox
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "API Key";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblPermissionsNeeded
-            // 
-            this.lblPermissionsNeeded.AutoSize = true;
-            this.lblPermissionsNeeded.Location = new System.Drawing.Point(101, 66);
-            this.lblPermissionsNeeded.Name = "lblPermissionsNeeded";
-            this.lblPermissionsNeeded.Size = new System.Drawing.Size(115, 13);
-            this.lblPermissionsNeeded.TabIndex = 27;
-            this.lblPermissionsNeeded.Text = "<Permissions Needed>";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 24;
-            this.label2.Text = "Secret";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox.FormattingEnabled = true;
+            this.listBox.Location = new System.Drawing.Point(12, 21);
+            this.listBox.Name = "listBox";
+            this.listBox.Size = new System.Drawing.Size(293, 134);
+            this.listBox.TabIndex = 0;
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(487, 95);
+            this.btnCancel.Location = new System.Drawing.Point(291, 190);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Size = new System.Drawing.Size(75, 25);
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // chkPersist
+            // button1
             // 
-            this.chkPersist.AutoSize = true;
-            this.chkPersist.Location = new System.Drawing.Point(79, 99);
-            this.chkPersist.Name = "chkPersist";
-            this.chkPersist.Size = new System.Drawing.Size(98, 17);
-            this.chkPersist.TabIndex = 32;
-            this.chkPersist.Text = "Persist Settings";
-            this.chkPersist.UseVisualStyleBackColor = true;
-            this.chkPersist.CheckedChanged += new System.EventHandler(this.chkPersist_CheckedChanged);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Image = global::_3Commas.BulkEditor.Properties.Resources.EditDataSource_16x161;
+            this.button1.Location = new System.Drawing.Point(311, 52);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 25);
+            this.button1.TabIndex = 2;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Image = global::_3Commas.BulkEditor.Properties.Resources.DeleteDataSource_16x16;
+            this.btnDelete.Location = new System.Drawing.Point(311, 83);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(33, 25);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Image = global::_3Commas.BulkEditor.Properties.Resources.AddNewDataSource_16x162;
+            this.btnAdd.Location = new System.Drawing.Point(311, 21);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(33, 25);
+            this.btnAdd.TabIndex = 1;
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(574, 130);
-            this.Controls.Add(this.chkPersist);
-            this.Controls.Add(this.pictureBox2);
+            this.ClientSize = new System.Drawing.Size(378, 227);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblPermissionsNeeded);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.listBox);
+            this.Controls.Add(this.chkPersist);
             this.Controls.Add(this.btnApply);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtBinanceApiKey);
-            this.Controls.Add(this.txtBinanceSecret);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -151,22 +134,19 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Settings";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.Text = "Manage 3Commas Accounts";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtBinanceApiKey;
-        private System.Windows.Forms.TextBox txtBinanceSecret;
         private System.Windows.Forms.Button btnApply;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label lblPermissionsNeeded;
-        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox chkPersist;
+        private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

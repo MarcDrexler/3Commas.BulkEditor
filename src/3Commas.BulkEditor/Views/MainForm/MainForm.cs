@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using Microsoft.Extensions.Logging;
-using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.MainForm
 {
@@ -29,7 +28,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            _presenter.OnClearClick();
+            _presenter.OnClear();
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
@@ -37,18 +36,13 @@ namespace _3Commas.BulkEditor.Views.MainForm
             AboutBox.AboutBox box = new AboutBox.AboutBox();
             box.ShowDialog(this);
         }
-
-        private void linkLabel3Commas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            _presenter.On3CommasLinkClicked();
-        }
         
         public void ClearLog()
         {
             txtOutput.Clear();
         }
 
-        public void InitGrids(Keys keys, ILogger logger, IMessageBoxService mbs)
+        public void InitGrids(XCommasAccounts keys, ILogger logger, IMessageBoxService mbs)
         {
             manageBotControl.Init(keys, logger, mbs);
             manageDealControl.Init(keys, logger, mbs);
@@ -61,7 +55,12 @@ namespace _3Commas.BulkEditor.Views.MainForm
 
         public void SetAccountCount(int numberOfAccounts)
         {
-            lblAccountsLoaded.Text = $"Accounts loaded: {numberOfAccounts}";
+            lblAccountsLoaded.Text = $"3Commas Accounts loaded: {numberOfAccounts}";
+        }
+
+        public void SetExchangeCount(int numberOfExchanges)
+        {
+            lblExchangesLoaded.Text = $"Total Exchanges loaded: {numberOfExchanges}";
         }
 
         public void EnablePanicButton()
@@ -86,6 +85,11 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private void btnStopAllBots_Click(object sender, EventArgs e)
         {
             _presenter.OnStopAllBots();
+        }
+
+        private void btnManageApiKeys_Click(object sender, EventArgs e)
+        {
+            _presenter.OnManageApiKeys();
         }
     }
 }

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _3Commas.BulkEditor.Views.CopyBotDialog;
+using _3Commas.BulkEditor.Views.ManageBotControl;
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.SqlServer.Server;
 using XCommas.Net;
 using XCommas.Net.Objects;
 
@@ -12,51 +15,81 @@ namespace _3Commas.BulkEditor.Misc
     public class XCommasLayer
     {
         private readonly ILogger _logger;
-        private readonly XCommasApi _3CommasClient;
+        private readonly Dictionary<Guid, Tuple<string, XCommasApi>> _3CommasClients = new Dictionary<Guid, Tuple<string, XCommasApi>>();
 
-        public XCommasLayer(Keys settings, ILogger logger)
+        public XCommasLayer(XCommasAccounts accounts, ILogger logger)
         {
             _logger = logger;
-            _3CommasClient = new XCommasApi(settings.ApiKey3Commas, settings.Secret3Commas);
-        }
 
-        public async Task<XCommasResponse<Bot>> Enable(int botId)
-        {
-            return await _3CommasClient.EnableBotAsync(botId);
-        }
-
-        public async Task<XCommasResponse<Bot>> Disable(int botId)
-        {
-            return await _3CommasClient.DisableBotAsync(botId);
-        }
-
-        public async Task<List<Account>> RetrieveAccounts()
-        {
-            var accounts = new List<Account>();
-
-            var response = await _3CommasClient.GetAccountsAsync();
-            _logger.LogInformation("Retrieving exchange information from 3Commas...");
-            if (!response.IsSuccess)
+            foreach (var xCommasAccount in accounts.Accounts)
             {
-                this._logger.LogError("Problem with 3Commas connection: " + response.Error);
+                _3CommasClients.Add(xCommasAccount.Id, new Tuple<string, XCommasApi>(xCommasAccount.Name, new XCommasApi(xCommasAccount.ApiKey, xCommasAccount.Secret)));
             }
-            else
+        }
+
+        public async Task<XCommasResponse<Bot>> Enable(int botId, Guid accountId)
+        {
+            return await _3CommasClients[accountId].Item2.EnableBotAsync(botId);
+        }
+
+        public async Task<XCommasResponse<Bot>> Disable(int botId, Guid accountId)
+        {
+            return await _3CommasClients[accountId].Item2.DisableBotAsync(botId);
+        }
+
+        public async Task<List<AccountViewModel>> RetrieveAccounts()
+        {
+            var accounts = new List<AccountViewModel>();
+
+            foreach (var commasClient in _3CommasClients)
             {
-                _logger.LogInformation($"{response.Data.Length} Exchanges found");
-                accounts = response.Data.ToList();
+                try
+                {
+                    var response = await commasClient.Value.Item2.GetAccountsAsync();
+                    _logger.LogInformation($"Retrieving exchange information from 3Commas Account '{commasClient.Value.Item1}'...");
+                    if (!response.IsSuccess)
+                    {
+                        _logger.LogError($"Problem with 3Commas connection (Account: '{commasClient.Value.Item1}'): " + response.Error);
+                    }
+                    else
+                    {
+                        _logger.LogInformation($"{response.Data.Length} Exchanges found");
+
+                        var cfg = new MapperConfigurationExpression();
+                        cfg.CreateMap<Account, AccountViewModel>();
+                        var mapperConfig = new MapperConfiguration(cfg);
+                        var mapper = mapperConfig.CreateMapper();
+
+                        var result = new List<AccountViewModel>();
+                        foreach (var account in response.Data)
+                        {
+                            var to = mapper.Map<Account, AccountViewModel>(account);
+                            to.XCommasAccountId = commasClient.Key;
+                            to.XCommasAccountName = commasClient.Value.Item1;
+                            result.Add(to);
+                        }
+                        
+                        accounts.AddRange(result);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
 
             return accounts;
         }
 
-        public async Task<List<AccountTableData>> GetAccountTableData(int accountId)
+        public async Task<List<AccountTableData>> GetAccountTableData(int accountId, Guid xCommasAccount)
         {
             var accounts = new List<AccountTableData>();
 
-            var response = await _3CommasClient.GetAccountTableDataAsync(accountId);
+            var response = await _3CommasClients[xCommasAccount].Item2.GetAccountTableDataAsync(accountId);
             if (!response.IsSuccess)
             {
-                this._logger.LogError("Problem with 3Commas connection: " + response.Error);
+                this._logger.LogError($"Problem with 3Commas connection (Account: '{_3CommasClients[xCommasAccount].Item1}'): " + response.Error);
             }
             else
             {
@@ -66,101 +99,110 @@ namespace _3Commas.BulkEditor.Misc
             return accounts;
         }
 
-        private async Task<List<Bot>> GetBotsByStrategyAndScope(Strategy strategy, BotScope scope)
+        private async Task<List<BotWithExchangeInfo>> GetBotsByStrategyAndScope(Strategy strategy, BotScope scope, Guid xCommasAccount)
         {
             var bots = new List<Bot>();
             int take = 50;
             int skip = 0;
             while (true)
             {
-                var result = await _3CommasClient.GetBotsAsync(limit: take, offset: skip, strategy: strategy, botScope: scope);
-                if (!result.IsSuccess)
+                var response = await _3CommasClients[xCommasAccount].Item2.GetBotsAsync(limit: take, offset: skip, strategy: strategy, botScope: scope);
+                if (!response.IsSuccess)
                 {
-                    throw new Exception("3Commas Connection Issue: " + result.Error);
+                    throw new Exception($"Problem with 3Commas connection (Account: '{_3CommasClients[xCommasAccount].Item1}'): " + response.Error);
                 }
-                if (result.Data.Length == 0)
+                if (response.Data.Length == 0)
                 {
                     break;
                 }
 
-                bots.AddRange(result.Data);
+                bots.AddRange(response.Data);
                 skip += take;
             }
 
-            return bots;
+            return bots.Select(bot => new BotWithExchangeInfo(xCommasAccount, _3CommasClients[xCommasAccount].Item1, bot)).ToList();
         }
 
-        public async Task<List<Bot>> GetAllBots()
+        public async Task<List<BotWithExchangeInfo>> GetAllBots()
         {
-            var bots = new List<Bot>();
+            var allBots = new List<BotWithExchangeInfo>();
             try
             {
-                _logger.LogInformation("Retrieving bots from 3Commas...");
-                bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Enabled));
-                bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Disabled));
-                bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Short, BotScope.Enabled));
-                bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Short, BotScope.Disabled));
-                _logger.LogInformation($"{bots.Count} bots found.");
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"An error occurred: {e.Message}");
-            }
-            return bots;
-        }
-
-        public async Task<List<Deal>> GetAllDeals()
-        {
-            var deals = new List<Deal>();
-
-            try
-            {
-
-                _logger.LogInformation("Retrieving deals from 3Commas...");
-
-                int take = 1000;
-                int skip = 0;
-                while (true)
+                foreach (var commasClient in _3CommasClients)
                 {
-                    var result = await _3CommasClient.GetDealsAsync(limit: take, offset: skip, dealScope: DealScope.Active, dealOrder: DealOrder.CreatedAt);
-                    if (!result.IsSuccess)
-                    {
-                        throw new Exception("3Commas Connection Issue: " + result.Error);
-                    }
-                    if (result.Data.Length == 0)
-                    {
-                        break;
-                    }
-
-                    deals.AddRange(result.Data);
-                    skip += take;
+                    _logger.LogInformation($"Retrieving bots from 3Commas (Account: '{commasClient.Value.Item1}')...");
+                    var bots = new List<BotWithExchangeInfo>();
+                    bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Enabled, commasClient.Key));
+                    bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Disabled, commasClient.Key));
+                    bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Short, BotScope.Enabled, commasClient.Key));
+                    bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Short, BotScope.Disabled, commasClient.Key));
+                    _logger.LogInformation($"{bots.Count} bots found.");
+                    allBots.AddRange(bots);
                 }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"An error occurred: {e.Message}");
+            }
+            return allBots;
+        }
 
-                _logger.LogInformation($"{deals.Count} deals found.");
+        public async Task<List<DealWithExchangeInfo>> GetAllDeals()
+        {
+            var allDeals = new List<DealWithExchangeInfo>();
+
+            try
+            {
+                foreach (var commasClient in _3CommasClients)
+                {
+                    var deals = new List<DealWithExchangeInfo>();
+                    _logger.LogInformation($"Retrieving deals from 3Commas (Account: '{commasClient.Value.Item1}')...");
+
+                    int take = 1000;
+                    int skip = 0;
+                    while (true)
+                    {
+                        var response = await commasClient.Value.Item2.GetDealsAsync(limit: take, offset: skip, dealScope: DealScope.Active, dealOrder: DealOrder.CreatedAt);
+                        if (!response.IsSuccess)
+                        {
+                            throw new Exception($"Problem with 3Commas connection (Account: '{commasClient.Value.Item1}'): " + response.Error);
+                        }
+
+                        if (response.Data.Length == 0)
+                        {
+                            break;
+                        }
+
+                        deals.AddRange(response.Data.Select(deal => new DealWithExchangeInfo(commasClient.Key, commasClient.Value.Item1, deal)));
+                        skip += take;
+                    }
+                    _logger.LogInformation($"{deals.Count} deals found.");
+                    allDeals.AddRange(deals);
+                }
             }
             catch (Exception e)
             {
                 _logger.LogError($"An error occurred: {e.Message}");
             }
 
-            return deals;
+            return allDeals;
         }
 
-        public async Task EnableTrailing(int dealId)
+        public async Task EnableTrailing(int dealId, Guid xCommasAccount)
         {
-            await SetTrailing(dealId, true);
+            await SetTrailing(dealId, true, xCommasAccount);
         }
 
-        public async Task DisableTrailing(int dealId)
+        public async Task DisableTrailing(int dealId, Guid xCommasAccount)
         {
-            await SetTrailing(dealId, false);
+            await SetTrailing(dealId, false, xCommasAccount);
         }
 
-        private async Task SetTrailing(int dealId, bool enableTrailing)
+        private async Task SetTrailing(int dealId, bool enableTrailing, Guid xCommasAccount)
         {
             try
             {
-                var res = await _3CommasClient.UpdateDealAsync(dealId, new DealUpdateData(dealId) { TrailingEnabled = enableTrailing });
+                var res = await _3CommasClients[xCommasAccount].Item2.UpdateDealAsync(dealId, new DealUpdateData(dealId) { TrailingEnabled = enableTrailing });
                 if (!res.IsSuccess)
                 {
                     _logger.LogError($"Could not update deal {dealId}: {res.Error}");
@@ -176,11 +218,11 @@ namespace _3Commas.BulkEditor.Misc
             }
         }
 
-        public async Task CancelDeal(int dealId)
+        public async Task CancelDeal(int dealId, Guid xCommasAccount)
         {
             try
             {
-                var res = await _3CommasClient.CancelDealAsync(dealId);
+                var res = await _3CommasClients[xCommasAccount].Item2.CancelDealAsync(dealId);
                 if (!res.IsSuccess)
                 {
                     _logger.LogError($"Could not cancel deal {dealId}: {res.Error}");
@@ -196,11 +238,11 @@ namespace _3Commas.BulkEditor.Misc
             }
         }
 
-        public async Task PanicSellDeal(int dealId)
+        public async Task PanicSellDeal(int dealId, Guid xCommasAccount)
         {
             try
             {
-                var res = await _3CommasClient.PanicSellDealAsync(dealId);
+                var res = await _3CommasClients[xCommasAccount].Item2.PanicSellDealAsync(dealId);
                 if (!res.IsSuccess)
                 {
                     _logger.LogError($"Could not panic sell deal {dealId}: {res.Error}");
@@ -216,14 +258,14 @@ namespace _3Commas.BulkEditor.Misc
             }
         }
 
-        public async Task<XCommasResponse<Bot>> SaveBot(int botId, BotUpdateData updateData)
+        public async Task<XCommasResponse<Bot>> SaveBot(int botId, BotUpdateData updateData, Guid xCommasAccount)
         {
-            return await _3CommasClient.UpdateBotAsync(botId, updateData);
+            return await _3CommasClients[xCommasAccount].Item2.UpdateBotAsync(botId, updateData);
         }
 
-        public async Task<XCommasResponse<bool>> DeleteBot(int botId)
+        public async Task<XCommasResponse<bool>> DeleteBot(int botId, Guid xCommasAccount)
         {
-            return await _3CommasClient.DeleteBotAsync(botId);
+            return await _3CommasClients[xCommasAccount].Item2.DeleteBotAsync(botId);
         }
 
         public static string GenerateNewName(string pattern, string strategy, string[] pairs, string accountName)
@@ -245,14 +287,14 @@ namespace _3Commas.BulkEditor.Misc
                 .Replace("{pair}", pairText);
         }
 
-        public async Task<Bot> GetBotById(int botId)
+        public async Task<Bot> GetBotById(int botId, Guid xCommasAccount)
         {
-            return (await _3CommasClient.ShowBotAsync(botId)).Data;
+            return (await _3CommasClients[xCommasAccount].Item2.ShowBotAsync(botId)).Data;
         }
 
-        public async Task UpdateDealAsync(DealUpdateData data)
+        public async Task UpdateDealAsync(DealUpdateData data, Guid xCommasAccount)
         {
-            var res = await _3CommasClient.UpdateDealAsync(data.DealId, data);
+            var res = await _3CommasClients[xCommasAccount].Item2.UpdateDealAsync(data.DealId, data);
 
             if (res.IsSuccess)
             {
@@ -264,9 +306,9 @@ namespace _3Commas.BulkEditor.Misc
             }
         }
 
-        public async Task AddFundsAsync(DealAddFundsParameters data, string baseCoin, decimal quoteQty, string quoteCoin)
+        public async Task AddFundsAsync(DealAddFundsParameters data, string baseCoin, decimal quoteQty, string quoteCoin, Guid xCommasAccount)
         {
-            var res = await _3CommasClient.AddFundsToDealAsync(data);
+            var res = await _3CommasClients[xCommasAccount].Item2.AddFundsToDealAsync(data);
             
             if (res.IsSuccess)
             {
@@ -280,12 +322,12 @@ namespace _3Commas.BulkEditor.Misc
 
         public async Task<MarketplaceItem[]> GetMarketplaceItems()
         {
-            return (await _3CommasClient.GetMarketplaceItemsAsync()).Data;
+            return (await _3CommasClients.First().Value.Item2.GetMarketplaceItemsAsync()).Data;
         }
 
-        public async Task<XCommasResponse<Bot>> CreateBot(int accountId, Strategy strategy, BotData botData)
+        public async Task<XCommasResponse<Bot>> CreateBot(int accountId, Strategy strategy, BotData botData, Guid xCommasAccount)
         {
-            return (await _3CommasClient.CreateBotAsync(accountId, strategy, botData));
+            return (await _3CommasClients[xCommasAccount].Item2.CreateBotAsync(accountId, strategy, botData));
         }
     }
 }

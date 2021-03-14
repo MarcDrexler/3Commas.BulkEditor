@@ -6,18 +6,16 @@ using System.Windows.Forms;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using Microsoft.Extensions.Logging;
-using XCommas.Net.Objects;
-using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.CopyBotDialog
 {
     public partial class CopyBotDialog : Form
     {
-        private readonly Keys _keys;
+        private readonly XCommasAccounts _keys;
         private readonly ILogger _logger;
         private readonly IMessageBoxService _mbs = new MessageBoxService();
 
-        public CopyBotDialog(Keys keys, ILogger logger)
+        public CopyBotDialog(XCommasAccounts keys, ILogger logger)
         {
             _keys = keys;
             _logger = logger;
@@ -29,7 +27,7 @@ namespace _3Commas.BulkEditor.Views.CopyBotDialog
             cmbIsEnabled.SelectedIndex = 0;
         }
 
-        public Account Account { get; private set; }
+        public AccountViewModel Account { get; private set; }
         public bool? IsEnabled { get; set; }
         
         private async void ChooseAccount_Load(object sender, EventArgs e)
@@ -42,15 +40,15 @@ namespace _3Commas.BulkEditor.Views.CopyBotDialog
             var botMgr = new XCommasLayer(_keys, _logger);
             var accounts = await botMgr.RetrieveAccounts();
             cmbAccount.DataSource = accounts;
-            cmbAccount.ValueMember = nameof(Account.Id);
-            cmbAccount.DisplayMember = nameof(Account.Name);
+            cmbAccount.ValueMember = nameof(AccountViewModel.Id);
+            cmbAccount.DisplayMember = nameof(AccountViewModel.Name);
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
             if (IsValid())
             {
-                Account = cmbAccount.SelectedItem as Account;
+                Account = cmbAccount.SelectedItem as AccountViewModel;
                 if (cmbIsEnabled.SelectedIndex == 0)
                 {
                     IsEnabled = null;

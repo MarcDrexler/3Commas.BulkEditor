@@ -83,6 +83,56 @@ namespace _3Commas.BulkEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Add_16x161 {
+            get {
+                object obj = ResourceManager.GetObject("Add_16x161", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddItem_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("AddItem_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddNewDataSource_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("AddNewDataSource_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddNewDataSource_16x161 {
+            get {
+                object obj = ResourceManager.GetObject("AddNewDataSource_16x161", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddNewDataSource_16x162 {
+            get {
+                object obj = ResourceManager.GetObject("AddNewDataSource_16x162", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cancel_16x16 {
             get {
                 object obj = ResourceManager.GetObject("Cancel_16x16", resourceCulture);
@@ -173,6 +223,16 @@ namespace _3Commas.BulkEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DeleteDataSource_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("DeleteDataSource_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap download {
             get {
                 object obj = ResourceManager.GetObject("download", resourceCulture);
@@ -193,9 +253,29 @@ namespace _3Commas.BulkEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Edit_16x161 {
+            get {
+                object obj = ResourceManager.GetObject("Edit_16x161", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EditDataSource_16x16 {
             get {
                 object obj = ResourceManager.GetObject("EditDataSource_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EditDataSource_16x161 {
+            get {
+                object obj = ResourceManager.GetObject("EditDataSource_16x161", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -286,6 +366,16 @@ namespace _3Commas.BulkEditor.Properties {
         internal static System.Drawing.Bitmap loader4 {
             get {
                 object obj = ResourceManager.GetObject("loader4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Properties_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Properties_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

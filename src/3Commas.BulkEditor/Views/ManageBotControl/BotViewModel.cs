@@ -45,5 +45,10 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
 
         [DisplayName("Profit Ratio")]
         public decimal ProfitRatio => FinishedDealsCount > 0 ? Math.Round(FinishedDealsProfitUsd / FinishedDealsCount, 2) : 0;
+
+        public Guid XCommasAccountId { get; set; }
+
+        [DisplayName("3Commas Account")]
+        public string XCommasAccountName { get; set; }
     }
 }

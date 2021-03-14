@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _3Commas.BulkEditor.Infrastructure;
 using _3Commas.BulkEditor.Misc;
 using _3Commas.BulkEditor.Views.BaseControls;
+using _3Commas.BulkEditor.Views.ManageBotControl;
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
-using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.ManageDealControl
 {
-    public class DealTableControl : EntityTableControl<Deal>
+    public class DealTableControl : EntityTableControl<DealViewModel>
     {
-        private Keys _keys;
+        private XCommasAccounts _keys;
         private ILogger _logger;
 
         public DealTableControl()
@@ -21,29 +24,54 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             OnRefreshClicked += OnOnRefreshClicked;
         }
 
-        public void Init(Keys keys, ILogger logger, IMessageBoxService mbs)
+        public void Init(XCommasAccounts keys, ILogger logger, IMessageBoxService mbs)
         {
             _keys = keys;
             _logger = logger;
-            base.Init("Deals", _keys);
+            base.Init("Deals", keys);
         }
 
         private async void OnOnRefreshClicked(object sender, EventArgs e)
         {
-            await RefreshData();
+            await RefreshData(_keys);
         }
 
-        public async Task RefreshData()
+        public List<DealViewModel> SelectedItems
+        {
+            get
+            {
+                var selectedIds = base.SelectedIds;
+                return base.Items.Where(x => selectedIds.Contains(x.Id)).ToList();
+            }
+        }
+
+        public async Task RefreshData(XCommasAccounts keys)
         {
             await base.RefreshData<DealViewModel>(async () =>
                 {
-                    var botMgr = new XCommasLayer(_keys, _logger);
-                    return (await botMgr.GetAllDeals()).OrderBy(x => x.Id).ToList();
+                    var botMgr = new XCommasLayer(keys, _logger);
+                    var allDeals = (await botMgr.GetAllDeals()).OrderBy(x => x.Deal.Id).ToList();
+
+                    var cfg = new MapperConfigurationExpression();
+                    cfg.CreateMap<Deal, DealViewModel>();
+                    var mapperConfig = new MapperConfiguration(cfg);
+                    var mapper = mapperConfig.CreateMapper();
+
+                    var result = new List<DealViewModel>();
+                    foreach (var dealWithExchangeInfo in allDeals)
+                    {
+                        var dealViewModel = mapper.Map<Deal, DealViewModel>(dealWithExchangeInfo.Deal);
+                        dealViewModel.XCommasAccountId = dealWithExchangeInfo.XCommasAccount;
+                        dealViewModel.XCommasAccountName = dealWithExchangeInfo.XCommasAccountName;
+                        result.Add(dealViewModel);
+                    }
+                    return result;
                 },
                 new Tuple<string, int>[]
                 {
                     new Tuple<string, int>(nameof(DealViewModel.Id), 65),
                     new Tuple<string, int>(nameof(DealViewModel.DealType), 50),
+                    new Tuple<string, int>(nameof(DealViewModel.XCommasAccountName), 100),
                     new Tuple<string, int>(nameof(DealViewModel.Account), 100),
                     new Tuple<string, int>(nameof(DealViewModel.BotId), 55),
                     new Tuple<string, int>(nameof(DealViewModel.BotName), 130),

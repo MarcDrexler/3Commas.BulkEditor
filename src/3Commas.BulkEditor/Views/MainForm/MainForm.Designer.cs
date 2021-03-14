@@ -32,22 +32,21 @@ namespace _3Commas.BulkEditor.Views.MainForm
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.txtOutput = new System.Windows.Forms.TextBox();
-            this.linkLabel3Commas = new System.Windows.Forms.LinkLabel();
             this.lblOutputLog = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.manageBotControl = new _3Commas.BulkEditor.Views.ManageBotControl.ManageBotControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.manageDealControl = new _3Commas.BulkEditor.Views.ManageDealControl.ManageDealControl();
             this.lblAccountsLoaded = new System.Windows.Forms.Label();
+            this.lblExchangesLoaded = new System.Windows.Forms.Label();
+            this.btnManageApiKeys = new System.Windows.Forms.Button();
             this.btnStopAllBots = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.manageBotControl = new _3Commas.BulkEditor.Views.ManageBotControl.ManageBotControl();
+            this.manageDealControl = new _3Commas.BulkEditor.Views.ManageDealControl.ManageDealControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtOutput
@@ -61,17 +60,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtOutput.Size = new System.Drawing.Size(1042, 172);
             this.txtOutput.TabIndex = 0;
-            // 
-            // linkLabel3Commas
-            // 
-            this.linkLabel3Commas.AutoSize = true;
-            this.linkLabel3Commas.Location = new System.Drawing.Point(118, 18);
-            this.linkLabel3Commas.Name = "linkLabel3Commas";
-            this.linkLabel3Commas.Size = new System.Drawing.Size(64, 13);
-            this.linkLabel3Commas.TabIndex = 64;
-            this.linkLabel3Commas.TabStop = true;
-            this.linkLabel3Commas.Text = "Set API Key";
-            this.linkLabel3Commas.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3Commas_LinkClicked);
             // 
             // lblOutputLog
             // 
@@ -108,14 +96,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.tabPage1.Text = "Bots";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // manageBotControl
-            // 
-            this.manageBotControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.manageBotControl.Location = new System.Drawing.Point(3, 3);
-            this.manageBotControl.Name = "manageBotControl";
-            this.manageBotControl.Size = new System.Drawing.Size(1028, 427);
-            this.manageBotControl.TabIndex = 0;
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.manageDealControl);
@@ -127,22 +107,36 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.tabPage2.Text = "Deals";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // manageDealControl
-            // 
-            this.manageDealControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.manageDealControl.Location = new System.Drawing.Point(3, 3);
-            this.manageDealControl.Name = "manageDealControl";
-            this.manageDealControl.Size = new System.Drawing.Size(1028, 427);
-            this.manageDealControl.TabIndex = 0;
-            // 
             // lblAccountsLoaded
             // 
             this.lblAccountsLoaded.AutoSize = true;
-            this.lblAccountsLoaded.Location = new System.Drawing.Point(201, 18);
+            this.lblAccountsLoaded.Location = new System.Drawing.Point(142, 10);
             this.lblAccountsLoaded.Name = "lblAccountsLoaded";
-            this.lblAccountsLoaded.Size = new System.Drawing.Size(99, 13);
+            this.lblAccountsLoaded.Size = new System.Drawing.Size(148, 13);
             this.lblAccountsLoaded.TabIndex = 81;
-            this.lblAccountsLoaded.Text = "Accounts loaded: 0";
+            this.lblAccountsLoaded.Text = "3Commas Accounts loaded: 0";
+            // 
+            // lblExchangesLoaded
+            // 
+            this.lblExchangesLoaded.AutoSize = true;
+            this.lblExchangesLoaded.Location = new System.Drawing.Point(142, 30);
+            this.lblExchangesLoaded.Name = "lblExchangesLoaded";
+            this.lblExchangesLoaded.Size = new System.Drawing.Size(134, 13);
+            this.lblExchangesLoaded.TabIndex = 83;
+            this.lblExchangesLoaded.Text = "Total Exchanges loaded: 0";
+            // 
+            // btnManageApiKeys
+            // 
+            this.btnManageApiKeys.Image = global::_3Commas.BulkEditor.Properties.Resources.Properties_16x16;
+            this.btnManageApiKeys.Location = new System.Drawing.Point(12, 12);
+            this.btnManageApiKeys.Name = "btnManageApiKeys";
+            this.btnManageApiKeys.Size = new System.Drawing.Size(124, 27);
+            this.btnManageApiKeys.TabIndex = 84;
+            this.btnManageApiKeys.Text = "Manage API Keys";
+            this.btnManageApiKeys.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnManageApiKeys.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnManageApiKeys.UseVisualStyleBackColor = true;
+            this.btnManageApiKeys.Click += new System.EventHandler(this.btnManageApiKeys_Click);
             // 
             // btnStopAllBots
             // 
@@ -160,16 +154,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.btnStopAllBots.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnStopAllBots.UseVisualStyleBackColor = false;
             this.btnStopAllBots.Click += new System.EventHandler(this.btnStopAllBots_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::_3Commas.BulkEditor.Properties.Resources._3Commas;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 11);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 27);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 63;
-            this.pictureBox1.TabStop = false;
             // 
             // btnAbout
             // 
@@ -199,15 +183,31 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // manageBotControl
+            // 
+            this.manageBotControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageBotControl.Location = new System.Drawing.Point(3, 3);
+            this.manageBotControl.Name = "manageBotControl";
+            this.manageBotControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageBotControl.TabIndex = 0;
+            // 
+            // manageDealControl
+            // 
+            this.manageDealControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageDealControl.Location = new System.Drawing.Point(3, 3);
+            this.manageDealControl.Name = "manageDealControl";
+            this.manageDealControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageDealControl.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1066, 734);
+            this.Controls.Add(this.btnManageApiKeys);
+            this.Controls.Add(this.lblExchangesLoaded);
             this.Controls.Add(this.btnStopAllBots);
             this.Controls.Add(this.lblAccountsLoaded);
-            this.Controls.Add(this.linkLabel3Commas);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblOutputLog);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.button1);
@@ -221,7 +221,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,8 +230,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private System.Windows.Forms.TextBox txtOutput;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAbout;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.LinkLabel linkLabel3Commas;
         private System.Windows.Forms.Label lblOutputLog;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -241,6 +238,8 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private ManageBotControl.ManageBotControl manageBotControl;
         private System.Windows.Forms.Label lblAccountsLoaded;
         private System.Windows.Forms.Button btnStopAllBots;
+        private System.Windows.Forms.Label lblExchangesLoaded;
+        private System.Windows.Forms.Button btnManageApiKeys;
     }
 }
 

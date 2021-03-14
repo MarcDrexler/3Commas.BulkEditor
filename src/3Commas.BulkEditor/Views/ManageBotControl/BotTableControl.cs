@@ -1,17 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _3Commas.BulkEditor.Misc;
 using _3Commas.BulkEditor.Views.BaseControls;
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
-using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.ManageBotControl
 {
-    public class BotTableControl : EntityTableControl<Bot>
+    public class BotTableControl : EntityTableControl<BotViewModel>
     {
-        private Keys _keys;
+        private XCommasAccounts _keys;
         private ILogger _logger;
 
         public BotTableControl()
@@ -20,7 +22,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             OnRefreshClicked += OnOnRefreshClicked;
         }
 
-        public void Init(Keys keys, ILogger logger)
+        public void Init(XCommasAccounts keys, ILogger logger)
         {
             _keys = keys;
             _logger = logger;
@@ -29,25 +31,41 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
 
         private async void OnOnRefreshClicked(object sender, EventArgs e)
         {
-            await RefreshData();
+            await RefreshData(_keys);
         }
 
-        public async Task RefreshData()
+        public async Task RefreshData(XCommasAccounts keys)
         {
             await base.RefreshData<BotViewModel>(async () =>
                 {
-                    var botMgr = new XCommasLayer(_keys, _logger);
-                    return (await botMgr.GetAllBots()).OrderBy(x => x.Id).ToList();
+                    var botMgr = new XCommasLayer(keys, _logger);
+                    var allBots = (await botMgr.GetAllBots()).OrderBy(x => x.Bot.Id).ToList();
+
+                    var cfg = new MapperConfigurationExpression();
+                    cfg.CreateMap<Bot, BotViewModel>();
+                    var mapperConfig = new MapperConfiguration(cfg);
+                    var mapper = mapperConfig.CreateMapper();
+
+                    var result = new List<BotViewModel>();
+                    foreach (var botWithExchangeInfo in allBots)
+                    {
+                        var botViewModel = mapper.Map<Bot, BotViewModel>(botWithExchangeInfo.Bot);
+                        botViewModel.XCommasAccountId = botWithExchangeInfo.XCommasAccount;
+                        botViewModel.XCommasAccountName = botWithExchangeInfo.XCommasAccountName;
+                        result.Add(botViewModel);
+                    }
+                    return result;
                 },
                 new[]
                 {
                     new Tuple<string, int>(nameof(BotViewModel.Id), 55),
                     new Tuple<string, int>(nameof(BotViewModel.BotType), 70),
                     new Tuple<string, int>(nameof(BotViewModel.IsEnabled), 65),
+                    new Tuple<string, int>(nameof(BotViewModel.XCommasAccountName), 120),
+                    new Tuple<string, int>(nameof(BotViewModel.AccountName), 120),
                     new Tuple<string, int>(nameof(BotViewModel.Name), 120),
                     new Tuple<string, int>(nameof(BotViewModel.Strategy), 70),
                     new Tuple<string, int>(nameof(BotViewModel.Pair), 100),
-                    new Tuple<string, int>(nameof(BotViewModel.AccountName), 90),
                     new Tuple<string, int>(nameof(BotViewModel.MaxActiveDeals), 100),
                     new Tuple<string, int>(nameof(BotViewModel.ActiveDealsCount), 100),
                     new Tuple<string, int>(nameof(BotViewModel.TakeProfit), 50),

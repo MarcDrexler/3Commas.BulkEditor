@@ -6,11 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoMapper;
-using AutoMapper.Configuration;
+using _3Commas.BulkEditor.Misc;
 using FastMember;
 using static System.String;
-using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 // ReSharper disable LocalizableElement
 
@@ -23,7 +21,7 @@ namespace _3Commas.BulkEditor.Views.BaseControls
         private string _entityName;
         private bool _isDataLoaded;
         private List<T> _items;
-        private Keys _keys;
+        private XCommasAccounts _keys;
         private bool _isBusy;
         private Tuple<string, int>[] _fields;
 
@@ -32,7 +30,7 @@ namespace _3Commas.BulkEditor.Views.BaseControls
             InitializeComponent();
         }
 
-        protected void Init(string entityName, Keys keys)
+        protected void Init(string entityName, XCommasAccounts keys)
         {
             _entityName = entityName;
             _keys = keys;
@@ -142,7 +140,7 @@ namespace _3Commas.BulkEditor.Views.BaseControls
             grid.CleanFilter();
         }
 
-        private void RefreshGrid<TViewModel>(List<T> entities, params Tuple<string, int>[] fields)
+        private void RefreshGrid(List<T> entities, params Tuple<string, int>[] fields)
         {
             _isDataLoaded = true;
 
@@ -150,13 +148,7 @@ namespace _3Commas.BulkEditor.Views.BaseControls
 
             _dataTable.Clear();
 
-            var cfg = new MapperConfigurationExpression();
-            cfg.CreateMap<T, TViewModel>();
-            var mapperConfig = new MapperConfiguration(cfg);
-            var mapper = mapperConfig.CreateMapper();
-            var botViewModels = mapper.Map<IEnumerable<T>, IEnumerable<TViewModel>>(entities);
-
-            using (var reader = ObjectReader.Create(botViewModels, fields.Select(x => x.Item1).ToArray()))
+            using (var reader = ObjectReader.Create(entities, fields.Select(x => x.Item1).ToArray()))
             {
                 _dataTable.Load(reader);
             }
@@ -195,12 +187,12 @@ namespace _3Commas.BulkEditor.Views.BaseControls
         {
             _items = new List<T>();
             IsBusy = true;
-            RefreshGrid<TViewModel>(_items, fields);
-            if (!IsNullOrWhiteSpace(_keys.Secret3Commas) && !IsNullOrWhiteSpace(_keys.ApiKey3Commas))
+            RefreshGrid(_items, fields);
+            if (!_keys.IsEmpty)
             {
                 _items = await getDataFunc();
             }
-            RefreshGrid<TViewModel>(_items, fields);
+            RefreshGrid(_items, fields);
             lblRefreshedAt.Visible = true;
             lblRefreshedAt.Text = $"Last refreshed: " + DateTime.Now.ToLongTimeString();
             IsBusy = false;

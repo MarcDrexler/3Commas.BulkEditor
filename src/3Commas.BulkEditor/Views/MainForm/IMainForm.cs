@@ -8,8 +8,9 @@ namespace _3Commas.BulkEditor.Views.MainForm
     public interface IMainForm : IViewBase
     {
         void ClearLog();
-        void InitGrids(Keys keys, ILogger logger, IMessageBoxService mbs);
+        void InitGrids(XCommasAccounts keys, ILogger logger, IMessageBoxService mbs);
         void SetAccountCount(int numberOfAccounts);
         void EnablePanicButton();
+        void SetExchangeCount(int accountsCount);
     }
 }

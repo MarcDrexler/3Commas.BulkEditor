@@ -14,14 +14,13 @@ using Dasync.Collections;
 using M.EventBroker;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
-using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.ManageDealControl
 {
     public partial class ManageDealControl : UserControl
     {
         private IMessageBoxService _mbs;
-        private Keys _keys;
+        private XCommasAccounts _keys;
         private ILogger _logger;
         private IEventBroker _eventBroker;
 
@@ -31,18 +30,18 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             tableControl.IsBusyChanged += TableControlOnIsBusy;
         }
 
-        public void Init(Misc.Keys keys, ILogger logger, IMessageBoxService mbs)
+        public void Init(XCommasAccounts keys, ILogger logger, IMessageBoxService mbs)
         {
             _mbs = mbs;
             _keys = keys;
             _logger = logger;
             _eventBroker = ObjectContainer.EventBroker;
-            _eventBroker.Subscribe<KeysChangedEventArgs>(args => this.RunInUiThread(RefreshData));
+            _eventBroker.Subscribe<KeysChangedEventArgs>(args => this.RunInUiThread(() => RefreshData(args.Keys)));
             tableControl.Init(keys, logger, mbs);
 
-            if (!keys.IsEmpty())
+            if (!keys.IsEmpty)
             {
-                RefreshData().ConfigureAwait(false);
+                RefreshData(keys).ConfigureAwait(false);
             }
         }
 
@@ -72,7 +71,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             return true;
         }
 
-        private List<Deal> GetSelectedDeals(List<int> ids)
+        private List<DealViewModel> GetSelectedDeals(List<int> ids)
         {
             var selectedDeals = tableControl.Items.Where(x => ids.Contains(x.Id)).ToList();
             return selectedDeals;
@@ -90,9 +89,9 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                 if (dr == DialogResult.OK)
                 {
                     var botMgr = new XCommasLayer(_keys, _logger);
-                    await ExecuteBulkOperation($"Are you sure to update {tableControl.SelectedIds.Count} deals?", "Applying new settings", async dealId =>
+                    await ExecuteBulkOperation($"Are you sure to update {tableControl.SelectedIds.Count} deals?", "Applying new settings", async deal =>
                     {
-                        var updateData = new DealUpdateData(dealId);
+                        var updateData = new DealUpdateData(deal.Id);
                         if (editData.ActiveSafetyOrdersCount.HasValue) updateData.MaxSafetyOrdersCount = editData.ActiveSafetyOrdersCount.Value;
                         if (editData.MaxSafetyOrders.HasValue) updateData.MaxSafetyOrders = editData.MaxSafetyOrders.Value;
                         if (editData.TakeProfit.HasValue) updateData.TakeProfit = editData.TakeProfit.Value;
@@ -104,7 +103,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                         if (editData.StopLossTimeoutEnabled.HasValue) updateData.StopLossTimeoutEnabled = editData.StopLossTimeoutEnabled.Value;
                         if (editData.StopLossTimeout.HasValue) updateData.StopLossTimeoutInSeconds = editData.StopLossTimeout.Value;
 
-                        await botMgr.UpdateDealAsync(updateData);
+                        await botMgr.UpdateDealAsync(updateData, deal.XCommasAccountId);
                     });
                 }
             }
@@ -124,15 +123,18 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                     Cursor.Current = Cursors.WaitCursor;
                     Application.DoEvents();
                     var botMgr = new XCommasLayer(_keys, _logger);
+
                     var accountTableDataDict = new Dictionary<int, List<AccountTableData>>();
-                    foreach (var accountId in GetSelectedDeals(ids).Select(x => x.AccountId).Distinct())
+                    foreach (var a in tableControl.SelectedItems.Select(x => new { x.AccountId, x.XCommasAccountId }))
                     {
-                        accountTableDataDict.Add(accountId, await botMgr.GetAccountTableData(accountId));
+                        if (!accountTableDataDict.ContainsKey(a.AccountId))
+                        {
+                            accountTableDataDict.Add(a.AccountId, await botMgr.GetAccountTableData(a.AccountId, a.XCommasAccountId));
+                        }
                     }
                     Cursor.Current = Cursors.Default;
-                    await ExecuteBulkOperation($"Are you sure to add funds to {tableControl.SelectedIds.Count} deals?", "Adding funds", async dealId =>
+                    await ExecuteBulkOperation($"Are you sure to add funds to {tableControl.SelectedIds.Count} deals?", "Adding funds", async deal =>
                     {
-                        var deal = GetSelectedDeals(ids).Single(x => x.Id == dealId);
                         var accountTableData = accountTableDataDict[deal.AccountId];
                         var quoteCoin = deal.Pair.Split('_')[0];
                         var baseCoin = deal.Pair.Split('_')[1];
@@ -155,10 +157,10 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                         }
 
                         DealAddFundsParameters updateData = new DealAddFundsParameters();
-                        updateData.DealId = dealId;
+                        updateData.DealId = deal.Id;
                         updateData.IsMarket = true;
                         updateData.Quantity = qtyInBaseCoin;
-                        await botMgr.AddFundsAsync(updateData, baseCoin, qtyInQuoteCurrency, quoteCoin);
+                        await botMgr.AddFundsAsync(updateData, baseCoin, qtyInQuoteCurrency, quoteCoin, deal.XCommasAccountId);
                     });
                 }
             }
@@ -167,28 +169,28 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         private async void btnEnableTTP_Click(object sender, EventArgs e)
         {
             var mgr = new XCommasLayer(_keys, _logger);
-            await ExecuteBulkOperation($"Are you sure to enable TTP for {tableControl.SelectedIds.Count} deals?", "Enable Trailing Take Profit", dealId => mgr.EnableTrailing(dealId)).ConfigureAwait(true);
+            await ExecuteBulkOperation($"Are you sure to enable TTP for {tableControl.SelectedIds.Count} deals?", "Enable Trailing Take Profit", deal => mgr.EnableTrailing(deal.Id, deal.XCommasAccountId)).ConfigureAwait(true);
         }
 
         private async void btnDisableTTP_Click(object sender, EventArgs e)
         {
             var mgr = new XCommasLayer(_keys, _logger);
-            await ExecuteBulkOperation($"Are you sure to disable TTP for {tableControl.SelectedIds.Count} deals?", "Disable Trailing Take Profit", dealId => mgr.DisableTrailing(dealId));
+            await ExecuteBulkOperation($"Are you sure to disable TTP for {tableControl.SelectedIds.Count} deals?", "Disable Trailing Take Profit", deal => mgr.DisableTrailing(deal.Id, deal.XCommasAccountId));
         }
 
         private async void btnCancel_Click(object sender, EventArgs e)
         {
             var mgr = new XCommasLayer(_keys, _logger);
-            await ExecuteBulkOperation($"Are you sure to cancel {tableControl.SelectedIds.Count} deals?", "Cancel Deals", dealId => mgr.CancelDeal(dealId));
+            await ExecuteBulkOperation($"Are you sure to cancel {tableControl.SelectedIds.Count} deals?", "Cancel Deals", deal => mgr.CancelDeal(deal.Id, deal.XCommasAccountId));
         }
 
         private async void btnPanicSell_Click(object sender, EventArgs e)
         {
             var mgr = new XCommasLayer(_keys, _logger);
-            await ExecuteBulkOperation($"Are you sure to panic sell {tableControl.SelectedIds.Count} deals?", "Panic Sell Deals", dealId => mgr.PanicSellDeal(dealId));
+            await ExecuteBulkOperation($"Are you sure to panic sell {tableControl.SelectedIds.Count} deals?", "Panic Sell Deals", deal => mgr.PanicSellDeal(deal.Id, deal.XCommasAccountId));
         }
 
-        private async Task ExecuteBulkOperation(string confirmationMessage, string operationName, Func<int, Task> updateOperation)
+        private async Task ExecuteBulkOperation(string confirmationMessage, string operationName, Func<DealViewModel, Task> updateOperation)
         {
             if (IsValid(tableControl.SelectedIds))
             {
@@ -200,10 +202,10 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                     loadingView.Show(this);
 
                     int i = 0;
-                    await tableControl.SelectedIds.ParallelForEachAsync(
-                        async dealId =>
+                    await tableControl.SelectedItems.ParallelForEachAsync(
+                        async deal =>
                         {
-                            await updateOperation(dealId);
+                            await updateOperation(deal);
                             i++;
                             loadingView.SetProgress(i);
                         }, 2, cancellationTokenSource.Token).ConfigureAwait(true);
@@ -220,7 +222,7 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
                     }
 
                     _logger.LogInformation("Refreshing Deals");
-                    await tableControl.RefreshData();
+                    await tableControl.RefreshData(_keys);
                 }
             }
         }
@@ -230,9 +232,9 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
             tableControl.SetDataSource<DealViewModel>();
         }
 
-        public async Task RefreshData()
+        public async Task RefreshData(XCommasAccounts keys)
         {
-            await tableControl.RefreshData();
+            await tableControl.RefreshData(keys);
             SetDataSource();
         }
     }

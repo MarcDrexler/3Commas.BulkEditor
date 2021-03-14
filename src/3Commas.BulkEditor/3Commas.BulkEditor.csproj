@@ -26,11 +26,11 @@
     <InstallUrl>https://marcdrexler.blob.core.windows.net/bulkeditor/</InstallUrl>
     <ProductName>Bulk Editor</ProductName>
     <PublisherName>Marc</PublisherName>
-    <MinimumRequiredVersion>1.0.0.52</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.54</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>53</ApplicationRevision>
+    <ApplicationRevision>54</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -206,12 +206,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Container.cs" />
+    <Compile Include="Infrastructure\IKeyStore.cs" />
     <Compile Include="Infrastructure\IMessageBoxService.cs" />
+    <Compile Include="Infrastructure\KeyStore.cs" />
     <Compile Include="Infrastructure\MessageBoxService.cs" />
     <Compile Include="Misc\AssemblyHelper.cs" />
+    <Compile Include="Misc\BotWithExchangeInfo.cs" />
+    <Compile Include="Misc\DealWithExchangeInfo.cs" />
+    <Compile Include="Misc\XCommasAccounts.cs" />
     <Compile Include="Misc\XCommasLayer.cs" />
     <Compile Include="Misc\ComboBoxItem.cs" />
-    <Compile Include="Misc\Keys.cs" />
+    <Compile Include="Misc\XCommasAccount.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -231,6 +236,7 @@
       <DependentUpon>ChooseSignal.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\ControlHelper.cs" />
+    <Compile Include="Views\CopyBotDialog\AccountViewModel.cs" />
     <Compile Include="Views\CopyBotDialog\CopyBotDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -310,6 +316,12 @@
     <Compile Include="Views\Settings\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\AddAccountDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Settings\AddAccountDialog.Designer.cs">
+      <DependentUpon>AddAccountDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Misc\TextBoxLogger.cs" />
     <EmbeddedResource Include="Views\AboutBox\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
@@ -359,6 +371,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Settings\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings\AddAccountDialog.resx">
+      <DependentUpon>AddAccountDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -416,6 +431,15 @@
     <None Include="Resources\Delete_16x161.png" />
     <None Include="Resources\Info_16x161.png" />
     <None Include="Resources\Financial_16x16.png" />
+    <None Include="Resources\AddNewDataSource_16x16.png" />
+    <None Include="Resources\AddNewDataSource_16x161.png" />
+    <None Include="Resources\Properties_16x16.png" />
+    <None Include="Resources\Edit_16x161.png" />
+    <None Include="Resources\AddItem_16x16.png" />
+    <None Include="Resources\Add_16x161.png" />
+    <None Include="Resources\AddNewDataSource_16x162.png" />
+    <None Include="Resources\EditDataSource_16x161.png" />
+    <None Include="Resources\DeleteDataSource_16x16.png" />
     <Content Include="robot.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

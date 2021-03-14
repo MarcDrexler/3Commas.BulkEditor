@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using _3Commas.BulkEditor.Infrastructure;
 using XCommas.Net.Objects;
@@ -14,5 +15,10 @@ namespace _3Commas.BulkEditor.Views.ManageDealControl
         {
             get { return ObjectContainer.Cache.Accounts.SingleOrDefault(x => x.Id == AccountId)?.Name; }
         }
+
+        public Guid XCommasAccountId { get; set; }
+
+        [DisplayName("3Commas Account")]
+        public string XCommasAccountName { get; set; }
     }
 }

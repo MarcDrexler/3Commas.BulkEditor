@@ -12,14 +12,13 @@ using Dasync.Collections;
 using M.EventBroker;
 using Microsoft.Extensions.Logging;
 using XCommas.Net.Objects;
-using Keys = _3Commas.BulkEditor.Misc.Keys;
 
 namespace _3Commas.BulkEditor.Views.ManageBotControl
 {
     public partial class ManageBotControl : UserControl
     {
         private IMessageBoxService _mbs;
-        private Keys _keys;
+        private XCommasAccounts _keys;
         private ILogger _logger;
         private IEventBroker _eventBroker;
 
@@ -29,20 +28,26 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             tableControl.IsBusyChanged += TableControlOnIsBusy;
         }
 
-        public void Init(Keys keys, ILogger logger, IMessageBoxService mbs)
+        public void Init(XCommasAccounts keys, ILogger logger, IMessageBoxService mbs)
         {
             _mbs = mbs;
             _keys = keys;
             _logger = logger;
             _eventBroker = ObjectContainer.EventBroker;
-            _eventBroker.Subscribe<KeysChangedEventArgs>(args => this.RunInUiThread(RefreshData));
+            _eventBroker.Subscribe<KeysChangedEventArgs>(args => this.RunInUiThread(() => RefreshData(args.Keys)));
             _eventBroker.Subscribe<StopAllBotsEventArgs>(args => this.RunInUiThread(StopAllBots));
             tableControl.Init(keys, logger);
 
-            if (!keys.IsEmpty())
+            if (!keys.IsEmpty)
             {
-                RefreshData().ConfigureAwait(false);
+                RefreshData(keys).ConfigureAwait(false);
             }
+        }
+
+        private List<BotViewModel> GetSelectedBots(List<int> ids)
+        {
+            var selectedBots = tableControl.Items.Where(x => ids.Contains(x.Id)).ToList();
+            return selectedBots;
         }
 
         private void TableControlOnIsBusy(object sender, IsBusyEventArgs e)
@@ -59,31 +64,31 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
 
         public async void btnEdit_Click(object sender, EventArgs e)
         {
-            var ids = tableControl.SelectedIds;
-            if (IsValid(ids))
+            var bots = GetSelectedBots(tableControl.SelectedIds);
+            if (IsValid(bots))
             {
-                var dlg = new EditBotDialog.EditBotDialog(ids.Count, new XCommasLayer(_keys, _logger));
+                var dlg = new EditBotDialog.EditBotDialog(bots.Count, new XCommasLayer(_keys, _logger));
                 EditBotDto editData = new EditBotDto();
                 dlg.EditDto = editData;
                 var dr = dlg.ShowDialog(this);
                 if (dr == DialogResult.OK)
                 {
                     var botMgr = new XCommasLayer(_keys, _logger);
-                    await ExecuteBulkOperation("Applying new settings", tableControl.SelectedIds, async botId =>
+                    await ExecuteBulkOperation("Applying new settings", bots, async botVm =>
                     {
                         if (editData.IsEnabled.HasValue)
                         {
                             if (editData.IsEnabled.Value)
                             {
-                                await botMgr.Enable(botId);
+                                await botMgr.Enable(botVm.Id, botVm.XCommasAccountId);
                             }
                             else
                             {
-                                await botMgr.Disable(botId);
+                                await botMgr.Disable(botVm.Id, botVm.XCommasAccountId);
                             }
                         }
 
-                        var bot = await botMgr.GetBotById(botId);
+                        var bot = await botMgr.GetBotById(botVm.Id, botVm.XCommasAccountId);
                         var updateData = new BotUpdateData(bot);
                         if (editData.MaxActiveDeals.HasValue) updateData.MaxActiveDeals = editData.MaxActiveDeals.Value;
                         if (editData.ActiveSafetyOrdersCount.HasValue) updateData.ActiveSafetyOrdersCount = editData.ActiveSafetyOrdersCount.Value;
@@ -127,14 +132,14 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                             updateData.Strategies.AddRange(editData.DealStartConditions);
                         }
 
-                        var res = await botMgr.SaveBot(botId, updateData);
+                        var res = await botMgr.SaveBot(botVm.Id, updateData, botVm.XCommasAccountId);
                         if (res.IsSuccess)
                         {
-                            _logger.LogInformation($"Bot {botId} updated");
+                            _logger.LogInformation($"Bot {botVm.Id} updated");
                         }
                         else
                         {
-                            _logger.LogError($"Could not update Bot {botId}. Reason: {res.Error}");
+                            _logger.LogError($"Could not update Bot {botVm.Id}. Reason: {res.Error}");
                         }
                     });
                 }
@@ -148,23 +153,23 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             if (dr == DialogResult.OK)
             {
                 var botMgr = new XCommasLayer(_keys, _logger);
-                await ExecuteBulkOperation($"Copy {tableControl.SelectedIds.Count} Bots in Account '{dlg.Account.Name}' now?", "Bots are now being copied", tableControl.SelectedIds, async botId =>
+                await ExecuteBulkOperation($"Copy {tableControl.SelectedIds.Count} Bots in Account '{dlg.Account.Name}' now?", "Bots are now being copied", GetSelectedBots(tableControl.SelectedIds), async botVm =>
                 {
-                    var bot = await botMgr.GetBotById(botId);
-                    bot.AccountId = dlg.Account.Id;
+                    var botEntity = await botMgr.GetBotById(botVm.Id, botVm.XCommasAccountId);
+                    botEntity.AccountId = dlg.Account.Id;
 
-                    var res = await botMgr.CreateBot(dlg.Account.Id, bot.Strategy, bot);
+                    var res = await botMgr.CreateBot(dlg.Account.Id, botEntity.Strategy, botEntity, dlg.Account.XCommasAccountId);
                     if (res.IsSuccess)
                     {
-                        if (dlg.IsEnabled.HasValue && dlg.IsEnabled.Value || !dlg.IsEnabled.HasValue && bot.IsEnabled)
+                        if (dlg.IsEnabled.HasValue && dlg.IsEnabled.Value || !dlg.IsEnabled.HasValue && botEntity.IsEnabled)
                         {
-                            await botMgr.Enable(res.Data.Id);
+                            await botMgr.Enable(res.Data.Id, dlg.Account.XCommasAccountId);
                         }
-                        _logger.LogInformation($"Bot {res.Data.Id} created (as a copy of Bot {botId})");
+                        _logger.LogInformation($"Bot {res.Data.Id} created (as a copy of Bot {botVm.Id})");
                     }
                     else
                     {
-                        _logger.LogError($"Could not copy Bot {botId}. Reason: {res.Error}");
+                        _logger.LogError($"Could not copy Bot {botVm.Id}. Reason: {res.Error}");
                     }
                 });
             }
@@ -173,16 +178,16 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
         private async void btnDelete_Click(object sender, EventArgs e)
         {
             var botMgr = new XCommasLayer(_keys, _logger);
-            await ExecuteBulkOperation($"Do you really want to delete {tableControl.SelectedIds.Count} Bots?", "Bots are now being deleted", tableControl.SelectedIds, async botId =>
+            await ExecuteBulkOperation($"Do you really want to delete {tableControl.SelectedIds.Count} Bots?", "Bots are now being deleted", GetSelectedBots(tableControl.SelectedIds), async botVm =>
             {
-                var res = await botMgr.DeleteBot(botId);
+                var res = await botMgr.DeleteBot(botVm.Id, botVm.XCommasAccountId);
                 if (res.IsSuccess)
                 {
-                    _logger.LogInformation($"Bot {botId} deleted");
+                    _logger.LogInformation($"Bot {botVm.Id} deleted");
                 }
                 else
                 {
-                    _logger.LogError($"Could not delete Bot {botId}. Reason: {res.Error}");
+                    _logger.LogError($"Could not delete Bot {botVm.Id}. Reason: {res.Error}");
                 }
             });
         }
@@ -190,41 +195,40 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
         public async Task StopAllBots()
         {
             var botMgr = new XCommasLayer(_keys, _logger);
-            var allIds = tableControl.Items.Select(x => x.Id).ToList();
-            await ExecuteBulkOperation($"Do you really want to stop {allIds.Count} Bots?", "Bots are now being stopped", allIds, async botId =>
+            await ExecuteBulkOperation($"Do you really want to stop {tableControl.Items.Count} Bots?", "Bots are now being stopped", tableControl.Items, async botVm =>
             {
-                var res = await botMgr.Disable(botId);
+                var res = await botMgr.Disable(botVm.Id, botVm.XCommasAccountId);
                 if (res.IsSuccess)
                 {
-                    _logger.LogInformation($"Bot {botId} stopped");
+                    _logger.LogInformation($"Bot {botVm.Id} stopped");
                 }
                 else
                 {
-                    _logger.LogError($"Could not stop Bot {botId}. Reason: {res.Error}");
+                    _logger.LogError($"Could not stop Bot {botVm.Id}. Reason: {res.Error}");
                 }
             });
         }
 
-        private async Task ExecuteBulkOperation(string confirmationMessage, string inProgressText, List<int> botIds, Func<int, Task> updateOperation)
+        private async Task ExecuteBulkOperation(string confirmationMessage, string inProgressText, List<BotViewModel> bots, Func<BotViewModel, Task> updateOperation)
         {
             var dr = _mbs.ShowQuestion(confirmationMessage);
             if (dr == DialogResult.Yes)
             {
-                await ExecuteBulkOperation(inProgressText, botIds, updateOperation).ConfigureAwait(false);
+                await ExecuteBulkOperation(inProgressText, bots, updateOperation).ConfigureAwait(false);
             }
         }
 
-        private async Task ExecuteBulkOperation(string inProgressText, List<int> botIds, Func<int, Task> updateOperation)
+        private async Task ExecuteBulkOperation(string inProgressText, List<BotViewModel> bots, Func<BotViewModel, Task> updateOperation)
         {
             var cancellationTokenSource = new CancellationTokenSource();
-            var loadingView = new ProgressView.ProgressView(inProgressText, cancellationTokenSource, botIds.Count);
+            var loadingView = new ProgressView.ProgressView(inProgressText, cancellationTokenSource, bots.Count);
             loadingView.Show(this);
 
             int i = 0;
-            await botIds.ParallelForEachAsync(
-                async botId =>
+            await bots.ParallelForEachAsync(
+                async bot =>
                 {
-                    await updateOperation(botId);
+                    await updateOperation(bot);
                     i++;
                     loadingView.SetProgress(i);
                 }, 5, cancellationTokenSource.Token).ConfigureAwait(true);
@@ -241,10 +245,10 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             }
 
             _logger.LogInformation("Refreshing Bots");
-            await tableControl.RefreshData();
+            await tableControl.RefreshData(_keys);
         }
 
-        private bool IsValid(List<int> ids)
+        private bool IsValid(List<BotViewModel> ids)
         {
             if (!ids.Any())
             {
@@ -260,9 +264,9 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
             tableControl.SetDataSource<BotViewModel>();
         }
 
-        public async Task RefreshData()
+        public async Task RefreshData(XCommasAccounts keys)
         {
-            await tableControl.RefreshData();
+            await tableControl.RefreshData(keys);
             SetDataSource();
         }
     }
