@@ -1,6 +1,6 @@
 # 3Commas.BulkEditor
 
-This unofficial tool allows you to bulk edit your DCA bots (simple & composite) + some actions to manage your deals
+This unofficial tool allows you to bulk edit deals and DCA bots (simple & composite) of multiple 3Commas Accounts
 
 
 ## Technical description
@@ -16,6 +16,7 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 ## Features
 
+- Add multiple 3Commas Accounts
 - Bots
   - View all of your DCA bots
   - Filtering, sorting, etc
@@ -30,19 +31,23 @@ Also if you think something is broken or have any questions, please open an [Iss
   - Bulk Enable/Disable TTP
   - Bulk Cancel
   - Bulk Panic Sell
+  - Bulk Add Funds
 
 ## Screenshots
 
 ![Main Screen Bots](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/MainscreenBots.png)
 
+![Edit Bots Dialog](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/EditBotsDialog.png)
+
 ![Main Screen Deals](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/MainscreenDeals.png)
 
-![Edit Dialog](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/EditDialog.png)
+![Edit Deals Dialog](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/EditDealsDialog.png)
 
 ![In Progress Dialog](https://github.com/MarcDrexler/3Commas.BulkEditor/blob/master/screenshots/InProgress.png)
 
 ## Prerequisites
 
+- Windows 10
 - .NET Framework 4.7.2 (which already might be installed on your Windows machine)
 - 3Commas API key and secret
 
