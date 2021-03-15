@@ -51,6 +51,8 @@ namespace _3Commas.BulkEditor.Views.MainForm
             var xCommas = new XCommasLayer(_keys, _logger);
             var exchanges = await xCommas.RetrieveAccounts();
             ObjectContainer.Cache.SetAccounts(exchanges);
+            var pairs = await xCommas.GetMarketPairs();
+            ObjectContainer.Cache.SetPairs(pairs);
             View.SetAccountCount(_keys.Accounts.Count);
             View.SetExchangeCount(exchanges.Count);
             View.EnablePanicButton();

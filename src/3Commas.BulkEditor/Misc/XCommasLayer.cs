@@ -104,6 +104,9 @@ namespace _3Commas.BulkEditor.Misc
             var bots = new List<Bot>();
             int take = 50;
             int skip = 0;
+
+            int loopCount = 0;
+
             while (true)
             {
                 var response = await _3CommasClients[xCommasAccount].Item2.GetBotsAsync(limit: take, offset: skip, strategy: strategy, botScope: scope);
@@ -116,8 +119,16 @@ namespace _3Commas.BulkEditor.Misc
                     break;
                 }
 
+                if (loopCount == 100)
+                {
+                    _logger.LogError($"Could not load bots. Last Response:  Success: {response.IsSuccess}  Raw Data: {response.RawData}  Error: {response.Error}  Data Count: {response.Data?.Length}");
+                    break;
+                }
+
                 bots.AddRange(response.Data);
                 skip += take;
+
+                loopCount++;
             }
 
             return bots.Select(bot => new BotWithExchangeInfo(xCommasAccount, _3CommasClients[xCommasAccount].Item1, bot)).ToList();
@@ -328,6 +339,33 @@ namespace _3Commas.BulkEditor.Misc
         public async Task<XCommasResponse<Bot>> CreateBot(int accountId, Strategy strategy, BotData botData, Guid xCommasAccount)
         {
             return (await _3CommasClients[xCommasAccount].Item2.CreateBotAsync(accountId, strategy, botData));
+        }
+
+        public async Task<List<string>> GetMarketPairs()
+        {
+            var pairs = new HashSet<string>();
+            try
+            {
+                foreach (var commasClient in _3CommasClients)
+                {
+                    var accounts = await commasClient.Value.Item2.GetAccountsAsync();
+                    foreach (var account in accounts.Data)
+                    {
+                        var accountPairs = await commasClient.Value.Item2.GetMarketPairsAsync(account.MarketCode);
+                        foreach (var accountPair in accountPairs.Data)
+                        {
+                            pairs.Add(accountPair);
+                        }
+                    }
+                }
+
+                _logger.LogInformation($"{pairs.Count} Pairs loaded");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not retrieve pairs. Error Message: {e}");
+            }
+            return pairs.ToList();
         }
     }
 }

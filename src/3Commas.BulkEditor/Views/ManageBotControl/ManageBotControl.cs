@@ -90,6 +90,14 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
 
                         var bot = await botMgr.GetBotById(botVm.Id, botVm.XCommasAccountId);
                         var updateData = new BotUpdateData(bot);
+
+                        string[] pairs = bot.Pairs;
+                        if (!string.IsNullOrWhiteSpace(editData.Pair))
+                        {
+                            pairs = new[] { editData.Pair };
+                            updateData.Pairs = pairs;
+                        }
+                        if (!string.IsNullOrWhiteSpace(editData.Name)) updateData.Name = XCommasLayer.GenerateNewName(editData.Name, bot.Strategy.ToString(), pairs, bot.AccountName);
                         if (editData.MaxActiveDeals.HasValue) updateData.MaxActiveDeals = editData.MaxActiveDeals.Value;
                         if (editData.ActiveSafetyOrdersCount.HasValue) updateData.ActiveSafetyOrdersCount = editData.ActiveSafetyOrdersCount.Value;
                         if (editData.BaseOrderVolume.HasValue) updateData.BaseOrderVolume = editData.BaseOrderVolume.Value;
@@ -97,7 +105,6 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                         if (editData.MartingaleStepCoefficient.HasValue) updateData.MartingaleStepCoefficient = editData.MartingaleStepCoefficient.Value;
                         if (editData.MartingaleVolumeCoefficient.HasValue) updateData.MartingaleVolumeCoefficient = editData.MartingaleVolumeCoefficient.Value;
                         if (editData.MaxSafetyOrders.HasValue) updateData.MaxSafetyOrders = editData.MaxSafetyOrders.Value;
-                        if (!string.IsNullOrWhiteSpace(editData.Name)) updateData.Name = XCommasLayer.GenerateNewName(editData.Name, bot.Strategy.ToString(), bot.Pairs, bot.AccountName);
                         if (editData.SafetyOrderStepPercentage.HasValue) updateData.SafetyOrderStepPercentage = editData.SafetyOrderStepPercentage.Value;
                         if (editData.StartOrderType.HasValue) updateData.StartOrderType = editData.StartOrderType.Value;
                         if (editData.SafetyOrderVolume.HasValue) updateData.SafetyOrderVolume = editData.SafetyOrderVolume.Value;

@@ -22,6 +22,8 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
             InitializeComponent();
 
             cmbIsEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeIsEnabled, nameof(CheckBox.Checked));
+            cmbPair.DataBindings.Add(nameof(ComboBox.Visible), chkChangePair, nameof(CheckBox.Checked));
+            lblPairWarning.DataBindings.Add(nameof(Label.Visible), chkChangePair, nameof(CheckBox.Checked));
             txtName.DataBindings.Add(nameof(TextBox.Visible), chkChangeName, nameof(CheckBox.Checked));
             numMaxActiveDeals.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeMaxActiveDeals, nameof(CheckBox.Checked));
             lblPreviewTitle.DataBindings.Add(nameof(Label.Visible), chkChangeName, nameof(CheckBox.Checked));
@@ -65,6 +67,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
             cmbSafetyOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.BaseCurrency, "Base"));
             cmbSafetyOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.Percent, "% (Base)"));
 
+            cmbPair.Items.AddRange(ObjectContainer.Cache.Pairs.ToArray());
             cmbIsEnabled.Items.Add("Enable");
             cmbIsEnabled.Items.Add("Disable");
             cmbTtpEnabled.Items.Add("Enable");
@@ -97,6 +100,8 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
                         if (cmbIsEnabled.SelectedItem.ToString() == "Enable") EditDto.IsEnabled = true;
                         else if (cmbIsEnabled.SelectedItem.ToString() == "Disable") EditDto.IsEnabled = false;
                     }
+                    
+                    if (chkChangePair.Checked) EditDto.Pair = cmbPair.SelectedItem.ToString();
                     if (chkChangeMaxActiveDeals.Checked) EditDto.MaxActiveDeals = (int)numMaxActiveDeals.Value;
 
                     if (chkChangeStartOrderType.Checked)
@@ -164,6 +169,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
         {
             var errors = new List<string>();
 
+            if (chkChangePair.Checked && cmbPair.SelectedItem == null) errors.Add("New value for \"Pair\" missing.");
             if (chkChangeIsEnabled.Checked && cmbIsEnabled.SelectedItem == null) errors.Add("New value for \"Enabled\" missing.");
             if (chkChangeName.Checked && string.IsNullOrWhiteSpace(txtName.Text)) errors.Add("New value for \"Name\" missing.");
             if (chkChangeTakeProfitType.Checked && cmbTakeProfitType.SelectedItem == null) errors.Add("New value for \"Take Profit Type\" missing.");

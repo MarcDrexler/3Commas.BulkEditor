@@ -31,6 +31,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
         public decimal? LeverageCustomValue { get; set; }
         public TakeProfitType? TakeProfitType { get; set; }
         public int? MaxActiveDeals { get; internal set; }
+        public string Pair { get; set; }
     }
 
     public class DisableAfterDealsCountDto
