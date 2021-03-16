@@ -23,6 +23,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
 
             cmbIsEnabled.DataBindings.Add(nameof(ComboBox.Visible), chkChangeIsEnabled, nameof(CheckBox.Checked));
             cmbPair.DataBindings.Add(nameof(ComboBox.Visible), chkChangePair, nameof(CheckBox.Checked));
+            cmbProfitCurrency.DataBindings.Add(nameof(ComboBox.Visible), chkChangeProfitCurrency, nameof(CheckBox.Checked));
             lblPairWarning.DataBindings.Add(nameof(Label.Visible), chkChangePair, nameof(CheckBox.Checked));
             txtName.DataBindings.Add(nameof(TextBox.Visible), chkChangeName, nameof(CheckBox.Checked));
             numMaxActiveDeals.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeMaxActiveDeals, nameof(CheckBox.Checked));
@@ -60,6 +61,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
             ControlHelper.AddValuesToCombobox<TakeProfitType>(cmbTakeProfitType);
             ControlHelper.AddValuesToCombobox<StopLossType>(cmbStopLossType);
             ControlHelper.AddValuesToCombobox<LeverageType>(cmbLeverageType);
+            ControlHelper.AddValuesToCombobox<ProfitCurrency>(cmbProfitCurrency);
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.QuoteCurrency, "Quote"));
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.BaseCurrency, "Base"));
             cmbBaseOrderVolumeType.Items.Add(new ComboBoxItem(VolumeType.Percent, "% (Base)"));
@@ -103,6 +105,12 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
                     
                     if (chkChangePair.Checked) EditDto.Pair = cmbPair.SelectedItem.ToString();
                     if (chkChangeMaxActiveDeals.Checked) EditDto.MaxActiveDeals = (int)numMaxActiveDeals.Value;
+
+                    if (chkChangeProfitCurrency.Checked)
+                    {
+                        Enum.TryParse(cmbProfitCurrency.SelectedItem.ToString(), out ProfitCurrency profitCurrency);
+                        EditDto.ProfitCurrency = profitCurrency;
+                    }
 
                     if (chkChangeStartOrderType.Checked)
                     {
@@ -172,6 +180,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
             if (chkChangePair.Checked && cmbPair.SelectedItem == null) errors.Add("New value for \"Pair\" missing.");
             if (chkChangeIsEnabled.Checked && cmbIsEnabled.SelectedItem == null) errors.Add("New value for \"Enabled\" missing.");
             if (chkChangeName.Checked && string.IsNullOrWhiteSpace(txtName.Text)) errors.Add("New value for \"Name\" missing.");
+            if (chkChangeProfitCurrency.Checked && cmbProfitCurrency.SelectedItem == null) errors.Add("New value for \"Profit Currency\" missing.");
             if (chkChangeTakeProfitType.Checked && cmbTakeProfitType.SelectedItem == null) errors.Add("New value for \"Take Profit Type\" missing.");
             if (chkChangeStartOrderType.Checked && cmbStartOrderType.SelectedItem == null) errors.Add("New value for \"Start Order Type\" missing.");
             if (chkChangeBaseOrderSizeType.Checked && cmbBaseOrderVolumeType.SelectedItem == null) errors.Add("New value for \"Base Order Type\" missing.");

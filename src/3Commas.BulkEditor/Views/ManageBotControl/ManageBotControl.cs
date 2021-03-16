@@ -106,6 +106,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                         if (editData.MartingaleVolumeCoefficient.HasValue) updateData.MartingaleVolumeCoefficient = editData.MartingaleVolumeCoefficient.Value;
                         if (editData.MaxSafetyOrders.HasValue) updateData.MaxSafetyOrders = editData.MaxSafetyOrders.Value;
                         if (editData.SafetyOrderStepPercentage.HasValue) updateData.SafetyOrderStepPercentage = editData.SafetyOrderStepPercentage.Value;
+                        if (editData.ProfitCurrency.HasValue) updateData.ProfitCurrency = editData.ProfitCurrency.Value;
                         if (editData.StartOrderType.HasValue) updateData.StartOrderType = editData.StartOrderType.Value;
                         if (editData.SafetyOrderVolume.HasValue) updateData.SafetyOrderVolume = editData.SafetyOrderVolume.Value;
                         if (editData.TakeProfit.HasValue) updateData.TakeProfit = editData.TakeProfit.Value;
