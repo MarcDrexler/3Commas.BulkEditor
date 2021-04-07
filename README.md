@@ -1,6 +1,6 @@
 # 3Commas.BulkEditor
 
-This unofficial tool allows you to bulk edit deals and DCA bots (simple & composite) of multiple 3Commas Accounts
+This unofficial tool allows you to bulk edit deals and bots (DCA & Grid) of multiple 3Commas Accounts
 
 
 ## Technical description
@@ -18,7 +18,7 @@ Also if you think something is broken or have any questions, please open an [Iss
 
 - Add multiple 3Commas Accounts
 - Bots
-  - View all of your DCA bots
+  - View all of your DCA and Grid bots
   - Filtering, sorting, etc
   - Stop All Bots
   - Bulk Edit
