@@ -26,7 +26,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
         {
             _keys = keys;
             _logger = logger;
-            base.Init("Bots", _keys);
+            base.Init("DCA Bots", _keys);
         }
 
         private async void OnOnRefreshClicked(object sender, EventArgs e)

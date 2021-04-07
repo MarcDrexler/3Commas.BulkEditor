@@ -45,6 +45,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
         public void InitGrids(XCommasAccounts keys, ILogger logger, IMessageBoxService mbs)
         {
             manageBotControl.Init(keys, logger, mbs);
+            manageGridBotControl.Init(keys, logger, mbs);
             manageDealControl.Init(keys, logger, mbs);
         }
 
@@ -72,9 +73,13 @@ namespace _3Commas.BulkEditor.Views.MainForm
         {
             // Workaround:
             // we can only set the datasource if the grid is really visible to the user. Otherwise this gridview will throw an exception while binding the data :/
-            if (tabControl1.SelectedTab.Text == "Bots")
+            if (tabControl1.SelectedTab.Text == "DCA Bots")
             {
                 manageBotControl.SetDataSource();
+            }
+            else if (tabControl1.SelectedTab.Text == "Grid Bots")
+            {
+                manageGridBotControl.SetDataSource();
             }
             else
             {

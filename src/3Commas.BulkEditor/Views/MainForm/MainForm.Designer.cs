@@ -35,15 +35,17 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.lblOutputLog = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.manageBotControl = new _3Commas.BulkEditor.Views.ManageBotControl.ManageBotControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.manageDealControl = new _3Commas.BulkEditor.Views.ManageDealControl.ManageDealControl();
             this.lblAccountsLoaded = new System.Windows.Forms.Label();
             this.lblExchangesLoaded = new System.Windows.Forms.Label();
             this.btnManageApiKeys = new System.Windows.Forms.Button();
             this.btnStopAllBots = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.manageBotControl = new _3Commas.BulkEditor.Views.ManageBotControl.ManageBotControl();
-            this.manageDealControl = new _3Commas.BulkEditor.Views.ManageDealControl.ManageDealControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.manageGridBotControl = new _3Commas.BulkEditor.Views.ManageGridBotControl.ManageGridBotControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -77,6 +79,7 @@ namespace _3Commas.BulkEditor.Views.MainForm
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(12, 54);
             this.tabControl1.Name = "tabControl1";
@@ -93,8 +96,24 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1034, 433);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Bots";
+            this.tabPage1.Text = "DCA Bots";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // manageGridBotControl
+            // 
+            this.manageGridBotControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageGridBotControl.Location = new System.Drawing.Point(3, 3);
+            this.manageGridBotControl.Name = "manageGridBotControl";
+            this.manageGridBotControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageGridBotControl.TabIndex = 0;
+            // 
+            // manageBotControl
+            // 
+            this.manageBotControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageBotControl.Location = new System.Drawing.Point(3, 3);
+            this.manageBotControl.Name = "manageBotControl";
+            this.manageBotControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageBotControl.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -106,6 +125,25 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Deals";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.manageGridBotControl);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1034, 433);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Grid Bots";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // manageDealControl
+            // 
+            this.manageDealControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.manageDealControl.Location = new System.Drawing.Point(3, 3);
+            this.manageDealControl.Name = "manageDealControl";
+            this.manageDealControl.Size = new System.Drawing.Size(1028, 427);
+            this.manageDealControl.TabIndex = 0;
             // 
             // lblAccountsLoaded
             // 
@@ -183,22 +221,6 @@ namespace _3Commas.BulkEditor.Views.MainForm
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // manageBotControl
-            // 
-            this.manageBotControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.manageBotControl.Location = new System.Drawing.Point(3, 3);
-            this.manageBotControl.Name = "manageBotControl";
-            this.manageBotControl.Size = new System.Drawing.Size(1028, 427);
-            this.manageBotControl.TabIndex = 0;
-            // 
-            // manageDealControl
-            // 
-            this.manageDealControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.manageDealControl.Location = new System.Drawing.Point(3, 3);
-            this.manageDealControl.Name = "manageDealControl";
-            this.manageDealControl.Size = new System.Drawing.Size(1028, 427);
-            this.manageDealControl.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -236,10 +258,12 @@ namespace _3Commas.BulkEditor.Views.MainForm
         private System.Windows.Forms.TabPage tabPage1;
         private ManageDealControl.ManageDealControl manageDealControl;
         private ManageBotControl.ManageBotControl manageBotControl;
+        private ManageGridBotControl.ManageGridBotControl manageGridBotControl;
         private System.Windows.Forms.Label lblAccountsLoaded;
         private System.Windows.Forms.Button btnStopAllBots;
         private System.Windows.Forms.Label lblExchangesLoaded;
         private System.Windows.Forms.Button btnManageApiKeys;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }
 

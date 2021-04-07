@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _3Commas.BulkEditor.Views.CopyBotDialog;
-using _3Commas.BulkEditor.Views.ManageBotControl;
 using AutoMapper;
 using AutoMapper.Configuration;
 using Microsoft.Extensions.Logging;
@@ -35,6 +34,16 @@ namespace _3Commas.BulkEditor.Misc
         public async Task<XCommasResponse<Bot>> Disable(int botId, Guid accountId)
         {
             return await _3CommasClients[accountId].Item2.DisableBotAsync(botId);
+        }
+
+        public async Task<XCommasResponse<GridBot>> EnableGridBot(int botId, Guid accountId)
+        {
+            return await _3CommasClients[accountId].Item2.EnableGridBotAsync(botId);
+        }
+
+        public async Task<XCommasResponse<GridBot>> DisableGridBot(int botId, Guid accountId)
+        {
+            return await _3CommasClients[accountId].Item2.DisableGridBotAsync(botId);
         }
 
         public async Task<List<AccountViewModel>> RetrieveAccounts()
@@ -134,6 +143,41 @@ namespace _3Commas.BulkEditor.Misc
             return bots.Select(bot => new BotWithExchangeInfo(xCommasAccount, _3CommasClients[xCommasAccount].Item1, bot)).ToList();
         }
 
+        private async Task<List<GridBotWithExchangeInfo>> GetGridBotsByScope(BotScope scope, Guid xCommasAccount, int[] accountIds)
+        {
+            var bots = new List<GridBot>();
+            int take = 10;
+            int skip = 0;
+
+            int loopCount = 0;
+
+            while (true)
+            {
+                var response = await _3CommasClients[xCommasAccount].Item2.GetGridBotsAsync(accountIds: accountIds, limit: take, offset: skip, botState: scope);
+                if (!response.IsSuccess)
+                {
+                    throw new Exception($"Problem with 3Commas connection (Account: '{_3CommasClients[xCommasAccount].Item1}'): " + response.Error);
+                }
+                if (response.Data.Length == 0)
+                {
+                    break;
+                }
+
+                if (loopCount == 100)
+                {
+                    _logger.LogError($"Could not load bots. Last Response:  Success: {response.IsSuccess}  Raw Data: {response.RawData}  Error: {response.Error}  Data Count: {response.Data?.Length}");
+                    break;
+                }
+
+                bots.AddRange(response.Data);
+                skip += take;
+
+                loopCount++;
+            }
+
+            return bots.Select(bot => new GridBotWithExchangeInfo(xCommasAccount, _3CommasClients[xCommasAccount].Item1, bot)).ToList();
+        }
+
         public async Task<List<BotWithExchangeInfo>> GetAllBots()
         {
             var allBots = new List<BotWithExchangeInfo>();
@@ -141,13 +185,36 @@ namespace _3Commas.BulkEditor.Misc
             {
                 foreach (var commasClient in _3CommasClients)
                 {
-                    _logger.LogInformation($"Retrieving bots from 3Commas (Account: '{commasClient.Value.Item1}')...");
+                    _logger.LogInformation($"Retrieving DCA bots from 3Commas (Account: '{commasClient.Value.Item1}')...");
                     var bots = new List<BotWithExchangeInfo>();
                     bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Enabled, commasClient.Key));
                     bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Long, BotScope.Disabled, commasClient.Key));
                     bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Short, BotScope.Enabled, commasClient.Key));
                     bots.AddRange(await GetBotsByStrategyAndScope(Strategy.Short, BotScope.Disabled, commasClient.Key));
-                    _logger.LogInformation($"{bots.Count} bots found.");
+                    _logger.LogInformation($"{bots.Count} DCA bots found.");
+                    allBots.AddRange(bots);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"An error occurred: {e.Message}");
+            }
+            return allBots;
+        }
+
+        public async Task<List<GridBotWithExchangeInfo>> GetAllGridBots()
+        {
+            var allBots = new List<GridBotWithExchangeInfo>();
+            try
+            {
+                foreach (var commasClient in _3CommasClients)
+                {
+                    var accountIds = (await commasClient.Value.Item2.GetAccountsAsync()).Data.Select(x => x.Id).ToArray();
+                    _logger.LogInformation($"Retrieving grid bots from 3Commas (Account: '{commasClient.Value.Item1}')...");
+                    var bots = new List<GridBotWithExchangeInfo>();
+                    bots.AddRange(await GetGridBotsByScope(BotScope.Enabled, commasClient.Key, accountIds));
+                    bots.AddRange(await GetGridBotsByScope(BotScope.Disabled, commasClient.Key, accountIds));
+                    _logger.LogInformation($"{bots.Count} grid bots found.");
                     allBots.AddRange(bots);
                 }
             }
@@ -274,9 +341,19 @@ namespace _3Commas.BulkEditor.Misc
             return await _3CommasClients[xCommasAccount].Item2.UpdateBotAsync(botId, updateData);
         }
 
+        public async Task<XCommasResponse<GridBot>> SaveGridBot(int botId, GridBotData updateData, Guid xCommasAccount)
+        {
+            return await _3CommasClients[xCommasAccount].Item2.UpdateGridBotAsync(botId, updateData);
+        }
+
         public async Task<XCommasResponse<bool>> DeleteBot(int botId, Guid xCommasAccount)
         {
             return await _3CommasClients[xCommasAccount].Item2.DeleteBotAsync(botId);
+        }
+
+        public async Task<XCommasResponse<bool>> DeleteGridBot(int botId, Guid xCommasAccount)
+        {
+            return await _3CommasClients[xCommasAccount].Item2.DeleteGridBotAsync(botId);
         }
 
         public static string GenerateNewName(string pattern, string strategy, string[] pairs, string accountName)
@@ -301,6 +378,11 @@ namespace _3Commas.BulkEditor.Misc
         public async Task<Bot> GetBotById(int botId, Guid xCommasAccount)
         {
             return (await _3CommasClients[xCommasAccount].Item2.ShowBotAsync(botId)).Data;
+        }
+
+        public async Task<GridBot> GetGridBotById(int botId, Guid xCommasAccount)
+        {
+            return (await _3CommasClients[xCommasAccount].Item2.ShowGridBotAsync(botId)).Data;
         }
 
         public async Task UpdateDealAsync(DealUpdateData data, Guid xCommasAccount)
@@ -339,6 +421,11 @@ namespace _3Commas.BulkEditor.Misc
         public async Task<XCommasResponse<Bot>> CreateBot(int accountId, Strategy strategy, BotData botData, Guid xCommasAccount)
         {
             return (await _3CommasClients[xCommasAccount].Item2.CreateBotAsync(accountId, strategy, botData));
+        }
+
+        public async Task<XCommasResponse<GridBot>> CreateGridBot(int accountId, GridBotData botData, Guid xCommasAccount)
+        {
+            return (await _3CommasClients[xCommasAccount].Item2.CreateGridBotAsync(accountId, botData));
         }
 
         public async Task<List<string>> GetMarketPairs()
