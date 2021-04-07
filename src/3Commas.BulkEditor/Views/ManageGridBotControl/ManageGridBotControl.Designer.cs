@@ -119,6 +119,7 @@ namespace _3Commas.BulkEditor.Views.ManageGridBotControl
             this.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelete.Visible = false;
             // 
             // tableControl
             // 
