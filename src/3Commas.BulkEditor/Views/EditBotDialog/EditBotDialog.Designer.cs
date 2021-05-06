@@ -116,6 +116,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTipName = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkChangeProfitCurrency = new System.Windows.Forms.CheckBox();
+            this.lblProfitCurrency = new System.Windows.Forms.Label();
+            this.cmbProfitCurrency = new System.Windows.Forms.ComboBox();
             this.lblPairWarning = new System.Windows.Forms.Label();
             this.cmbPair = new System.Windows.Forms.ComboBox();
             this.lblPair = new System.Windows.Forms.Label();
@@ -123,9 +126,9 @@
             this.chkChangeMaxActiveDeals = new System.Windows.Forms.CheckBox();
             this.numMaxActiveDeals = new System.Windows.Forms.NumericUpDown();
             this.lblMaxActiveDeals = new System.Windows.Forms.Label();
-            this.chkChangeProfitCurrency = new System.Windows.Forms.CheckBox();
-            this.lblProfitCurrency = new System.Windows.Forms.Label();
-            this.cmbProfitCurrency = new System.Windows.Forms.ComboBox();
+            this.chkChangeMaxPrice = new System.Windows.Forms.CheckBox();
+            this.numMaxPrice = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSafetyOrderVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCooldownBetweenDeals)).BeginInit();
@@ -143,6 +146,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxActiveDeals)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxPrice)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -710,7 +714,7 @@
             // chkChangeDealStartCondition
             // 
             this.chkChangeDealStartCondition.AutoSize = true;
-            this.chkChangeDealStartCondition.Location = new System.Drawing.Point(214, 733);
+            this.chkChangeDealStartCondition.Location = new System.Drawing.Point(214, 759);
             this.chkChangeDealStartCondition.Name = "chkChangeDealStartCondition";
             this.chkChangeDealStartCondition.Size = new System.Drawing.Size(15, 14);
             this.chkChangeDealStartCondition.TabIndex = 48;
@@ -719,7 +723,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(109, 733);
+            this.label6.Location = new System.Drawing.Point(109, 759);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 13);
             this.label6.TabIndex = 157;
@@ -730,7 +734,7 @@
             this.listViewStartConditions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listViewStartConditions.HideSelection = false;
-            this.listViewStartConditions.Location = new System.Drawing.Point(237, 730);
+            this.listViewStartConditions.Location = new System.Drawing.Point(237, 756);
             this.listViewStartConditions.Name = "listViewStartConditions";
             this.listViewStartConditions.Size = new System.Drawing.Size(121, 63);
             this.listViewStartConditions.TabIndex = 49;
@@ -964,7 +968,7 @@
             // 
             this.lblStartConditionWarning.Image = global::_3Commas.BulkEditor.Properties.Resources.Warning_16x16;
             this.lblStartConditionWarning.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblStartConditionWarning.Location = new System.Drawing.Point(234, 796);
+            this.lblStartConditionWarning.Location = new System.Drawing.Point(234, 822);
             this.lblStartConditionWarning.Name = "lblStartConditionWarning";
             this.lblStartConditionWarning.Size = new System.Drawing.Size(243, 19);
             this.lblStartConditionWarning.TabIndex = 161;
@@ -974,7 +978,7 @@
             // btnRemoveStartCondition
             // 
             this.btnRemoveStartCondition.Image = global::_3Commas.BulkEditor.Properties.Resources.Cancel_16x16;
-            this.btnRemoveStartCondition.Location = new System.Drawing.Point(363, 757);
+            this.btnRemoveStartCondition.Location = new System.Drawing.Point(363, 783);
             this.btnRemoveStartCondition.Name = "btnRemoveStartCondition";
             this.btnRemoveStartCondition.Size = new System.Drawing.Size(29, 23);
             this.btnRemoveStartCondition.TabIndex = 52;
@@ -986,7 +990,7 @@
             // btnAddStartCondition
             // 
             this.btnAddStartCondition.Image = global::_3Commas.BulkEditor.Properties.Resources.Add_16x16;
-            this.btnAddStartCondition.Location = new System.Drawing.Point(363, 730);
+            this.btnAddStartCondition.Location = new System.Drawing.Point(363, 756);
             this.btnAddStartCondition.Name = "btnAddStartCondition";
             this.btnAddStartCondition.Size = new System.Drawing.Size(29, 23);
             this.btnAddStartCondition.TabIndex = 51;
@@ -1059,6 +1063,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.chkChangeMaxPrice);
+            this.panel1.Controls.Add(this.numMaxPrice);
+            this.panel1.Controls.Add(this.label24);
             this.panel1.Controls.Add(this.chkChangeProfitCurrency);
             this.panel1.Controls.Add(this.lblProfitCurrency);
             this.panel1.Controls.Add(this.cmbProfitCurrency);
@@ -1156,6 +1163,33 @@
             this.panel1.Size = new System.Drawing.Size(636, 466);
             this.panel1.TabIndex = 193;
             // 
+            // chkChangeProfitCurrency
+            // 
+            this.chkChangeProfitCurrency.AutoSize = true;
+            this.chkChangeProfitCurrency.Location = new System.Drawing.Point(214, 73);
+            this.chkChangeProfitCurrency.Name = "chkChangeProfitCurrency";
+            this.chkChangeProfitCurrency.Size = new System.Drawing.Size(15, 14);
+            this.chkChangeProfitCurrency.TabIndex = 200;
+            this.chkChangeProfitCurrency.UseVisualStyleBackColor = true;
+            // 
+            // lblProfitCurrency
+            // 
+            this.lblProfitCurrency.AutoSize = true;
+            this.lblProfitCurrency.Location = new System.Drawing.Point(133, 73);
+            this.lblProfitCurrency.Name = "lblProfitCurrency";
+            this.lblProfitCurrency.Size = new System.Drawing.Size(76, 13);
+            this.lblProfitCurrency.TabIndex = 202;
+            this.lblProfitCurrency.Text = "Profit Currency";
+            // 
+            // cmbProfitCurrency
+            // 
+            this.cmbProfitCurrency.DisplayMember = "Text";
+            this.cmbProfitCurrency.FormattingEnabled = true;
+            this.cmbProfitCurrency.Location = new System.Drawing.Point(237, 70);
+            this.cmbProfitCurrency.Name = "cmbProfitCurrency";
+            this.cmbProfitCurrency.Size = new System.Drawing.Size(121, 21);
+            this.cmbProfitCurrency.TabIndex = 201;
+            // 
             // lblPairWarning
             // 
             this.lblPairWarning.Image = global::_3Commas.BulkEditor.Properties.Resources.Warning_16x16;
@@ -1233,32 +1267,36 @@
             this.lblMaxActiveDeals.TabIndex = 195;
             this.lblMaxActiveDeals.Text = "Max Active Deals";
             // 
-            // chkChangeProfitCurrency
+            // chkChangeMaxPrice
             // 
-            this.chkChangeProfitCurrency.AutoSize = true;
-            this.chkChangeProfitCurrency.Location = new System.Drawing.Point(214, 73);
-            this.chkChangeProfitCurrency.Name = "chkChangeProfitCurrency";
-            this.chkChangeProfitCurrency.Size = new System.Drawing.Size(15, 14);
-            this.chkChangeProfitCurrency.TabIndex = 200;
-            this.chkChangeProfitCurrency.UseVisualStyleBackColor = true;
+            this.chkChangeMaxPrice.AutoSize = true;
+            this.chkChangeMaxPrice.Location = new System.Drawing.Point(214, 733);
+            this.chkChangeMaxPrice.Name = "chkChangeMaxPrice";
+            this.chkChangeMaxPrice.Size = new System.Drawing.Size(15, 14);
+            this.chkChangeMaxPrice.TabIndex = 203;
+            this.chkChangeMaxPrice.UseVisualStyleBackColor = true;
             // 
-            // lblProfitCurrency
+            // numMaxPrice
             // 
-            this.lblProfitCurrency.AutoSize = true;
-            this.lblProfitCurrency.Location = new System.Drawing.Point(133, 73);
-            this.lblProfitCurrency.Name = "lblProfitCurrency";
-            this.lblProfitCurrency.Size = new System.Drawing.Size(76, 13);
-            this.lblProfitCurrency.TabIndex = 202;
-            this.lblProfitCurrency.Text = "Profit Currency";
+            this.numMaxPrice.DecimalPlaces = 8;
+            this.numMaxPrice.Location = new System.Drawing.Point(237, 730);
+            this.numMaxPrice.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numMaxPrice.Name = "numMaxPrice";
+            this.numMaxPrice.Size = new System.Drawing.Size(121, 20);
+            this.numMaxPrice.TabIndex = 204;
             // 
-            // cmbProfitCurrency
+            // label24
             // 
-            this.cmbProfitCurrency.DisplayMember = "Text";
-            this.cmbProfitCurrency.FormattingEnabled = true;
-            this.cmbProfitCurrency.Location = new System.Drawing.Point(237, 70);
-            this.cmbProfitCurrency.Name = "cmbProfitCurrency";
-            this.cmbProfitCurrency.Size = new System.Drawing.Size(121, 21);
-            this.cmbProfitCurrency.TabIndex = 201;
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(159, 733);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(51, 13);
+            this.label24.TabIndex = 205;
+            this.label24.Text = "MaxPrice";
             // 
             // EditBotDialog
             // 
@@ -1294,6 +1332,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxActiveDeals)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxPrice)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1396,5 +1435,8 @@
         private System.Windows.Forms.CheckBox chkChangeProfitCurrency;
         private System.Windows.Forms.Label lblProfitCurrency;
         private System.Windows.Forms.ComboBox cmbProfitCurrency;
+        private System.Windows.Forms.CheckBox chkChangeMaxPrice;
+        private System.Windows.Forms.NumericUpDown numMaxPrice;
+        private System.Windows.Forms.Label label24;
     }
 }

@@ -121,6 +121,7 @@ namespace _3Commas.BulkEditor.Views.ManageBotControl
                         if (editData.StopLossTimeout.HasValue) updateData.StopLossTimeoutInSeconds = editData.StopLossTimeout.Value;
                         if (editData.LeverageType.HasValue) updateData.LeverageType = editData.LeverageType.Value;
                         if (editData.LeverageCustomValue.HasValue) updateData.LeverageCustomValue = editData.LeverageCustomValue.Value;
+                        if (editData.MaxPrice.HasValue) updateData.MaxPrice = editData.MaxPrice.Value;
 
                         if (editData.DisableAfterDealsCountInfo != null)
                         {

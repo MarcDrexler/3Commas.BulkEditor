@@ -56,6 +56,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
             numStopLossTimeout.DataBindings.Add(nameof(NumericUpDown.Visible), chkStopLossTimeout, nameof(CheckBox.Checked));
             cmbLeverageType.DataBindings.Add(nameof(ComboBox.Visible), chkChangeLeverageType, nameof(CheckBox.Checked));
             numLeverageCustomValue.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeCustomLeverageValue, nameof(CheckBox.Checked));
+            numMaxPrice.DataBindings.Add(nameof(NumericUpDown.Visible), chkChangeMaxPrice, nameof(CheckBox.Checked));
 
             ControlHelper.AddValuesToCombobox<StartOrderType>(cmbStartOrderType);
             ControlHelper.AddValuesToCombobox<TakeProfitType>(cmbTakeProfitType);
@@ -143,6 +144,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
                     if (chkChangeSafetyOrderStepScale.Checked) EditDto.MartingaleStepCoefficient = numSafetyOrderStepScale.Value;
                     if (chkChangeCooldownBetweenDeals.Checked) EditDto.Cooldown = (int)numCooldownBetweenDeals.Value;
                     if (chkChangeDealStartCondition.Checked) EditDto.DealStartConditions = _startConditions;
+                    if (chkChangeMaxPrice.Checked) EditDto.MaxPrice = numMaxPrice.Value;
                     if (chkStopLossPercentage.Checked) EditDto.StopLossPercentage = numStopLossPercentage.Value;
                     if (chkChangeLeverageType.Checked)
                     {

@@ -33,6 +33,7 @@ namespace _3Commas.BulkEditor.Views.EditBotDialog
         public int? MaxActiveDeals { get; internal set; }
         public string Pair { get; set; }
         public ProfitCurrency? ProfitCurrency { get; set; }
+        public decimal? MaxPrice { get; set; }
     }
 
     public class DisableAfterDealsCountDto
